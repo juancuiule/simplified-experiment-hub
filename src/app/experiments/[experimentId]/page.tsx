@@ -8,7 +8,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
       <ul>
         <li>
           <Link
-            href={`/experiment/${params.experimentId}/analytics`}
+            href={`/experiments/${params.experimentId}/analytics`}
             className="flex gap-2 items-center"
           >
             <Activity size={18} /> <span>Analytics</span>
@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         </li>
         <li>
           <Link
-            href={`/experiment/${params.experimentId}/edit`}
+            href={`/experiments/${params.experimentId}/edit`}
             className="flex gap-2 items-center"
           >
             <Edit3 size={18} /> <span>Edit</span>
@@ -24,7 +24,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         </li>
         <li>
           <Link
-            href={`/experiment/${params.experimentId}/flow`}
+            href={`/experiments/${params.experimentId}/flow`}
             className="flex gap-2 items-center"
           >
             <GitBranch size={18} /> <span>Flow</span>
@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         </li>
         <li>
           <Link
-            href={`/experiment/${params.experimentId}/participants`}
+            href={`/experiments/${params.experimentId}/participants`}
             className="flex gap-2 items-center"
           >
             <Users size={18} /> <span>Participants</span>
@@ -40,7 +40,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         </li>
         <li>
           <Link
-            href={`/experiment/${params.experimentId}/settings`}
+            href={`/experiments/${params.experimentId}/settings`}
             className="flex gap-2 items-center"
           >
             <Settings size={18} /> <span>Settings</span>
