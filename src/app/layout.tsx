@@ -1,5 +1,7 @@
 import { Fira_Code, Montserrat } from "next/font/google";
 import "./globals.css";
+import { LogOut, User } from "react-feather";
+import Link from "next/link";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -24,7 +26,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${fira_code.variable}`}>
-      <body>{children}</body>
+      <body className="flex flex-col min-h-screen">
+        <nav className="flex flex-row h-16 py-2 px-6 bg-black justify-between items-center">
+          <Link href="/" className="h-10">
+            <img src="/experiment-hub-large-dark.png" className="max-h-full" />
+          </Link>
+          <div className="flex flex-row gap-2">
+            <div className="w-8 h-8 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer">
+              <User className="text-white group-hover:text-black" size={16} />
+            </div>
+            <div className="w-8 h-8 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer">
+              <LogOut className="text-white group-hover:text-black" size={16} />
+            </div>
+          </div>
+        </nav>
+        <main className="flex flex-1 p-6 bg-black bg-opacity-90">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }

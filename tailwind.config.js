@@ -11,6 +11,12 @@ module.exports = {
         sans: ["var(--font-montserrat)"],
         mono: ["var(--font-fira-code)"],
       },
+      colors: {
+        warning: "#FCC500",
+        error: "#FC1400",
+        info: "#60A6BC",
+        black: "#1d1d1d",
+      },
     },
   },
   plugins: [],
