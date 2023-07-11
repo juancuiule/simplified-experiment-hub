@@ -10,7 +10,7 @@ import {
   GitMerge,
   Grid,
   Headphones,
-  Image,
+  Image as Picture,
   List,
   MoreHorizontal,
   MousePointer,
@@ -94,7 +94,7 @@ export default function Page({
         ))}
         <h4 className="text-md font-semibold text-white">Content</h4>
         <Card
-          icon={<Image size={16} />}
+          icon={<Picture size={16} />}
           title={"Image"}
           description={"Display an image from an url."}
         />

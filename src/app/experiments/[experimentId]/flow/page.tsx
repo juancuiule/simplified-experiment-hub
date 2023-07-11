@@ -96,6 +96,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         <div className="flex flex-col gap-2">
           {items.map((item, i) => (
             <Card
+              key={`${item.title}-${i}`}
               title={item.title}
               icon={<item.icon size={16} />}
               description=""
