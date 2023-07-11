@@ -86,6 +86,7 @@ export default function Page({
         <h4 className="text-md font-semibold text-white">Response</h4>
         {reponseWidgets.map((item) => (
           <Card
+            key={item.title}
             icon={<item.icon size={16} />}
             title={item.title}
             description={item.description}

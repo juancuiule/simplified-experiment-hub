@@ -118,6 +118,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         <h4 className="text-md font-semibold text-white">Core</h4>
         {coreNodes.map((item) => (
           <Card
+            key={item.title}
             title={item.title}
             icon={<item.icon size={16} />}
             description={item.description}
@@ -127,6 +128,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         <h4 className="text-md font-semibold text-white">Study</h4>
         {studyNodes.map((item) => (
           <Card
+            key={item.title}
             title={item.title}
             icon={<item.icon size={16} />}
             description={item.description}
@@ -136,6 +138,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         <h4 className="text-md font-semibold text-white">Control</h4>
         {controlNodes.map((item) => (
           <Card
+            key={item.title}
             title={item.title}
             icon={<item.icon size={16} />}
             description={item.description}
