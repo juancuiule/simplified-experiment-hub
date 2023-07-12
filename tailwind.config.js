@@ -16,6 +16,8 @@ module.exports = {
         error: "#FC1400",
         info: "#60A6BC",
         black: "#1d1d1d",
+        light: "#fafafa",
+        sucess: "#0CC084",
       },
     },
   },

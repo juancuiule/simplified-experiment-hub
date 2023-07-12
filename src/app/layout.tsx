@@ -39,11 +39,11 @@ export default function RootLayout({
             />
           </Link>
           <div className="flex flex-row gap-2">
-            <div className="w-8 h-8 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer">
-              <User className="text-white group-hover:text-black" size={16} />
+            <div className="w-10 h-10 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer">
+              <User className="text-white group-hover:text-black" size={20} />
             </div>
-            <div className="w-8 h-8 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer">
-              <LogOut className="text-white group-hover:text-black" size={16} />
+            <div className="w-10 h-10 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer">
+              <LogOut className="text-white group-hover:text-black" size={20} />
             </div>
           </div>
         </nav>
