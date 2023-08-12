@@ -5,7 +5,7 @@ import SignupForm from "./SignupForm";
 export default function Page() {
   return (
     <div className="grid grid-cols-12 flex-1">
-      <div className="col-span-12 lg:col-span-5 xl:col-span-4 h-full flex flex-col justify-center gap-10 md:pl-6 md:pr-12">
+      <div className="max-w-xl mx-auto w-full col-span-12 lg:col-span-5 xl:col-span-4 h-full flex flex-col justify-center gap-10 md:pl-6 md:pr-12">
         <Image
           height={40}
           width={300}
