@@ -32,10 +32,10 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         </li>
         <li>
           <Link
-            href={`/experiments/${params.experimentId}/participants`}
+            href={`/experiments/${params.experimentId}/data`}
             className="flex gap-2 items-center"
           >
-            <Users size={18} /> <span>Participants</span>
+            <Users size={18} /> <span>Participants and data</span>
           </Link>
         </li>
         <li>
