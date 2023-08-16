@@ -2,10 +2,10 @@ import { FrameworkWidget } from "./widgets";
 import { ConditionalWidget } from "./widgets/control";
 import { ResponseWidget } from "./widgets/response";
 
+// export type UnaryCondition = 'is_true' | 'is_false' | 'is_defined'
+
 export type BaseCondition = "lt" | "lte" | "gt" | "gte" | "eq" | "neq";
 export type ArrayCondition = `length-${BaseCondition}` | `includes`;
-
-// export type UnaryCondition = 'is_true' | 'is_false' | 'is_defined'
 
 type BinaryConditionConfig = {
   condition: BaseCondition | ArrayCondition;

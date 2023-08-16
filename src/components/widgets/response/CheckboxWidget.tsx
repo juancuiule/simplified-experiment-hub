@@ -26,6 +26,7 @@ export default function Checkbox(props: { widget: CheckboxWidget }) {
                 className="hidden"
               />
               <label
+                tabIndex={1}
                 htmlFor={option.value}
                 className={`py-4 px-4 rounded-md border border-black transition-colors cursor-pointer ${
                   (

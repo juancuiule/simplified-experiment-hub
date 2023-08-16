@@ -5,6 +5,7 @@ import Checkbox from "./widgets/response/CheckboxWidget";
 import ColorOptions from "./widgets/response/ColorOptionsWidget";
 import EmojiOptions from "./widgets/response/EmojiOptionsWidget";
 import Radio from "./widgets/response/RadioWidget";
+import Conditional from "./widgets/control/Conditional";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
@@ -19,9 +20,7 @@ export default function RenderWidget(props: { widget: FrameworkWidget }) {
       return <Checkbox widget={widget} />;
     }
     case "conditional": {
-      const { condition, conditionKey, widget: innerWidget } = widget.props;
-
-      return <RenderWidget widget={innerWidget} />;
+      return <Conditional widget={widget} />;
     }
     case "radio": {
       return <Radio widget={widget} />;

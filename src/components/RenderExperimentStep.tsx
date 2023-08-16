@@ -9,7 +9,7 @@ import {
   isNotUndefined,
   isResponseWidget,
 } from "@/lib/common";
-import { pick } from "@/lib/utils";
+import { getInitialValuesForStep, pick } from "@/lib/utils";
 
 function Stepper(props: {
   current: number;
@@ -55,6 +55,8 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
   const data = useExperimentStore((s) => s.data);
   const dispatch = useExperimentStore((s) => s.dispatch);
 
+  const initialValues = getInitialValuesForStep(node);
+
   return (
     <>
       {state.type === "in-path" ? (
@@ -65,9 +67,7 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
         />
       ) : null}
       <Formik
-        initialValues={
-          {} as Record<string, string | boolean | number | string[] | undefined>
-        }
+        initialValues={initialValues}
         onSubmit={(values) => {
           window.scrollTo(0, 0);
 
