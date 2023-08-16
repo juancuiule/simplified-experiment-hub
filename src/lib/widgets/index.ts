@@ -10,7 +10,7 @@ export interface BaseWidget<T extends WidgetFamily, U extends string> {
   template: U;
 }
 
-export type Widget =
+export type FrameworkWidget =
   | ControlWidget
   | ContentWidget
   | ResponseWidget

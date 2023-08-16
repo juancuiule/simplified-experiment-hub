@@ -2,9 +2,9 @@ import { BaseWidget } from ".";
 
 type ResponseWidgetBaseProps = {
   dataKey: string;
-  embedd: boolean;
-  required: boolean;
-  errorMessage: string;
+  embedd?: boolean;
+  required?: boolean;
+  errorMessage?: string;
 };
 
 export interface BaseResponseWidget<U extends string, Props>

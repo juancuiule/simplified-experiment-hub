@@ -1,5 +1,5 @@
 import { BaseNode } from ".";
-import { Widget } from "../widgets";
+import { FrameworkWidget } from "../widgets";
 
 export interface BaseStudyNode<U extends string, Props>
   extends BaseNode<"study", U> {
@@ -10,7 +10,7 @@ export interface ExperimentStepNode
   extends BaseStudyNode<
     "experiment-step",
     {
-      widgets: Widget[];
+      widgets: FrameworkWidget[];
     }
   > {}
 

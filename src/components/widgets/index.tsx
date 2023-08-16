@@ -1,7 +1,7 @@
-import { Widget } from "@/lib/widgets";
+import { FrameworkWidget } from "@/lib/widgets";
 
 interface Props {
-  widget: Widget;
+  widget: FrameworkWidget;
 }
 
 export function WidgetRenderer(props: Props) {
