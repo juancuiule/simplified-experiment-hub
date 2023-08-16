@@ -18,9 +18,19 @@ function Stepper(props: {
       <div className={`flex ${continuous ? "" : "gap-0.5"}`}>
         {Array.from({ length: total }).map((_, i) => {
           if (i <= current - 1) {
-            return <div className="flex-1 h-1 bg-[#507E8A]"></div>;
+            return (
+              <div
+                key={`step-${i + 1}`}
+                className="flex-1 h-1 bg-[#507E8A]"
+              ></div>
+            );
           } else {
-            return <div className="flex-1 h-1 bg-gray-300"></div>;
+            return (
+              <div
+                key={`step-${i + 1}`}
+                className="flex-1 h-1 bg-gray-300"
+              ></div>
+            );
           }
         })}
       </div>

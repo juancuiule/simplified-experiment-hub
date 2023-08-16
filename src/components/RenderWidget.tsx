@@ -1,10 +1,10 @@
 import { FrameworkWidget } from "@/lib/widgets";
-import Button from "./widgets/layout/Button";
 import RichText from "./widgets/content/RichText";
+import Button from "./widgets/layout/Button";
 import Checkbox from "./widgets/response/CheckboxWidget";
-import Radio from "./widgets/response/RadioWidget";
 import ColorOptions from "./widgets/response/ColorOptionsWidget";
 import EmojiOptions from "./widgets/response/EmojiOptionsWidget";
+import Radio from "./widgets/response/RadioWidget";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
