@@ -91,6 +91,24 @@ export interface RatingWidget
     }
   > {}
 
+export interface EmojiOptionsWidget
+  extends BaseResponseWidget<
+    "emoji-options",
+    {
+      label: string;
+      options: (Option & { emoji: string })[];
+    }
+  > {}
+
+export interface ColorOptionsWidget
+  extends BaseResponseWidget<
+    "color-options",
+    {
+      label: string;
+      options: (Option & { color: string })[];
+    }
+  > {}
+
 export type ResponseWidget =
   | SliderWidget
   | SingleCheckboxWidget
@@ -100,4 +118,6 @@ export type ResponseWidget =
   | DropdownWidget
   | RadioWidget
   | CheckboxWidget
-  | RatingWidget;
+  | RatingWidget
+  | EmojiOptionsWidget
+  | ColorOptionsWidget;

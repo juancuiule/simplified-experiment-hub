@@ -226,9 +226,6 @@ export const useExperimentStore = create<Context & StoreFns>()(
     data: {},
     step: 0,
     init: (nodes: FrameworkNode[]) => {
-      console.log("init");
-      console.log(nodes);
-      
       const unsub = api.subscribe(
         (s) => s.state,
         async (currState, prevState) => {
@@ -259,8 +256,9 @@ export const useExperimentStore = create<Context & StoreFns>()(
           }
         }
       );
-      
+
       set((state) => ({ ...state, unsub, nodes }));
+      get().dispatch({ type: "NEXT_NODE" });
     },
     unsub: () => {
       console.log("original unsub");
