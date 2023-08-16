@@ -9,6 +9,14 @@ const nextConfig = {
       // },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.elgatoylacaja.com",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
