@@ -10,6 +10,7 @@ import {
   isResponseWidget,
 } from "@/lib/common";
 import { getInitialValuesForStep, pick } from "@/lib/utils";
+import { getStepSchema } from "@/lib/validation";
 
 function Stepper(props: {
   current: number;
@@ -56,6 +57,7 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
   const dispatch = useExperimentStore((s) => s.dispatch);
 
   const initialValues = getInitialValuesForStep(node);
+  const validationSchema = getStepSchema(node);
 
   return (
     <>
@@ -68,6 +70,7 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
       ) : null}
       <Formik
         initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={(values) => {
           window.scrollTo(0, 0);
 

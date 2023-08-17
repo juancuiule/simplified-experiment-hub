@@ -1,5 +1,12 @@
+import RenderWidget from "@/components/RenderWidget";
 import { GroupWidget } from "@/lib/widgets/layout";
 
 export default function Group(props: { widget: GroupWidget }) {
-  return <div>Group widget</div>;
+  return (
+    <div id={props.widget.props.name}>
+      {props.widget.props.widgets.map((widget, i) => {
+        return <RenderWidget widget={widget} key={i} />;
+      })}
+    </div>
+  );
 }

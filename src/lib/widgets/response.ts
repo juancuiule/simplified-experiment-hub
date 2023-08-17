@@ -97,6 +97,8 @@ export interface EmojiOptionsWidget
     {
       label: string;
       options: (Option & { emoji: string })[];
+      min?: number;
+      max?: number;
     }
   > {}
 
@@ -106,6 +108,8 @@ export interface ColorOptionsWidget
     {
       label: string;
       options: (Option & { color: string })[];
+      min?: number;
+      max?: number;
     }
   > {}
 

@@ -734,6 +734,7 @@ const experiment: Experiment = {
                       },
                     ],
                     dataKey: "carne-frecuencia",
+                    required: true,
                   },
                 },
                 {

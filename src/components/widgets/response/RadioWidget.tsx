@@ -2,7 +2,7 @@ import { RadioWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
 
 export default function Radio(props: { widget: RadioWidget }) {
-  const { values, handleChange } =
+  const { values, errors, touched, submitCount, handleChange } =
     useFormikContext<
       Record<string, string | boolean | number | string[] | undefined>
     >();
@@ -31,6 +31,12 @@ export default function Radio(props: { widget: RadioWidget }) {
           );
         })}
       </div>
+      {errors[props.widget.props.dataKey] &&
+      (touched[props.widget.props.dataKey] || submitCount > 0) ? (
+        <div className={"text-error text-xs"}>
+          {errors[props.widget.props.dataKey] || ""}
+        </div>
+      ) : null}
     </div>
   );
 }

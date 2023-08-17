@@ -3,7 +3,7 @@ import { useFormikContext } from "formik";
 import { Fragment } from "react";
 
 export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
-  const { values, handleChange } =
+  const { values, errors, touched, submitCount, handleChange } =
     useFormikContext<
       Record<string, string | boolean | number | string[] | undefined>
     >();
@@ -54,6 +54,12 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
           );
         })}
       </div>
+      {errors[props.widget.props.dataKey] &&
+      (touched[props.widget.props.dataKey] || submitCount > 0) ? (
+        <div className={"text-error text-xs"}>
+          {errors[props.widget.props.dataKey] || ""}
+        </div>
+      ) : null}
     </div>
   );
 }

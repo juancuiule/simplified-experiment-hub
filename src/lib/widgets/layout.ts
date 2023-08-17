@@ -1,4 +1,4 @@
-import { BaseWidget } from ".";
+import { BaseWidget, FrameworkWidget } from ".";
 
 export interface BaseLayoutWidget<U extends string, Props>
   extends BaseWidget<"layout", U> {
@@ -18,10 +18,24 @@ type ButtonProps = ButtonBaseConfig & (ButtonNext | ButtonGoTo);
 
 export interface ButtonWidget extends BaseLayoutWidget<"button", ButtonProps> {}
 
-// TODO: complete
-export interface ForEachWidget extends BaseLayoutWidget<"for_each", {}> {}
+export interface ForEachWidget
+  extends BaseLayoutWidget<
+    "for_each",
+    {
+      loopValue: string | string[];
+      widget: FrameworkWidget;
+      indexVariableName?: string;
+      valueVariableName?: string;
+    }
+  > {}
 
-// TODO: complete
-export interface GroupWidget extends BaseLayoutWidget<"group", {}> {}
+export interface GroupWidget
+  extends BaseLayoutWidget<
+    "group",
+    {
+      name: string;
+      widgets: FrameworkWidget[];
+    }
+  > {}
 
 export type LayoutWidget = ButtonWidget | ForEachWidget | GroupWidget;

@@ -38,6 +38,20 @@ export interface PathNode
     }
   > {}
 
-export interface ForkNode extends BaseControlNode<"fork", {}> {}
+type ForkGroup = {
+  group: string;
+  ratio: number;
+  node: FrameworkNode;
+};
+
+// TODO: add behaivor for in-fork state
+export interface ForkNode
+  extends BaseControlNode<
+    "fork",
+    {
+      groups: ForkGroup;
+      dataKey: string;
+    }
+  > {}
 
 export type ControlNode = BranchNode | RedirectNode | PathNode | ForkNode;
