@@ -6,6 +6,7 @@ import ColorOptions from "./widgets/response/ColorOptionsWidget";
 import EmojiOptions from "./widgets/response/EmojiOptionsWidget";
 import Radio from "./widgets/response/RadioWidget";
 import Conditional from "./widgets/control/Conditional";
+import Slider from "./widgets/response/SliderWidget";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
@@ -30,6 +31,9 @@ export default function RenderWidget(props: { widget: FrameworkWidget }) {
     }
     case "emoji-options": {
       return <EmojiOptions widget={widget} />;
+    }
+    case "slider": {
+      return <Slider widget={widget} />;
     }
     default: {
       return <span>{widget.template}</span>;

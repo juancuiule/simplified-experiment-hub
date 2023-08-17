@@ -1,18 +1,26 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { FrameworkNode } from "../nodes";
-import { BranchNode, PathNode } from "../nodes/control";
+import { BranchNode, ForkNode, PathNode } from "../nodes/control";
+import { evaluateCondition } from "../utils";
 
 type InNodeState = {
   type: "in-node";
   node: Exclude<FrameworkNode, PathNode | BranchNode>;
 };
 
+// TODO: add support to randomized path
 type InPathState = {
   type: "in-path";
   node: PathNode;
   path_state: ExperimentState;
   path_step: number;
+};
+
+// TODO: think what we need inside this state
+type InForkState = {
+  type: "in-fork";
+  node: ForkNode;
 };
 
 type InBranchState = {
@@ -70,15 +78,14 @@ function initialStateForNode(
         branches = [],
       } = node.props;
 
-      // TODO: evaluate next node by branches config
-      const selected = defaultBranch;
-      //   branches.find((branch) => {
-      //     return evalCondition(
-      //       branch.condition,
-      //       data[branch.conditionKey],
-      //       branch.value
-      //     );
-      //   }) || defaultBranch;
+      const selected =
+        branches.find((branch) => {
+          return evaluateCondition(
+            branch.condition,
+            data[branch.conditionKey],
+            branch.value
+          );
+        }) || defaultBranch;
 
       return {
         type: "in-branch",

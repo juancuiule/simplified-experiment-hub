@@ -16,6 +16,7 @@ export interface SliderWidget
   extends BaseResponseWidget<
     "slider",
     {
+      label: string;
       min?: number;
       max?: number;
       step?: number;

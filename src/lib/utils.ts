@@ -196,7 +196,12 @@ export function defaultValueForWidget(widget: ResponseWidget): DefaultValue {
       return "";
     }
     case "slider": {
-      return undefined;
+      const {
+        max = 100,
+        min = 0,
+        defaultValue = (max - min) / 2,
+      } = widget.props;
+      return defaultValue;
     }
     case "checkbox":
     case "color-options":

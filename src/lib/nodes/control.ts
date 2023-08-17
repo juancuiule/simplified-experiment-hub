@@ -35,6 +35,7 @@ export interface PathNode
     "path",
     {
       nodes: FrameworkNode[];
+      randomize?: boolean;
     }
   > {}
 
@@ -44,7 +45,6 @@ type ForkGroup = {
   node: FrameworkNode;
 };
 
-// TODO: add behaivor for in-fork state
 export interface ForkNode
   extends BaseControlNode<
     "fork",
