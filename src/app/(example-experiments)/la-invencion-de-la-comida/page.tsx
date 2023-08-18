@@ -68,12 +68,95 @@ const experiment: Experiment = {
         ],
       },
     },
+
     {
       nodeType: "path",
       nodeFamily: "control",
       id: "preguntas",
       props: {
         nodes: [
+          {
+            nodeType: "experiment-step",
+            nodeFamily: "study",
+            id: "general",
+            props: {
+              widgets: [
+                {
+                  template: "rich_text",
+                  widgetFamily: "content",
+                  props: {
+                    content:
+                      "## Marcá todos los tipos de alimentos que consumiste",
+                  },
+                },
+                {
+                  template: "emoji-options",
+                  widgetFamily: "response",
+                  props: {
+                    label: "",
+                    options: [
+                      { emoji: "🥚", label: "Huevos", value: "huevos" },
+                      { emoji: "🧀", label: "Lácteos", value: "lacteos" },
+                      { emoji: "🥔", label: "Tubérculos", value: "tuberculos" },
+                      { emoji: "🍄", label: "Hongos", value: "hongos" },
+                      { emoji: "🌱", label: "Semilas", value: "semillas" },
+                      {
+                        emoji: "🌰",
+                        label: "Frutos secos",
+                        value: "frutos-secos",
+                      },
+                      {
+                        emoji: "🍎",
+                        label: "Frutas",
+                        value: "frutas",
+                      },
+                      {
+                        emoji: "🥬",
+                        label: "Verduras",
+                        value: "verduras",
+                      },
+                    ],
+                    dataKey: "general-consumo",
+                  },
+                },
+                {
+                  template: "conditional",
+                  widgetFamily: "control",
+                  props: {
+                    condition: "length-eq",
+                    value: 0,
+                    conditionKey: "general-consumo",
+                    widget: {
+                      template: "button",
+                      widgetFamily: "layout",
+                      props: {
+                        disabled: true,
+                        text: "No consumí nada de esto",
+                        behaivor: "next_node",
+                      },
+                    },
+                  },
+                },
+                {
+                  template: "conditional",
+                  widgetFamily: "control",
+                  props: {
+                    condition: "length-gt",
+                    value: 0,
+                    conditionKey: "general-consumo",
+                    widget: {
+                      template: "button",
+                      widgetFamily: "layout",
+                      props: {
+                        text: "Siguiente",
+                        behaivor: "next_node",
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          },
           {
             nodeType: "experiment-step",
             nodeFamily: "study",
@@ -160,6 +243,8 @@ const experiment: Experiment = {
                       { label: "Arvejas", value: "arvejas" },
                       { label: "Lentejas", value: "lentejas" },
                       { label: "Porotos", value: "porotos" },
+                      { label: "Maní", value: "mani" },
+                      { label: "Soja", value: "soja" },
                       { label: "Otras", value: "otras" },
                     ],
                     dataKey: "legumbres-consumo",
@@ -381,13 +466,18 @@ const experiment: Experiment = {
                     label:
                       "Si consumiste cereales, ¿cuales fueron? Marcá todas.",
                     options: [
-                      { label: "Trigo", value: "trigo" },
+                      {
+                        label: "Trigo (panificados, pastas, harina blanca)",
+                        value: "trigo",
+                      },
+                      { label: "Maíz (polenta)", value: "maiz" },
+                      { label: "Arroz blanco", value: "arroz-blanco" },
+                      { label: "Arroz integral", value: "arroz-integral" },
                       { label: "Cebada", value: "cebada" },
                       { label: "Centeno", value: "centeno" },
                       { label: "Avena", value: "avena" },
                       { label: "Quinoa", value: "quinoa" },
-                      { label: "Trigo sarraceno", value: "trigo-sarraceno" },
-                      { label: "Arroz", value: "arroz" },
+                      { label: "Otros", value: "otros" },
                     ],
                     dataKey: "cereales-consumo",
                   },
@@ -417,78 +507,6 @@ const experiment: Experiment = {
                     condition: "length-gt",
                     value: 0,
                     conditionKey: "cereales-consumo",
-                    widget: {
-                      template: "button",
-                      widgetFamily: "layout",
-                      props: {
-                        text: "Siguiente",
-                        behaivor: "next_node",
-                      },
-                    },
-                  },
-                },
-              ],
-            },
-          },
-          {
-            nodeType: "experiment-step",
-            nodeFamily: "study",
-            id: "general",
-            props: {
-              widgets: [
-                {
-                  template: "rich_text",
-                  widgetFamily: "content",
-                  props: {
-                    content:
-                      "## Marcá todos los tipos de alimentos que consumiste",
-                  },
-                },
-                {
-                  template: "emoji-options",
-                  widgetFamily: "response",
-                  props: {
-                    label: "",
-                    options: [
-                      { emoji: "🥚", label: "Huevos", value: "huevos" },
-                      { emoji: "🧀", label: "Lácteos", value: "lacteos" },
-                      { emoji: "🥔", label: "Tubérculos", value: "tuberculos" },
-                      { emoji: "🍄", label: "Hongos", value: "hongos" },
-                      { emoji: "🌱", label: "Semilas", value: "semillas" },
-                      {
-                        emoji: "🌰",
-                        label: "Frutos secos",
-                        value: "frutos-secos",
-                      },
-                    ],
-                    dataKey: "general-consumo",
-                  },
-                },
-                {
-                  template: "conditional",
-                  widgetFamily: "control",
-                  props: {
-                    condition: "length-eq",
-                    value: 0,
-                    conditionKey: "general-consumo",
-                    widget: {
-                      template: "button",
-                      widgetFamily: "layout",
-                      props: {
-                        disabled: true,
-                        text: "No consumí nada de esto",
-                        behaivor: "next_node",
-                      },
-                    },
-                  },
-                },
-                {
-                  template: "conditional",
-                  widgetFamily: "control",
-                  props: {
-                    condition: "length-gt",
-                    value: 0,
-                    conditionKey: "general-consumo",
                     widget: {
                       template: "button",
                       widgetFamily: "layout",
@@ -585,12 +603,12 @@ const experiment: Experiment = {
                     label:
                       "Si consumiste especias, ¿cuales fueron? Marcá todas.",
                     options: [
-                      { label: "Curcuma", value: "curcuma" },
+                      { label: "Cúrcuma", value: "curcuma" },
                       { label: "Pimienta", value: "pimienta" },
                       { label: "Comino", value: "comino" },
-                      { label: "Jengribre", value: "jengribre" },
-                      { label: "Oregano", value: "oregano" },
-                      { label: "Romero", value: "romero" },
+                      { label: "Jengibre", value: "jengibre" },
+                      { label: "Pimentón", value: "pimenton" },
+                      { label: "Canela", value: "canela" },
                       { label: "Otras", value: "otras" },
                     ],
                     dataKey: "especias-consumo",
@@ -701,7 +719,6 @@ const experiment: Experiment = {
               ],
             },
           },
-
           {
             nodeType: "experiment-step",
             nodeFamily: "study",
@@ -721,13 +738,17 @@ const experiment: Experiment = {
                   props: {
                     label: "",
                     options: [
+                      { label: "Nunca", value: "nunca" },
                       {
-                        label: "Menos de una vez a la semana (o nunca)",
+                        label: "Menos de una vez a la semana",
                         value: "<1",
                       },
-                      { label: "1 a 3 veces por semana", value: "1-3" },
+                      { label: "1 o 2 veces por semana", value: "1-2" },
                       { label: "3 a 5 veces por semana", value: "3-5" },
-                      { label: "Todos los días", value: "todos-los-dias" },
+                      {
+                        label: "Todos o casi todos los días",
+                        value: "todos-o-casi-todos-los-dias",
+                      },
                       {
                         label: "Todos los días en más de una comida",
                         value: "todos-los-dias-mas-de-1",
