@@ -9,7 +9,12 @@ import {
   isNotUndefined,
   isResponseWidget,
 } from "@/lib/common";
-import { getInitialValuesForStep, pick } from "@/lib/utils";
+import {
+  evaluateCondition,
+  getInitialValuesForStep,
+  getValueByPath,
+  pick,
+} from "@/lib/utils";
 import { getStepSchema } from "@/lib/validation";
 
 function Stepper(props: {
@@ -87,14 +92,19 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
                   widget: child,
                 } = widget.props;
                 if (isResponseWidget(child)) {
-                  // const isVisible = evalCondition(
-                  //   condition,
-                  //   { ...data, ...values }[conditionKey],
-                  //   value
-                  // );
-                  // if (isVisible) {
-                  //   return child.props.dataKey;
-                  // }
+                  const realValue = conditionKey.startsWith("$$")
+                    ? getValueByPath(conditionKey.slice(2), data)
+                    : getValueByPath(conditionKey, values);
+
+                  const isVisible = evaluateCondition(
+                    condition,
+                    realValue,
+                    value
+                  );
+
+                  if (isVisible) {
+                    return child.props.dataKey;
+                  }
                 }
               }
               return undefined;
@@ -113,16 +123,12 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
             <>
               <form
                 onSubmit={handleSubmit}
-                className="h-full flex flex-col gap-6"
+                className="h-full flex flex-col gap-6 flex-1"
               >
                 {widgets.map((widget, i) => {
                   return <RenderWidget widget={widget} key={i} />;
                 })}
               </form>
-              <pre>
-                <code>{JSON.stringify(values, null, 2)}</code>
-                <code>{JSON.stringify(data, null, 2)}</code>
-              </pre>
             </>
           );
         }}

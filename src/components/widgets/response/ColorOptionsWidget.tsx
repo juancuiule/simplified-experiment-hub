@@ -1,6 +1,7 @@
 import { ColorOptionsWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
 import { Fragment } from "react";
+import { Check } from "react-feather";
 
 export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
   const { values, errors, touched, submitCount, handleChange } =
@@ -35,12 +36,19 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
               >
                 <div
                   key={`circle-${option.value}`}
-                  className={`w-8/12 border border-gray-400 flex items-center justify-center aspect-square rounded-full shadow-md`}
+                  className={`w-8/12 border flex items-center group-hover:border-[var(--circle-color)] justify-center aspect-square rounded-full shadow-md transition-colors ${
+                    isSelected
+                      ? "border-[var(--circle-color)]"
+                      : "border-gray-400"
+                  }`}
+                  style={{
+                    // @ts-ignore
+                    "--circle-color": option.color,
+                  }}
                 >
-                  <div
-                    className="w-9/12 aspect-square rounded-full"
-                    style={{ background: option.color }}
-                  ></div>
+                  <div className="w-9/12 aspect-square rounded-full bg-[var(--circle-color)] flex justify-center items-center">
+                    {isSelected ? <Check className="text-white" /> : null}
+                  </div>
                 </div>
                 <div
                   className={`text-xs group-hover:text-black ${

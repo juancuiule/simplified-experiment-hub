@@ -82,6 +82,17 @@ export interface CheckboxWidget
     }
   > {}
 
+export interface MultipleCheckWidget
+  extends BaseResponseWidget<
+    "multiple-check",
+    {
+      label: string;
+      options: Option[];
+      min?: number;
+      max?: number;
+    }
+  > {}
+
 export interface RatingWidget
   extends BaseResponseWidget<
     "rating",
@@ -125,4 +136,5 @@ export type ResponseWidget =
   | CheckboxWidget
   | RatingWidget
   | EmojiOptionsWidget
-  | ColorOptionsWidget;
+  | ColorOptionsWidget
+  | MultipleCheckWidget;

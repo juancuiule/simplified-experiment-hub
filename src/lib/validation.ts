@@ -31,7 +31,8 @@ const getResponseWidgetBaseSchema = ({ template, props }: ResponseWidget) => {
     }
     case "color-options":
     case "emoji-options":
-    case "checkbox": {
+    case "checkbox":
+    case "multiple-check": {
       return Yup.array(
         Yup.string().oneOf(props.options.map(({ value }) => value))
       )

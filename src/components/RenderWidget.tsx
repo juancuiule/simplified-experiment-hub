@@ -7,6 +7,7 @@ import EmojiOptions from "./widgets/response/EmojiOptionsWidget";
 import Radio from "./widgets/response/RadioWidget";
 import Conditional from "./widgets/control/Conditional";
 import Slider from "./widgets/response/SliderWidget";
+import MultipleCheck from "./widgets/response/MultipleCheck";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
@@ -34,6 +35,9 @@ export default function RenderWidget(props: { widget: FrameworkWidget }) {
     }
     case "slider": {
       return <Slider widget={widget} />;
+    }
+    case "multiple-check": {
+      return <MultipleCheck widget={widget} />;
     }
     default: {
       return <span>{widget.template}</span>;

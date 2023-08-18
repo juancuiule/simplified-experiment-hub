@@ -205,7 +205,8 @@ export function defaultValueForWidget(widget: ResponseWidget): DefaultValue {
     }
     case "checkbox":
     case "color-options":
-    case "emoji-options": {
+    case "emoji-options":
+    case "multiple-check": {
       return [] as string[];
     }
   }

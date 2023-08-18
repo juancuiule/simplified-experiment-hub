@@ -1,26 +1,7 @@
 import { SliderWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
-import { memo } from "react";
 
-export default memo(Slider);
-
-function useField(field: string) {
-  const { values, errors, touched, submitCount, handleChange, setFieldValue } =
-    useFormikContext<
-      Record<string, string | boolean | number | string[] | undefined>
-    >();
-
-  return {
-    value: values[field],
-    error: errors[field],
-    touched: touched[field],
-    submitCount,
-    handleChange,
-    setFieldValue,
-  };
-}
-
-export function Slider(props: { widget: SliderWidget }) {
+export default function Slider(props: { widget: SliderWidget }) {
   const {
     max = 100,
     min = 0,
@@ -31,10 +12,10 @@ export function Slider(props: { widget: SliderWidget }) {
     dataKey,
   } = props.widget.props;
 
-  const { value, setFieldValue, error, touched, submitCount } =
-    useField(dataKey);
-
-  console.log({ [dataKey]: value });
+  const { values, errors, touched, submitCount, setFieldValue } =
+    useFormikContext<
+      Record<string, string | boolean | number | string[] | undefined>
+    >();
 
   return (
     <div className="flex flex-col gap-6">
@@ -46,8 +27,9 @@ export function Slider(props: { widget: SliderWidget }) {
           type="range"
           max={max}
           min={min}
+          defaultValue={defaultValue}
           step={step}
-          value={(value as number) || defaultValue}
+          value={values[dataKey] as number}
           onChange={(e) => {
             const value = e.target.valueAsNumber;
             setFieldValue(dataKey, value);
@@ -58,8 +40,11 @@ export function Slider(props: { widget: SliderWidget }) {
           <span>{maxLabel}</span>
         </div>
       </div>
-      {error && (touched || submitCount > 0) ? (
-        <div className={"text-error text-xs"}>{error || ""}</div>
+      {errors[props.widget.props.dataKey] &&
+      (touched[props.widget.props.dataKey] || submitCount > 0) ? (
+        <div className={"text-error text-xs"}>
+          {errors[props.widget.props.dataKey] || ""}
+        </div>
       ) : null}
     </div>
   );

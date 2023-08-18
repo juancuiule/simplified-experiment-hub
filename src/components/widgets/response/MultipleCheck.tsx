@@ -1,8 +1,8 @@
-import { CheckboxWidget } from "@/lib/widgets/response";
+import { MultipleCheckWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
 import { Check } from "react-feather";
 
-export default function Checkbox(props: { widget: CheckboxWidget }) {
+export default function MultipleCheck(props: { widget: MultipleCheckWidget }) {
   const { values, errors, touched, submitCount, handleChange } =
     useFormikContext<
       Record<string, string | boolean | number | string[] | undefined>
@@ -20,34 +20,26 @@ export default function Checkbox(props: { widget: CheckboxWidget }) {
           ).includes(option.value);
 
           return (
-            <div key={i} className="flex gap-3 items-center">
+            <div key={i} className="flex">
               <input
                 type="checkbox"
                 name={props.widget.props.dataKey}
                 id={option.value}
                 value={option.value}
                 onChange={handleChange}
-                className="hidden"
+                className="w-0"
               />
               <label
-                htmlFor={option.value}
-                tabIndex={1}
-                className="h-6 rounded-md aspect-square border border-gray-400 flex p-0.5 justify-center items-center"
-              >
-                <div
-                  className={`w-full rounded-sm h-full bg-[#507E8A] ${
-                    isSelected ? "opacity-100" : "opacity-0"
-                  } transition-opacity duration-100`}
-                >
-                  <Check className="text-white w-full h-full scale-75" />
-                </div>
-              </label>
-              <label
                 tabIndex={1}
                 htmlFor={option.value}
-                className={`text-md flex-1`}
+                className={`flex-1 py-4 px-4 rounded-md border transition-colors cursor-pointer flex justify-between ${
+                  isSelected
+                    ? "bg-[#507E8A]/40 border-[#507E8A] text-[#507E8A] font-semibold"
+                    : "hover:bg-[#507e8a]/20 border-black"
+                }`}
               >
-                {option.label}
+                <span>{option.label}</span>{" "}
+                <span>{isSelected ? <Check /> : null}</span>
               </label>
             </div>
           );

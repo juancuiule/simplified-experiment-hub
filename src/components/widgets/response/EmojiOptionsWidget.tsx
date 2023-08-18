@@ -30,8 +30,10 @@ export default function EmojiOptions(props: { widget: EmojiOptionsWidget }) {
               />
               <label
                 htmlFor={option.value}
-                className={`col-span-1 flex flex-col items-center gap-2 cursor-pointer group border border-gray-400 hover:border-black aspect-square rounded-md shadow-lg justify-center transition-colors ${
-                  isSelected ? "bg-[#507E8A]/40 border-[#507E8A]" : ""
+                className={`col-span-1 flex flex-col items-center gap-2 cursor-pointer group border hover:border-black aspect-square rounded-md shadow-lg justify-center transition-colors ${
+                  isSelected
+                    ? "bg-[#507E8A]/40 border-[#507E8A]"
+                    : "border-gray-400"
                 }`}
               >
                 <div className="text-3xl">{option.emoji}</div>

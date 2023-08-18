@@ -6,7 +6,7 @@ export default function Button(props: { widget: ButtonWidget }) {
 
   return (
     <button
-      className="px-6 py-2 border border-black rounded-full w-fit mx-auto hover:bg-black hover:text-white transition-colors"
+      className="px-6 py-2 border border-black rounded-full w-fit mx-auto hover:bg-black hover:text-white transition-colors mt-auto"
       type="submit"
       // onClick={() => {
       //   dispatch({ type: "NEXT_NODE" });

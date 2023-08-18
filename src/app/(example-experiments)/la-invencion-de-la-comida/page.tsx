@@ -86,7 +86,7 @@ const experiment: Experiment = {
                   props: { content: "## Carnes" },
                 },
                 {
-                  template: "checkbox",
+                  template: "multiple-check",
                   widgetFamily: "response",
                   props: {
                     label: "Si consumiste carne, ¿cuales fueron? Marcá todas.",
@@ -150,7 +150,7 @@ const experiment: Experiment = {
                   props: { content: "## Legumbres" },
                 },
                 {
-                  template: "checkbox",
+                  template: "multiple-check",
                   widgetFamily: "response",
                   props: {
                     label:
@@ -375,7 +375,7 @@ const experiment: Experiment = {
                   props: { content: "## Cereales" },
                 },
                 {
-                  template: "checkbox",
+                  template: "multiple-check",
                   widgetFamily: "response",
                   props: {
                     label:
