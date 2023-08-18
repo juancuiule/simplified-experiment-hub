@@ -775,11 +775,6 @@ export default function Page() {
         </nav>
         <RenderState state={state} />
       </div>
-      <div className="flex flex-col">
-        <pre>
-          <code>{JSON.stringify(state, null, 2)}</code>
-        </pre>
-      </div>
     </>
   );
 }
