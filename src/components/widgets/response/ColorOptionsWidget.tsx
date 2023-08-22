@@ -47,7 +47,7 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
                   }}
                 >
                   <div className="w-9/12 aspect-square rounded-full bg-[var(--circle-color)] flex justify-center items-center">
-                    {isSelected ? <Check className="text-white" /> : null}
+                    {isSelected ? <Check className="text-white w-9/12" /> : null}
                   </div>
                 </div>
                 <div
