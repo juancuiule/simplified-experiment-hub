@@ -1,14 +1,12 @@
 "use client";
-import { ExperimentStepNode } from "@/lib/nodes/study";
-import RenderWidget from "./RenderWidget";
-import { useExperimentStore } from "@/lib/flow/state";
-import { flowCurrentStep, nodeSteps } from "@/lib/flow/utils";
-import { Formik } from "formik";
 import {
   isConditionalWidget,
   isNotUndefined,
   isResponseWidget,
 } from "@/lib/common";
+import { useExperimentStore } from "@/lib/flow/state";
+import { flowCurrentStep, nodeSteps } from "@/lib/flow/utils";
+import { ExperimentStepNode } from "@/lib/nodes/study";
 import {
   evaluateCondition,
   getInitialValuesForStep,
@@ -16,6 +14,8 @@ import {
   pick,
 } from "@/lib/utils";
 import { getStepSchema } from "@/lib/validation";
+import { Formik } from "formik";
+import RenderWidget from "./RenderWidget";
 
 function Stepper(props: {
   current: number;
@@ -65,7 +65,7 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
   const validationSchema = getStepSchema(node);
 
   return (
-    <>
+    <div className="flex flex-col flex-1">
       {state.type === "in-path" ? (
         <Stepper
           current={flowCurrentStep(state)}
@@ -120,19 +120,17 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
       >
         {({ handleSubmit, values }) => {
           return (
-            <>
-              <form
-                onSubmit={handleSubmit}
-                className="h-full flex flex-col gap-6 flex-1"
-              >
-                {widgets.map((widget, i) => {
-                  return <RenderWidget widget={widget} key={i} />;
-                })}
-              </form>
-            </>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-6 flex-1"
+            >
+              {widgets.map((widget, i) => {
+                return <RenderWidget widget={widget} key={i} />;
+              })}
+            </form>
           );
         }}
       </Formik>
-    </>
+    </div>
   );
 }

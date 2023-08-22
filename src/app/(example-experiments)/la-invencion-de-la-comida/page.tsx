@@ -789,13 +789,11 @@ export default function Page() {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 border border-black min-h-screen">
-        <nav className="text-[#507E8A] text-md font-serif text-center">
-          La invención de la comida
-        </nav>
-        <RenderState state={state} />
-      </div>
-    </>
+    <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 border border-black flex-1">
+      <nav className="text-[#507E8A] text-md font-serif text-center">
+        La invención de la comida
+      </nav>
+      <RenderState state={state} />
+    </div>
   );
 }
