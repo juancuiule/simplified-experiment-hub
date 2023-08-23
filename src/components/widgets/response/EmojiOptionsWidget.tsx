@@ -1,3 +1,4 @@
+import Markdown from "@/components/Markdown";
 import { EmojiOptionsWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
 import { Fragment } from "react";
@@ -10,7 +11,12 @@ export default function EmojiOptions(props: { widget: EmojiOptionsWidget }) {
   return (
     <div className="flex flex-col gap-6">
       {props.widget.props.label !== "" ? (
-        <div className="text-md">{props.widget.props.label}</div>
+        <div className="text-md">
+          <Markdown
+            allowedElements={["strong", "em", "del", "p", "span"]}
+            content={props.widget.props.label}
+          />
+        </div>
       ) : null}
       <div className="grid grid-cols-3 gap-6 w-full">
         {props.widget.props.options.map((option, i) => {

@@ -1,3 +1,4 @@
+import Markdown from "@/components/Markdown";
 import { ColorOptionsWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
 import { Fragment } from "react";
@@ -12,7 +13,12 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
   return (
     <div className="flex flex-col gap-6">
       {props.widget.props.label !== "" ? (
-        <div className="text-md">{props.widget.props.label}</div>
+        <div className="text-md">
+          <Markdown
+            allowedElements={["strong", "em", "del", "p", "span"]}
+            content={props.widget.props.label}
+          />
+        </div>
       ) : null}
       <div className="grid grid-cols-4 gap-6 w-full">
         {props.widget.props.options.map((option, i) => {
@@ -47,7 +53,9 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
                   }}
                 >
                   <div className="w-9/12 aspect-square rounded-full bg-[var(--circle-color)] flex justify-center items-center">
-                    {isSelected ? <Check className="text-white w-9/12" /> : null}
+                    {isSelected ? (
+                      <Check className="text-white w-9/12" />
+                    ) : null}
                   </div>
                 </div>
                 <div

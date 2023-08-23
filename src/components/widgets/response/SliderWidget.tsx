@@ -1,3 +1,4 @@
+import Markdown from "@/components/Markdown";
 import { SliderWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
 
@@ -20,7 +21,12 @@ export default function Slider(props: { widget: SliderWidget }) {
   return (
     <div className="flex flex-col gap-6">
       {props.widget.props.label !== "" ? (
-        <div className="text-md">{props.widget.props.label}</div>
+        <div className="text-md">
+          <Markdown
+            allowedElements={["strong", "em", "del", "p", "span"]}
+            content={props.widget.props.label}
+          />
+        </div>
       ) : null}
       <div className="flex flex-col gap-2 w-full">
         <input

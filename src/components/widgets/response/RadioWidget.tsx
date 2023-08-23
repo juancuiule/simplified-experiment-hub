@@ -1,3 +1,4 @@
+import Markdown from "@/components/Markdown";
 import { RadioWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
 import { Check } from "react-feather";
@@ -11,7 +12,12 @@ export default function Radio(props: { widget: RadioWidget }) {
   return (
     <div className="flex flex-col gap-2">
       {props.widget.props.label !== "" ? (
-        <div className="text-md">{props.widget.props.label}</div>
+        <div className="text-md">
+          <Markdown
+            allowedElements={["strong", "em", "del", "p", "span"]}
+            content={props.widget.props.label}
+          />
+        </div>
       ) : null}
       <div className="flex flex-col gap-2 w-full">
         {props.widget.props.options.map((option, index) => {
