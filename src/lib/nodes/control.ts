@@ -30,13 +30,23 @@ export interface RedirectNode
     }
   > {}
 
+type StepperConfig =
+  | {
+      stepper: true;
+      stepperLabel?: string;
+      stepperStyle?: "continuous" | "discrete";
+    }
+  | {
+      stepper: false;
+    };
+
 export interface PathNode
   extends BaseControlNode<
     "path",
     {
       nodes: FrameworkNode[];
       randomize?: boolean;
-    }
+    } & StepperConfig
   > {}
 
 type ForkGroup = {
