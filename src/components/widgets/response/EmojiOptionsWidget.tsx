@@ -1,10 +1,9 @@
 import Markdown from "@/components/Markdown";
 import { EmojiOptionsWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
-import { Fragment } from "react";
 
 export default function EmojiOptions(props: { widget: EmojiOptionsWidget }) {
-  const { values, errors, touched, submitCount, handleChange } =
+  const { errors, touched, submitCount, handleChange } =
     useFormikContext<
       Record<string, string | boolean | number | string[] | undefined>
     >();
@@ -20,38 +19,28 @@ export default function EmojiOptions(props: { widget: EmojiOptionsWidget }) {
       ) : null}
       <div className="grid grid-cols-3 gap-6 w-full">
         {props.widget.props.options.map((option, i) => {
-          const isSelected = (
-            (values[props.widget.props.dataKey] || []) as string[]
-          ).includes(option.value);
-
           return (
-            <Fragment key={i}>
+            <div key={option.value} className="flex flex-1 col-span-1">
               <input
                 type="checkbox"
                 name={props.widget.props.dataKey}
                 id={option.value}
                 value={option.value}
                 onChange={handleChange}
-                className="hidden"
+                className="peer w-0 h-0"
               />
               <label
                 htmlFor={option.value}
-                className={`col-span-1 flex flex-col items-center gap-2 cursor-pointer group border hover:border-black aspect-square rounded-md shadow-lg justify-center transition-colors ${
-                  isSelected
-                    ? "bg-[#507E8A]/40 border-[#507E8A]"
-                    : "border-gray-400"
-                }`}
+                className={`peer-focus:border-black flex flex-1 flex-col items-center gap-2 cursor-pointer group border hover:border-black aspect-square rounded-md shadow-lg justify-center transition-colors duration-100 peer-checked:bg-[#507E8A]/40 peer-checked:border-[#507E8A] border-gray-400`}
               >
                 <div className="text-3xl">{option.emoji}</div>
                 <div
-                  className={`text-sm font-medium group-hover:text-black transition-colors ${
-                    isSelected ? "text-black" : "text-gray-400"
-                  }`}
+                  className={`text-sm font-medium group-hover:text-black transition-colors peer-checked:group-[]:text-black text-gray-400`}
                 >
                   {option.label}
                 </div>
               </label>
-            </Fragment>
+            </div>
           );
         })}
       </div>

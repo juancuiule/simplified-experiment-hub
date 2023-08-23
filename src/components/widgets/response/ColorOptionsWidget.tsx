@@ -1,11 +1,10 @@
 import Markdown from "@/components/Markdown";
 import { ColorOptionsWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
-import { Fragment } from "react";
 import { Check } from "react-feather";
 
 export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
-  const { values, errors, touched, submitCount, handleChange } =
+  const { errors, touched, submitCount, handleChange } =
     useFormikContext<
       Record<string, string | boolean | number | string[] | undefined>
     >();
@@ -22,51 +21,37 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
       ) : null}
       <div className="grid grid-cols-4 gap-6 w-full">
         {props.widget.props.options.map((option, i) => {
-          const isSelected = (
-            (values[props.widget.props.dataKey] || []) as string[]
-          ).includes(option.value);
-
           return (
-            <Fragment key={i}>
+            <label
+              key={option.value}
+              htmlFor={option.value}
+              className="col-span-1 flex flex-col items-center gap-2 cursor-pointer group/label"
+            >
               <input
                 type="checkbox"
                 name={props.widget.props.dataKey}
                 id={option.value}
                 value={option.value}
                 onChange={handleChange}
-                className="hidden"
+                className="peer w-0"
               />
-              <label
-                htmlFor={option.value}
-                className="col-span-1 flex flex-col items-center gap-2 cursor-pointer group"
+              <div
+                className={`w-8/12 border peer-focus:border-black flex items-center group-hover/label:border-[var(--circle-color)] justify-center aspect-square rounded-full shadow-md transition-colors peer-checked:border-[var(--circle-color)] border-gray-400 group/circle`}
+                style={{
+                  // @ts-ignore
+                  "--circle-color": option.color,
+                }}
               >
-                <div
-                  key={`circle-${option.value}`}
-                  className={`w-8/12 border flex items-center group-hover:border-[var(--circle-color)] justify-center aspect-square rounded-full shadow-md transition-colors ${
-                    isSelected
-                      ? "border-[var(--circle-color)]"
-                      : "border-gray-400"
-                  }`}
-                  style={{
-                    // @ts-ignore
-                    "--circle-color": option.color,
-                  }}
-                >
-                  <div className="w-9/12 aspect-square rounded-full bg-[var(--circle-color)] flex justify-center items-center">
-                    {isSelected ? (
-                      <Check className="text-white w-9/12" />
-                    ) : null}
-                  </div>
+                <div className="w-9/12 aspect-square rounded-full bg-[var(--circle-color)] flex justify-center items-center">
+                  <Check className="text-white w-9/12 peer-checked:group-[]/circle:block hidden" />
                 </div>
-                <div
-                  className={`text-xs group-hover:text-black ${
-                    isSelected ? "text-black font-medium" : "text-gray-400"
-                  }`}
-                >
-                  {option.label}
-                </div>
-              </label>
-            </Fragment>
+              </div>
+              <div
+                className={`text-xs group-hover:text-black text-gray-400 peer-checked:text-black peer-checked:font-medium`}
+              >
+                {option.label}
+              </div>
+            </label>
           );
         })}
       </div>
