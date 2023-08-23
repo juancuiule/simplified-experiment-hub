@@ -123,7 +123,6 @@ export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
               .filter(isNotUndefined);
 
             const dataToSubmit = pick(values)(keys);
-            console.log(dataToSubmit);
 
             dispatch({ type: "SET_DATA", data: dataToSubmit });
             dispatch({ type: "NEXT_NODE" });
