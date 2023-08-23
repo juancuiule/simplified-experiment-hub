@@ -1,9 +1,13 @@
 "use client";
 
 import Card from "@/components/Card";
+import RenderState from "@/components/render/RenderState";
+import { defaultByType } from "@/lib/default";
+import { useExperimentStore } from "@/lib/flow/state";
+import { FrameworkWidget } from "@/lib/widgets";
+import { Fragment, useEffect, useState } from "react";
 import { ChevronLeft, Eye, Save } from "react-feather";
-import { items, Item } from "./widget-items";
-import { Fragment, useState } from "react";
+import { Item, items } from "./widget-items";
 
 export default function Page({
   params,
@@ -11,6 +15,13 @@ export default function Page({
   params: { experimentId: string; viewId: string };
 }) {
   const [viewItems, setItems] = useState<Item[]>([]);
+  const [widgets, setWidgets] = useState<FrameworkWidget[]>([]);
+
+  const init = useExperimentStore((e) => e.init);
+
+  useEffect(() => {
+    init([], true);
+  }, []);
 
   return (
     <div className="flex flex-col flex-1 gap-2.5">
@@ -40,28 +51,84 @@ export default function Page({
       <div className="flex flex-1 gap-2.5 max-h-[calc(100vh-64px-24px*2-44px-10px)]">
         {/* Preview */}
         <div
-          className="flex-1 bg-light rounded"
+          className="flex flex-col flex-1 p-6 bg-light rounded h-full overflow-y-scroll"
           style={{
             backgroundImage: "url(/dot-tile.png)",
             backgroundRepeat: "repeat",
             backgroundSize: "45px 45px",
           }}
-        ></div>
+        >
+          <div className="flex flex-col flex-1 mx-auto gap-4 max-w-lg w-full p-6 border border-black bg-white min-h-fit">
+            <RenderState
+              state={{
+                type: "in-node",
+                node: {
+                  id: params.viewId,
+                  nodeType: "experiment-step",
+                  nodeFamily: "study",
+                  props: { widgets },
+                },
+              }}
+            />
+          </div>
+        </div>
 
         {/* Current widgets */}
         {viewItems.length > 0 ? (
           <div className="flex flex-col p-2.5 gap-2.5 overflow-y-scroll rounded bg-light">
-            {viewItems.map((item, i) => (
-              <Card
-                key={`${item.title}-${i}`}
-                title={item.title}
-                icon={<item.icon size={16} />}
-                description={item.description}
-                onClick={() => {
-                  setItems((is) => is.filter((_, j) => j !== i));
-                }}
-              />
-            ))}
+            {viewItems.map((item, i) => {
+              const widget = widgets[i];
+              return (
+                <div
+                  key={`${item.title}-${i}`}
+                  className="w-full flex flex-col gap-1"
+                >
+                  <Card
+                    title={item.title}
+                    icon={<item.icon size={16} />}
+                    description={item.description}
+                    onClick={() => {
+                      setItems((is) => is.filter((_, j) => j !== i));
+                      setWidgets((is) => is.filter((_, j) => j !== i));
+                    }}
+                  />
+                  {item.template === "rich_text" &&
+                  widget.template === "rich_text" ? (
+                    <textarea
+                      className="border w-full h-fit"
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                        const newWidgets = [...widgets];
+                        const newWidget = newWidgets[i];
+                        if (newWidget.template == "rich_text") {
+                          newWidget.props.content = e.target.value;
+                        }
+                        setWidgets(newWidgets);
+                      }}
+                    >
+                      {widget.props.content}
+                    </textarea>
+                  ) : null}
+                  {item.template === "slider" &&
+                  widget.template === "slider" ? (
+                    <textarea
+                      className="border w-full h-fit"
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                        const newWidgets = [...widgets];
+                        const newWidget = newWidgets[i];
+                        if (newWidget.template == "slider") {
+                          newWidget.props.label = e.target.value;
+                        }
+                        setWidgets(newWidgets);
+                      }}
+                    >
+                      {widget.props.label}
+                    </textarea>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         ) : null}
 
@@ -79,6 +146,7 @@ export default function Page({
                   icon={<item.icon size={16} />}
                   description={item.description}
                   onClick={() => {
+                    setWidgets((ws) => [...ws, defaultByType(item.template)]);
                     setItems((is) => [...is, item]);
                   }}
                 />
