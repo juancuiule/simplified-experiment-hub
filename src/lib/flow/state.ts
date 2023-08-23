@@ -54,6 +54,7 @@ export type Context = {
   step: number;
   nodes: FrameworkNode[];
   data: Record<string, ResponseValue>;
+  debugMode?: boolean;
 };
 
 function initialStateForNode(
@@ -213,7 +214,7 @@ export function currentNode(state: ExperimentState): FrameworkNode {
 
 type StoreFns = {
   dispatch: (action: Action) => void;
-  init: (nodes: FrameworkNode[]) => void;
+  init: (nodes: FrameworkNode[], debugMode?: boolean) => void;
   unsub: () => void;
   unsubTransient: () => void;
 };
@@ -232,7 +233,7 @@ export const useExperimentStore = create<Context & StoreFns>()(
     },
     data: {},
     step: 0,
-    init: (nodes: FrameworkNode[]) => {
+    init: (nodes: FrameworkNode[], debugMode: boolean = false) => {
       const unsub = api.subscribe(
         (s) => s.state,
         async (currState, prevState) => {
@@ -264,7 +265,7 @@ export const useExperimentStore = create<Context & StoreFns>()(
         }
       );
 
-      set((state) => ({ ...state, unsub, nodes }));
+      set((state) => ({ ...state, unsub, nodes, debugMode }));
       get().dispatch({ type: "NEXT_NODE" });
     },
     unsub: () => {
