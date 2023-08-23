@@ -1,4 +1,4 @@
-import RenderWidget from "@/components/RenderWidget";
+import RenderWidget from "@/components/render/RenderWidget";
 import { GroupWidget } from "@/lib/widgets/layout";
 
 export default function Group(props: { widget: GroupWidget }) {
