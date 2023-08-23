@@ -1,5 +1,5 @@
 "use client";
-import RenderState from "@/components/RenderState";
+import RenderState from "@/components/render/RenderState";
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkNode } from "@/lib/nodes";
 import { useEffect } from "react";
@@ -43,6 +43,9 @@ const experiment: Experiment = {
       nodeFamily: "control",
       id: "escenarios",
       props: {
+        stepper: true,
+        stepperLabel: "Escenario {n}",
+        stepperStyle: "discrete",
         nodes: [
           {
             nodeType: "experiment-step",
@@ -53,7 +56,7 @@ const experiment: Experiment = {
                 {
                   template: "rich_text",
                   widgetFamily: "content",
-                  props: { content: "## Imaginá el siguiente evento" },
+                  props: { content: "## Imaginá un mundo donde:" },
                 },
                 {
                   template: "rich_text",
@@ -67,14 +70,15 @@ const experiment: Experiment = {
                   template: "rich_text",
                   widgetFamily: "content",
                   props: {
-                    content: "### ¿Qué opinas?",
+                    content: "### En ese mundo...",
                   },
                 },
                 {
                   template: "slider",
                   widgetFamily: "response",
                   props: {
-                    label: "¿Cuán grande puede ser el impacto?",
+                    label:
+                      "¿Cuánto **impacto** crees que tendría en el mundo si x cosa sucede?",
                     dataKey: "impacto",
                     minLabel: "Nada",
                     maxLabel: "Mucho",

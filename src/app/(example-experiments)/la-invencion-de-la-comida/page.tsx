@@ -1,5 +1,5 @@
 "use client";
-import RenderState from "@/components/RenderState";
+import RenderState from "@/components/render/RenderState";
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkNode } from "@/lib/nodes";
 import { useEffect } from "react";
@@ -74,6 +74,7 @@ const experiment: Experiment = {
       nodeFamily: "control",
       id: "preguntas",
       props: {
+        stepper: true,
         nodes: [
           {
             nodeType: "experiment-step",

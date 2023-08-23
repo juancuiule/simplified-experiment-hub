@@ -1,13 +1,14 @@
 import { FrameworkWidget } from "@/lib/widgets";
-import RichText from "./widgets/content/RichText";
-import Button from "./widgets/layout/Button";
-import Checkbox from "./widgets/response/CheckboxWidget";
-import ColorOptions from "./widgets/response/ColorOptionsWidget";
-import EmojiOptions from "./widgets/response/EmojiOptionsWidget";
-import Radio from "./widgets/response/RadioWidget";
-import Conditional from "./widgets/control/Conditional";
-import Slider from "./widgets/response/SliderWidget";
-import MultipleCheck from "./widgets/response/MultipleCheck";
+import RichText from "@/components/widgets/content/RichText";
+import Conditional from "@/components/widgets/control/Conditional";
+import Button from "@/components/widgets/layout/Button";
+import Checkbox from "@/components/widgets/response/CheckboxWidget";
+import ColorOptions from "@/components/widgets/response/ColorOptionsWidget";
+import EmojiOptions from "@/components/widgets/response/EmojiOptionsWidget";
+import MultipleCheck from "@/components/widgets/response/MultipleCheck";
+import Radio from "@/components/widgets/response/RadioWidget";
+import SingleCheckbox from "@/components/widgets/response/SingleCheckboxWidget";
+import Slider from "@/components/widgets/response/SliderWidget";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
@@ -38,6 +39,9 @@ export default function RenderWidget(props: { widget: FrameworkWidget }) {
     }
     case "multiple-check": {
       return <MultipleCheck widget={widget} />;
+    }
+    case "single_checkbox": {
+      return <SingleCheckbox widget={widget} />;
     }
     default: {
       return <span>{widget.template}</span>;

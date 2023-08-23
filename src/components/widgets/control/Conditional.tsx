@@ -1,4 +1,4 @@
-import RenderWidget from "@/components/RenderWidget";
+import RenderWidget from "@/components/render/RenderWidget";
 import { useExperimentStore } from "@/lib/flow/state";
 import { evaluateCondition, getValueByPath } from "@/lib/utils";
 import { ConditionalWidget } from "@/lib/widgets/control";
