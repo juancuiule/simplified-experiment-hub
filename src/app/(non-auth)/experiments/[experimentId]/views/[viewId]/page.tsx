@@ -97,7 +97,6 @@ export default function Page({
                     <textarea
                       className="border w-full h-fit"
                       onChange={(e) => {
-                        console.log(e.target.value);
                         const newWidgets = [...widgets];
                         const newWidget = newWidgets[i];
                         if (newWidget.template == "rich_text") {
@@ -114,7 +113,6 @@ export default function Page({
                     <textarea
                       className="border w-full h-fit"
                       onChange={(e) => {
-                        console.log(e.target.value);
                         const newWidgets = [...widgets];
                         const newWidget = newWidgets[i];
                         if (newWidget.template == "slider") {
