@@ -69,7 +69,6 @@ const experiment: Experiment = {
         ],
       },
     },
-
     {
       nodeType: "path",
       nodeFamily: "control",
@@ -772,6 +771,20 @@ const experiment: Experiment = {
             },
           },
         ],
+      },
+    },
+    {
+      nodeType: "checkpoint",
+      nodeFamily: "core",
+      id: "checkpoint-1",
+      props: {},
+    },
+    {
+      nodeFamily: "study",
+      nodeType: "custom-view",
+      id: "feedback",
+      props: {
+        slug: "feedback-comer",
       },
     },
     { nodeType: "finish", nodeFamily: "core", id: "", props: {} },

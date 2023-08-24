@@ -1,5 +1,6 @@
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkNode } from "@/lib/nodes";
+import CustomView from "./CustomView";
 import { RenderExperimentStep } from "./RenderExperimentStep";
 
 export function RenderNode(props: { node: FrameworkNode }) {
@@ -10,6 +11,9 @@ export function RenderNode(props: { node: FrameworkNode }) {
   switch (node.nodeType) {
     case "experiment-step": {
       return <RenderExperimentStep key={node.id} node={node} />;
+    }
+    case "custom-view": {
+      return <CustomView slug={node.props.slug} />;
     }
     case "finish": {
       return (
