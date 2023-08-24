@@ -24,6 +24,10 @@ export function shuffle<T>(original: T[]): T[] {
   return array;
 }
 
+export function getKeys<T extends Record<string, any>>(obj: T) {
+  return Object.keys(obj) as (keyof T)[];
+}
+
 export function distribute(total: number, steps: number) {
   const min = Math.floor(total / steps);
   const rest = total % steps;
