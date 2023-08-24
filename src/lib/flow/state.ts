@@ -217,22 +217,31 @@ type StoreFns = {
   init: (nodes: FrameworkNode[], debugMode?: boolean) => void;
   unsub: () => void;
   unsubTransient: () => void;
+  reset: () => void;
+};
+
+const initialState: Context = {
+  nodes: [] as FrameworkNode[],
+  state: {
+    type: "in-node",
+    node: {
+      nodeFamily: "core",
+      nodeType: "noop",
+      props: {},
+      id: "",
+    },
+  },
+  data: {},
+  step: 0,
 };
 
 export const useExperimentStore = create<Context & StoreFns>()(
   subscribeWithSelector((set, get, api) => ({
-    nodes: [] as FrameworkNode[],
-    state: {
-      type: "in-node",
-      node: {
-        nodeFamily: "core",
-        nodeType: "start",
-        props: {},
-        id: "",
-      },
+    ...initialState,
+    reset: () => {
+      get().unsubTransient();
+      set((state) => ({ ...state, ...initialState }));
     },
-    data: {},
-    step: 0,
     init: (nodes: FrameworkNode[], debugMode: boolean = false) => {
       const unsub = api.subscribe(
         (s) => s.state,
