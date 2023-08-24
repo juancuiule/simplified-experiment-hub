@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --theme-warning: #fcc500;
+  --theme-error: #fc1400;
+  --theme-info: #60a6bc;
+  --theme-black: #1d1d1d;
+  --theme-light: #fafafa;
+  --theme-sucess: #0cc084;
+
+  --color-primary: 96 166 188;
+}

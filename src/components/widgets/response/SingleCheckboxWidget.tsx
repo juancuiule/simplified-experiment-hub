@@ -33,7 +33,7 @@ export default function SingleCheckbox(props: {
           className="h-4 rounded-sm aspect-square border border-gray-400 flex p-0.5 justify-center items-center"
         >
           <div
-            className={`w-full rounded-sm h-full bg-[#507E8A] ${
+            className={`w-full rounded-sm h-full bg-primary ${
               isSelected ? "opacity-100" : "opacity-0"
             } transition-opacity duration-100`}
           >

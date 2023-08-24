@@ -35,7 +35,7 @@ export default function Checkbox(props: { widget: CheckboxWidget }) {
                 onChange={handleChange}
                 className="peer w-0 -ml-3"
               />
-              <div className="peer-focus:ring-2 h-6 rounded-md aspect-square border border-gray-400 flex p-0.5 justify-center items-center bg-white peer-checked:bg-[#507E8A] peer-checked:border-[#507E8A] transition-colors">
+              <div className="peer-focus:ring-2 h-6 rounded-md aspect-square border border-gray-400 flex p-0.5 justify-center items-center bg-white peer-checked:bg-primary peer-checked:border-primary transition-colors">
                 <Check className="text-white w-full h-full scale-75 " />
               </div>
               <span className="text-md flex-1">{option.label}</span>

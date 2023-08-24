@@ -25,7 +25,7 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
             <label
               key={option.value}
               htmlFor={option.value}
-              className="col-span-1 flex flex-col items-center gap-2 cursor-pointer group/label"
+              className="col-span-1 flex flex-1 flex-col items-center gap-2 cursor-pointer group/label"
             >
               <input
                 type="checkbox"
@@ -33,10 +33,10 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
                 id={option.value}
                 value={option.value}
                 onChange={handleChange}
-                className="peer w-0"
+                className="peer w-0 h-0"
               />
               <div
-                className={`w-8/12 border peer-focus:border-black flex items-center group-hover/label:border-[var(--circle-color)] justify-center aspect-square rounded-full shadow-md transition-colors peer-checked:border-[var(--circle-color)] border-gray-400 group/circle`}
+                className={`w-8/12 border peer-focus:ring-1 peer-focus:ring-[var(--circle-color)] flex items-center group-hover/label:border-[var(--circle-color)] justify-center aspect-square rounded-full shadow-md transition-colors peer-checked:border-[var(--circle-color)] border-gray-400 group/circle`}
                 style={{
                   // @ts-ignore
                   "--circle-color": option.color,

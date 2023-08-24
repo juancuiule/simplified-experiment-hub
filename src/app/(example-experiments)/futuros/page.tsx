@@ -151,7 +151,7 @@ export default function Page() {
   return (
     <>
       <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 border border-black min-h-screen">
-        <nav className="text-[#507E8A] text-md font-serif text-center">
+        <nav className="text-primary text-md font-serif text-center">
           Futuros
         </nav>
         <RenderState state={state} />

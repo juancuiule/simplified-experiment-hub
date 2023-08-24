@@ -31,7 +31,7 @@ function Stepper(props: {
   } = props;
   return (
     <div className="flex flex-col gap-2 mb-8">
-      <div className="text-sm text-[#507E8A] font-serif">
+      <div className="text-sm text-primary font-serif">
         {labelTemplate
           .replace("{n}", current.toString())
           .replace("{t}", total.toString())}
@@ -42,7 +42,7 @@ function Stepper(props: {
             return (
               <div
                 key={`step-${i + 1}`}
-                className="flex-1 h-1 bg-[#507E8A]"
+                className="flex-1 h-1 bg-primary"
               ></div>
             );
           } else {

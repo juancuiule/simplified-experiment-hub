@@ -31,7 +31,7 @@ export default function EmojiOptions(props: { widget: EmojiOptionsWidget }) {
               />
               <label
                 htmlFor={option.value}
-                className={`peer-focus:border-black flex flex-1 flex-col items-center gap-2 cursor-pointer group border hover:border-black aspect-square rounded-md shadow-lg justify-center transition-colors duration-100 peer-checked:bg-[#507E8A]/40 peer-checked:border-[#507E8A] border-gray-400`}
+                className={`peer-focus:border-black flex flex-1 flex-col items-center gap-2 cursor-pointer group border hover:border-black aspect-square rounded-md shadow-lg justify-center transition-colors duration-100 peer-checked:bg-primary/40 peer-checked:border-primary border-gray-400`}
               >
                 <div className="text-3xl">{option.emoji}</div>
                 <div
