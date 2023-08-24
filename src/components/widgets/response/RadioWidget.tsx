@@ -34,7 +34,7 @@ export default function Radio(props: { widget: RadioWidget }) {
                 onChange={handleChange}
                 className="peer opacity-0 w-0 -ml-3"
               />
-              <div className="w-5 h-5 flex justify-center items-center aspect-square border border-gray-400 rounded-full group/circle">
+              <div className="w-5 h-5 peer-focus:ring-2 flex justify-center items-center aspect-square border border-gray-400 rounded-full group/circle">
                 <div className="w-10/12 aspect-square rounded-full peer-checked:group-[]/circle:bg-[#507E8A] bg-transparent transition-colors"></div>
               </div>
               <span>{option.label}</span>
