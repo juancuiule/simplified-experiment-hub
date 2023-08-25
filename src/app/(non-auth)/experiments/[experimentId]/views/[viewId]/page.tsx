@@ -1,20 +1,23 @@
 "use client";
 
 import Card from "@/components/Card";
+import WidgetMenu from "@/components/edit-menues";
 import RenderState from "@/components/render/RenderState";
 import { defaultByType } from "@/lib/default";
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkWidget } from "@/lib/widgets";
 import { Fragment, useEffect, useState } from "react";
 import { ChevronLeft, Eye, Save } from "react-feather";
-import { Item, items } from "./widget-items";
+import { items } from "./widget-items";
+
+const fullItems = Object.values(items).reduce((acc, val) => [...acc, ...val]);
 
 export default function Page({
   params,
 }: {
   params: { experimentId: string; viewId: string };
 }) {
-  const [viewItems, setItems] = useState<Item[]>([]);
+  // const [viewItems, setItems] = useState<Item[]>([]);
   const [widgets, setWidgets] = useState<FrameworkWidget[]>([]);
 
   const init = useExperimentStore((e) => e.init);
@@ -74,56 +77,46 @@ export default function Page({
         </div>
 
         {/* Current widgets */}
-        {viewItems.length > 0 ? (
+        {widgets.length > 0 ? (
           <div className="flex flex-col p-2.5 gap-2.5 overflow-y-scroll rounded bg-light">
-            {viewItems.map((item, i) => {
-              const widget = widgets[i];
+            {widgets.map((widget, i) => {
+              const item = fullItems.find(
+                (item) => item.template === widget.template
+              )!;
+              console.log(widget);
               return (
                 <div
-                  key={`${item.title}-${i}`}
+                  key={`${widget.id}`}
                   className="w-full flex flex-col gap-1"
                 >
-                  <Card
-                    title={item.title}
+                  <WidgetMenu
+                    widget={widget}
                     icon={<item.icon size={16} />}
-                    description={item.description}
-                    onClick={() => {
-                      setItems((is) => is.filter((_, j) => j !== i));
-                      setWidgets((is) => is.filter((_, j) => j !== i));
+                    remove={() => {
+                      setWidgets((ws) => ws.filter((_, j) => j !== i));
+                    }}
+                    moveDown={() => {
+                      if (i === widgets.length - 1) return;
+                      const newWidgets = [...widgets];
+                      const temp = newWidgets[i];
+                      newWidgets[i] = newWidgets[i + 1];
+                      newWidgets[i + 1] = temp;
+                      setWidgets(newWidgets);
+                    }}
+                    moveUp={() => {
+                      if (i === 0) return;
+                      const newWidgets = [...widgets];
+                      const temp = newWidgets[i];
+                      newWidgets[i] = newWidgets[i - 1];
+                      newWidgets[i - 1] = temp;
+                      setWidgets(newWidgets);
+                    }}
+                    updateWidget={(newWidget) => {
+                      const newWidgets = [...widgets];
+                      newWidgets[i] = { ...newWidget, id: widget.id };
+                      setWidgets(newWidgets);
                     }}
                   />
-                  {item.template === "rich_text" &&
-                  widget.template === "rich_text" ? (
-                    <textarea
-                      className="border w-full h-fit"
-                      onChange={(e) => {
-                        const newWidgets = [...widgets];
-                        const newWidget = newWidgets[i];
-                        if (newWidget.template == "rich_text") {
-                          newWidget.props.content = e.target.value;
-                        }
-                        setWidgets(newWidgets);
-                      }}
-                    >
-                      {widget.props.content}
-                    </textarea>
-                  ) : null}
-                  {item.template === "slider" &&
-                  widget.template === "slider" ? (
-                    <textarea
-                      className="border w-full h-fit"
-                      onChange={(e) => {
-                        const newWidgets = [...widgets];
-                        const newWidget = newWidgets[i];
-                        if (newWidget.template == "slider") {
-                          newWidget.props.label = e.target.value;
-                        }
-                        setWidgets(newWidgets);
-                      }}
-                    >
-                      {widget.props.label}
-                    </textarea>
-                  ) : null}
                 </div>
               );
             })}
@@ -144,8 +137,11 @@ export default function Page({
                   icon={<item.icon size={16} />}
                   description={item.description}
                   onClick={() => {
-                    setWidgets((ws) => [...ws, defaultByType(item.template)]);
-                    setItems((is) => [...is, item]);
+                    const newWidget: FrameworkWidget = {
+                      ...defaultByType(item.template),
+                      id: new Date().getTime().toString(),
+                    };
+                    setWidgets((ws) => [...ws, newWidget]);
                   }}
                 />
               ))}
