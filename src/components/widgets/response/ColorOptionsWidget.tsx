@@ -19,18 +19,19 @@ export default function ColorOptions(props: { widget: ColorOptionsWidget }) {
           />
         </div>
       ) : null}
+      {props.widget.props.dataKey}
       <div className="grid grid-cols-4 gap-6 w-full">
         {props.widget.props.options.map((option, i) => {
           return (
             <label
-              key={option.value}
-              htmlFor={option.value}
+              key={`${props.widget.props.dataKey}-${option.value}`}
+              htmlFor={`${props.widget.props.dataKey}-${option.value}`}
               className="col-span-1 flex flex-1 flex-col items-center gap-2 cursor-pointer group/label"
             >
               <input
                 type="checkbox"
                 name={props.widget.props.dataKey}
-                id={option.value}
+                id={`${props.widget.props.dataKey}-${option.value}`}
                 value={option.value}
                 onChange={handleChange}
                 className="peer w-0 h-0"
