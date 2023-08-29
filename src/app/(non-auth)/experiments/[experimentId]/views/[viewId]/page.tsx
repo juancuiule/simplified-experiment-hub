@@ -17,7 +17,6 @@ export default function Page({
 }: {
   params: { experimentId: string; viewId: string };
 }) {
-  // const [viewItems, setItems] = useState<Item[]>([]);
   const [widgets, setWidgets] = useState<FrameworkWidget[]>([]);
 
   const init = useExperimentStore((e) => e.init);
@@ -83,7 +82,6 @@ export default function Page({
               const item = fullItems.find(
                 (item) => item.template === widget.template
               )!;
-              console.log(widget);
               return (
                 <div
                   key={`${widget.id}`}

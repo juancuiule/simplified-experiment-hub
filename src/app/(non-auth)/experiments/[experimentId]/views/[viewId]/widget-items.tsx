@@ -6,6 +6,7 @@ import {
   ChevronDown,
   Clock,
   GitCommit,
+  GitMerge,
   Grid,
   Headphones,
   Icon,
@@ -13,7 +14,9 @@ import {
   List,
   MoreHorizontal,
   MousePointer,
+  Repeat,
   Type,
+  Video,
 } from "react-feather";
 
 export type Item = {
@@ -34,8 +37,8 @@ export const items: Record<string, Item[]> = {
     },
     {
       icon: CheckSquare,
-      title: "Checkbox",
-      description: "",
+      title: "Single Checkbox",
+      description: "A single checkbox with a label",
       template: "single_checkbox",
     },
     {
@@ -43,21 +46,21 @@ export const items: Record<string, Item[]> = {
       title: "Text Input",
       template: "text_input",
       description:
-        "Show a slider that the user can set to any value in the range",
+        "A classic text input that allows the user to enter a single line of text.",
     },
     {
       icon: Calendar,
       title: "Date Input",
       template: "date_input",
       description:
-        "Show a slider that the user can set to any value in the range",
+        "A date input that allows the user to select a date from a calendar.",
     },
     {
       icon: Clock,
       title: "Time Input",
       template: "time_input",
       description:
-        "Show a slider that the user can set to any value in the range",
+        "A time input that allows the user to select a time from a clock.",
     },
     {
       icon: ChevronDown,
@@ -85,23 +88,7 @@ export const items: Record<string, Item[]> = {
       title: "Rating",
       template: "rating",
       description:
-        "Allows the user to rate something on a scale of 1 to 5 or 1 to 10. The scale is represented by a series of circles with or without the numeric value.",
-    },
-  ],
-  layout: [
-    {
-      icon: MousePointer,
-      title: "Button",
-      template: "button",
-      description:
-        "A button to go to the next node in the flow or go to a specific node",
-    },
-    {
-      icon: Grid,
-      title: "Group",
-      template: "group",
-      description:
-        "Container element that allows you to group different components together. This can be useful for organizing the user interface.",
+        "Allows the user to rate something on a scale of 1 to 3, 1 to 5 or 1 to 7. The scale is represented by a series of circles with a numeric value and an optional label.",
     },
   ],
   content: [
@@ -123,6 +110,43 @@ export const items: Record<string, Item[]> = {
       title: "Audio",
       template: "audio",
       description: "An audio player that allows you to play audio files.",
+    },
+    {
+      icon: Video,
+      title: "Video",
+      template: "video",
+      description: "A video player that allows you to play video files.",
+    },
+  ],
+  layout: [
+    {
+      icon: MousePointer,
+      title: "Button",
+      template: "button",
+      description:
+        "A button to go to the next node in the flow or go to a specific node",
+    },
+    {
+      icon: Grid,
+      title: "Group",
+      template: "group",
+      description:
+        "Container element that allows you to group different components together. This can be useful for organizing the user interface.",
+    },
+  ],
+  control: [
+    {
+      icon: GitMerge,
+      title: "Conditional",
+      template: "conditional",
+      description:
+        "Allows you to define if one component should be visible or not based on some condition.",
+    },
+    {
+      icon: Repeat,
+      title: "For Each",
+      template: "for_each",
+      description: "Allows you to repeat a component for each item in a list.",
     },
   ],
 };
