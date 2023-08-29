@@ -2,6 +2,7 @@ import { FrameworkWidget } from "@/lib/widgets";
 import { ArrowDown, ArrowUp, X } from "react-feather";
 import SliderWidgetMenu from "./SliderWidgetMenu";
 import React from "react";
+import RichTextWidgetMenu from "./RichTextMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -21,6 +22,7 @@ const titles: Partial<Record<FrameworkWidget["template"], string>> = {
 
 const menues = {
   slider: SliderWidgetMenu,
+  rich_text: RichTextWidgetMenu,
 };
 
 export default function WidgetMenu(props: MenuProps) {

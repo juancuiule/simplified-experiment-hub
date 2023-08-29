@@ -33,6 +33,20 @@ const experiment: Experiment = {
             widgetFamily: "layout",
             props: { text: "Siguiente", behaivor: "next_node" },
           },
+          {
+            template: "rating",
+            widgetFamily: "response",
+            props: {
+              label: "Culpable",
+              max: 7,
+              optionsLabel: [
+                { value: "1", label: "Nada" },
+                { value: "4", label: "Moderado" },
+                { value: "7", label: "Mucho" },
+              ],
+              dataKey: "culpable",
+            },
+          },
         ],
       },
     },
@@ -803,15 +817,15 @@ export default function Page() {
     };
   }, [init, unsubTransient]);
 
-  useEffect(() => {
-    const root = document.documentElement;
-    const theme = {
-      "--color-primary": "80 126 138",
-    };
-    getKeys(theme).forEach((cssVar) => {
-      root.style.setProperty(cssVar, theme[cssVar]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const root = document.documentElement;
+  //   const theme = {
+  //     "--color-primary": "80 126 138",
+  //   };
+  //   getKeys(theme).forEach((cssVar) => {
+  //     root.style.setProperty(cssVar, theme[cssVar]);
+  //   });
+  // }, []);
 
   return (
     <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 border border-black flex-1">
