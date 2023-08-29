@@ -1,10 +1,9 @@
 import Markdown from "@/components/Markdown";
 import { RadioWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
-import { Check } from "react-feather";
 
 export default function Radio(props: { widget: RadioWidget }) {
-  const { values, errors, touched, submitCount, handleChange } =
+  const { errors, touched, submitCount, handleChange } =
     useFormikContext<
       Record<string, string | boolean | number | string[] | undefined>
     >();
@@ -20,34 +19,26 @@ export default function Radio(props: { widget: RadioWidget }) {
         </div>
       ) : null}
       <div className="flex flex-col gap-2 w-full">
-        {props.widget.props.options.map((option, index) => {
-          const isSelected =
-            option.value === values[props.widget.props.dataKey];
+        {props.widget.props.options.map((option) => {
           return (
-            <div key={option.value} className="flex gap-3 items-center">
+            <label
+              key={option.value}
+              htmlFor={`${props.widget.props.dataKey}-${option.value}`}
+              className="flex gap-2 items-center flex-1"
+            >
               <input
                 type="radio"
-                key={index}
                 name={props.widget.props.dataKey}
                 id={`${props.widget.props.dataKey}-${option.value}`}
                 value={option.value}
                 onChange={handleChange}
-                className="opacity-0 w-0 -ml-3"
+                className="peer opacity-0 w-0 -ml-3"
               />
-              <label
-                htmlFor={`${props.widget.props.dataKey}-${option.value}`}
-                className="w-5 h-5 aspect-square p-0.5 border border-gray-400 rounded-full"
-              >
-                <div
-                  className={`w-full rounded-full h-full bg-[#507E8A] ${
-                    isSelected ? "opacity-100" : "opacity-0"
-                  } transition-opacity duration-100`}
-                ></div>
-              </label>
-              <label htmlFor={`${props.widget.props.dataKey}-${option.value}`}>
-                {option.label}
-              </label>
-            </div>
+              <div className="w-5 h-5 peer-focus:ring-2 flex justify-center items-center aspect-square border border-gray-400 rounded-full group/circle">
+                <div className="w-10/12 aspect-square rounded-full peer-checked:group-[]/circle:bg-[#507E8A] bg-transparent transition-colors"></div>
+              </div>
+              <span>{option.label}</span>
+            </label>
           );
         })}
       </div>

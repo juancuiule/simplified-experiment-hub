@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/custom-views/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -12,12 +13,14 @@ module.exports = {
         mono: ["var(--font-fira-code)"],
       },
       colors: {
-        warning: "#FCC500",
-        error: "#FC1400",
-        info: "#60A6BC",
-        black: "#1d1d1d",
-        light: "#fafafa",
-        sucess: "#0CC084",
+        warning: "var(--theme-warning)",
+        error: "var(--theme-error)",
+        info: "var(--theme-info)",
+        black: "var(--theme-black)",
+        light: "var(--theme-light)",
+        sucess: "var(--theme-sucess)",
+
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
       },
     },
   },

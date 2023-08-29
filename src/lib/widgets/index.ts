@@ -10,8 +10,9 @@ export interface BaseWidget<T extends WidgetFamily, U extends string> {
   template: U;
 }
 
-export type FrameworkWidget =
+export type FrameworkWidget = (
   | ControlWidget
   | ContentWidget
   | ResponseWidget
-  | LayoutWidget;
+  | LayoutWidget
+) & { id?: string };

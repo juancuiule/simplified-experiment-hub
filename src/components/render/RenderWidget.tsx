@@ -1,4 +1,3 @@
-import { FrameworkWidget } from "@/lib/widgets";
 import RichText from "@/components/widgets/content/RichText";
 import Conditional from "@/components/widgets/control/Conditional";
 import Button from "@/components/widgets/layout/Button";
@@ -9,6 +8,9 @@ import MultipleCheck from "@/components/widgets/response/MultipleCheck";
 import Radio from "@/components/widgets/response/RadioWidget";
 import SingleCheckbox from "@/components/widgets/response/SingleCheckboxWidget";
 import Slider from "@/components/widgets/response/SliderWidget";
+import { FrameworkWidget } from "@/lib/widgets";
+import Audio from "../widgets/content/Audio";
+import Rating from "../widgets/response/RatingWidget";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
@@ -42,6 +44,12 @@ export default function RenderWidget(props: { widget: FrameworkWidget }) {
     }
     case "single_checkbox": {
       return <SingleCheckbox widget={widget} />;
+    }
+    case "rating": {
+      return <Rating widget={widget} />;
+    }
+    case "audio": {
+      return <Audio widget={widget} />;
     }
     default: {
       return <span>{widget.template}</span>;

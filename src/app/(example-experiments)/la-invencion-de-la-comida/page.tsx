@@ -2,6 +2,7 @@
 import RenderState from "@/components/render/RenderState";
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkNode } from "@/lib/nodes";
+import { getKeys } from "@/lib/utils";
 import { useEffect } from "react";
 
 type Experiment = {
@@ -32,6 +33,20 @@ const experiment: Experiment = {
             widgetFamily: "layout",
             props: { text: "Siguiente", behaivor: "next_node" },
           },
+          {
+            template: "rating",
+            widgetFamily: "response",
+            props: {
+              label: "Culpable",
+              max: 7,
+              optionsLabel: [
+                { value: "1", label: "Nada" },
+                { value: "4", label: "Moderado" },
+                { value: "7", label: "Mucho" },
+              ],
+              dataKey: "culpable",
+            },
+          },
         ],
       },
     },
@@ -54,7 +69,7 @@ const experiment: Experiment = {
             widgetFamily: "content",
             props: {
               content:
-                "Esto es una experiencia con fines ludicos y vamos a hablar de comida, no es un analisis nutricional.",
+                "<span>* Esto es una experiencia con fines ludicos y vamos a hablar de comida, no es un analisis nutricional.</span>",
             },
           },
           {
@@ -68,7 +83,6 @@ const experiment: Experiment = {
         ],
       },
     },
-
     {
       nodeType: "path",
       nodeFamily: "control",
@@ -773,6 +787,20 @@ const experiment: Experiment = {
         ],
       },
     },
+    {
+      nodeType: "checkpoint",
+      nodeFamily: "core",
+      id: "checkpoint-1",
+      props: {},
+    },
+    {
+      nodeFamily: "study",
+      nodeType: "custom-view",
+      id: "feedback",
+      props: {
+        slug: "feedback-comer",
+      },
+    },
     { nodeType: "finish", nodeFamily: "core", id: "", props: {} },
   ],
 };
@@ -787,11 +815,21 @@ export default function Page() {
     return () => {
       unsubTransient();
     };
-  }, []);
+  }, [init, unsubTransient]);
+
+  // useEffect(() => {
+  //   const root = document.documentElement;
+  //   const theme = {
+  //     "--color-primary": "80 126 138",
+  //   };
+  //   getKeys(theme).forEach((cssVar) => {
+  //     root.style.setProperty(cssVar, theme[cssVar]);
+  //   });
+  // }, []);
 
   return (
     <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 border border-black flex-1">
-      <nav className="text-[#507E8A] text-md font-serif text-center">
+      <nav className="text-primary text-md font-serif text-center">
         La invención de la comida
       </nav>
       <RenderState state={state} />

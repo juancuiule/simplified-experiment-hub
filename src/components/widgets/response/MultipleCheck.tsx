@@ -26,22 +26,21 @@ export default function MultipleCheck(props: { widget: MultipleCheckWidget }) {
           ).includes(option.value);
 
           return (
-            <div key={i} className="flex">
+            <div key={option.value} className="flex">
               <input
                 type="checkbox"
                 name={props.widget.props.dataKey}
                 id={option.value}
                 value={option.value}
                 onChange={handleChange}
-                className="w-0"
+                className="peer w-0"
               />
               <label
-                tabIndex={1}
                 htmlFor={option.value}
-                className={`flex-1 py-4 px-4 rounded-md border transition-colors cursor-pointer flex justify-between ${
+                className={`peer-focus:ring-1 flex-1 py-4 px-4 rounded-md border transition-colors cursor-pointer flex justify-between ${
                   isSelected
-                    ? "bg-[#507E8A]/40 border-[#507E8A] text-[#507E8A] font-semibold"
-                    : "hover:bg-[#507e8a]/20 border-black"
+                    ? "bg-primary/40 border-primary text-primary"
+                    : "hover:bg-primary/20 border-black"
                 }`}
               >
                 <span>{option.label}</span>{" "}
