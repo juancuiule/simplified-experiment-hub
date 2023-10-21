@@ -14,7 +14,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
     <div className="flex-1 flex flex-col gap-4">
       <div className="flex justify-between items-center h-11 bg-light rounded p-2.5 gap-2.5">
         <div className="flex justify-center items-center gap-1">
-          <Link href={`/experiments/${params.experimentId}`}>
+          <Link href={`/experiments/${params.experimentId}/dashboard`}>
             <ChevronLeft size={16} />
           </Link>
           <span className="font-medium">
@@ -26,7 +26,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             <span className="font-medium">JSON</span>
             <Code size={16} />
           </button>
-          <button className="flex justify-center items-center gap-2 rounded bg-sucess px-2.5 py-1">
+          <button className="flex justify-center items-center gap-2 rounded bg-success px-2.5 py-1">
             <span className="font-medium">CSV</span>
             <Table size={16} />
           </button>

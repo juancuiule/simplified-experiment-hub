@@ -2,6 +2,7 @@ import Card from "@/components/Card";
 import { ChevronLeft, Eye, Save } from "react-feather";
 import { items } from "./node-items";
 import { Fragment } from "react";
+import Link from "next/link";
 
 export default function Page({ params }: { params: { experimentId: string } }) {
   return (
@@ -9,9 +10,9 @@ export default function Page({ params }: { params: { experimentId: string } }) {
       {/* Experiment flow navbar */}
       <div className="flex justify-between items-center h-11 bg-light rounded p-2.5 gap-2.5">
         <div className="flex justify-center items-center gap-1">
-          <button>
+          <Link href={`/experiments/${params.experimentId}/dashboard`}>
             <ChevronLeft size={16} />
-          </button>
+          </Link>
           <span className="font-medium">
             Experiment {params.experimentId} - Flow Design
           </span>
@@ -21,7 +22,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             <span className="font-medium">Preview</span>
             <Eye size={16} />
           </button>
-          <button className="flex justify-center items-center gap-2 rounded bg-sucess px-2.5 py-1">
+          <button className="flex justify-center items-center gap-2 rounded bg-success px-2.5 py-1">
             <span className="font-medium">Save</span>
             <Save size={16} />
           </button>
