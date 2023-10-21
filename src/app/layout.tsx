@@ -1,16 +1,5 @@
-import { Fira_Code, Montserrat } from "next/font/google";
+import { fira_code, montserrat } from "@/fonts";
 import "./globals.css";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-montserrat",
-});
-const fira_code = Fira_Code({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fira-code",
-});
 
 export const metadata = {
   title: "Experiment Hub",
@@ -24,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${fira_code.variable}`}>
-      <body className="flex flex-col min-h-screen">{children}</body>
+      <body className={`flex flex-col min-h-screen`}>{children}</body>
     </html>
   );
 }

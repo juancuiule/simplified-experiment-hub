@@ -8,8 +8,19 @@
   --theme-info: #60a6bc;
   --theme-black: #1d1d1d;
   --theme-light: #fafafa;
-  --theme-sucess: #0cc084;
+  --theme-success: #0cc084;
+
+  --color-warning: 252 197 0;
+  --color-error: 252 20 0;
+  --color-info: 96 166 188;
+  --color-black: 29 29 29;
+  --color-light: 250 250 250;
+  --color-success: 12 192 132;
 
   --color-primary: 96 166 188;
   --color-primary-rgb: rgb(96, 166, 188);
+}
+
+.auth-button {
+  @apply text-sm flex justify-center flex-1 px-6 py-2 rounded-lg border border-gray-300 text-gray-500 items-center gap-2 hover:text-black hover:border-info hover:bg-info/50 disabled:bg-gray-200 disabled:hover:text-gray-500 disabled:hover:border-gray-300 disabled:hover:bg-gray-200 transition-colors outline-info;
 }

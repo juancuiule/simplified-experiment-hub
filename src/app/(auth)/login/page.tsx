@@ -21,11 +21,11 @@ export default function Page() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between gap-4">
-            <button className="text-sm flex justify-center flex-1 px-6 py-2 rounded-lg border border-gray-300 text-gray-500 items-center gap-2  hover:text-black hover:border-info hover:bg-info/50 transition-colors outline-info">
+            <button className={`auth-button`}>
               <AtSign size={18} />
               Log in with Google
             </button>
-            <button className="text-sm flex justify-center flex-1 px-6 py-2 rounded-lg border border-gray-300 text-gray-500 items-center gap-2  hover:text-black hover:border-info hover:bg-info/50 transition-colors outline-info">
+            <button disabled className={`auth-button`}>
               <GitHub size={18} />
               Log in with Github
             </button>
