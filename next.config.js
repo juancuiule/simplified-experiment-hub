@@ -15,6 +15,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn.elgatoylacaja.com",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.experiment-hub.com",
+      },
     ],
   },
 };
