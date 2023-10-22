@@ -8,7 +8,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
   return (
     <div className="flex flex-col flex-1 gap-2.5">
       {/* Experiment flow navbar */}
-      <div className="flex justify-between items-center h-11 bg-light rounded p-2.5 gap-2.5">
+      <div className="flex justify-between items-center h-12 bg-light rounded p-2.5 gap-2.5">
         <div className="flex justify-center items-center gap-1">
           <Link href={`/experiments/${params.experimentId}/dashboard`}>
             <ChevronLeft size={16} />

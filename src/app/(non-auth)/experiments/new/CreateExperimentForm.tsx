@@ -27,7 +27,6 @@ export default function CreateExperimentForm() {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-          // router.
           router.push(`/experiments/${values.slug}/dashboard`);
         }, 400);
       }}
@@ -59,7 +58,7 @@ export default function CreateExperimentForm() {
               id="name"
               onChange={(e) => {
                 handleChange(e);
-                if (!touched.slug) {
+                if (!Boolean(touched.slug)) {
                   setFieldValue(
                     "slug",
                     e.target.value.toLowerCase().replace(/ /g, "-")
