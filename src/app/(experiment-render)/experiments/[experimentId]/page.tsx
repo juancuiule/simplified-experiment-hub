@@ -1,5 +1,5 @@
 "use client";
-import RenderState from "@/components/render/RenderState";
+import RenderState from "@/components/framework/render/RenderState";
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkNode } from "@/lib/nodes";
 import { useEffect } from "react";

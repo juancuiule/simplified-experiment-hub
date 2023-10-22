@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/components/Card";
-import WidgetMenu from "@/components/edit-menues";
-import RenderState from "@/components/render/RenderState";
+import WidgetMenu from "@/components/framework/edit-menues";
+import RenderState from "@/components/framework/render/RenderState";
 import { defaultByType } from "@/lib/default";
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkWidget } from "@/lib/widgets";
