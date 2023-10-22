@@ -1,13 +1,22 @@
 import { experiments, teams } from "@/app/mock-data";
 import ExperimentsSection from "@/components/ExperimentsSection";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-
-export default function Team({
-  params: { teamId },
-}: {
+interface Props {
   params: { teamId: string };
-}) {
+}
+
+export async function generateMetadata({
+  params: { teamId },
+}: Props): Promise<Metadata> {
+  const { name } = teams.find((t) => t.slug === teamId)!;
+  return {
+    title: `Team | ${name}`,
+  };
+}
+
+export default function Team({ params: { teamId } }: Props) {
   const { members, background, name } = teams.find((t) => t.slug === teamId)!;
 
   return (

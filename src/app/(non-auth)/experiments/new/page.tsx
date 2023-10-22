@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import CreateExperimentForm from "./CreateExperimentForm";
+
+export const metadata: Metadata = {
+  title: "Create experiment | Experiment Hub",
+};
 
 export default function Page() {
   return (

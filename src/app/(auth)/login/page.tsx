@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { AtSign, GitHub } from "react-feather";
 import LoginForm from "./LoginForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login | Experiment Hub",
+};
 
 export default function Page() {
   return (

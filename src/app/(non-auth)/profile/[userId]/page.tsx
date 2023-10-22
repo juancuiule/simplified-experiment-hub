@@ -1,14 +1,26 @@
-import { experiments, teams } from "@/app/mock-data";
+import { experiments, members, teams } from "@/app/mock-data";
 import ExperimentsSection from "@/components/ExperimentsSection";
 import TeamsSection from "@/components/TeamsSection";
+import { Metadata } from "next";
 import Image from "next/image";
 import { GitHub, Twitter } from "react-feather";
 
-export default function UserProfile({
-  params: { userId },
-}: {
+interface Props {
   params: { userId: string };
-}) {
+}
+
+export async function generateMetadata({
+  params: { userId },
+}: Props): Promise<Metadata> {
+  const { name } = teams
+    .flatMap((t) => t.members)
+    .find((m) => m.slug === userId)!;
+  return {
+    title: `Profile | ${name}`,
+  };
+}
+
+export default function UserProfile({ params: { userId } }: Props) {
   const user = teams.flatMap((t) => t.members).find((m) => m.slug === userId)!;
   const userTeams = teams.filter((t) =>
     t.members.some((m) => m.slug === userId)

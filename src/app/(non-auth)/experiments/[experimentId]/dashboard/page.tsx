@@ -1,4 +1,5 @@
 import { experiments } from "@/app/mock-data";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,11 +11,21 @@ import {
   Users,
 } from "react-feather";
 
-export default function ExperimentDashboard({
-  params,
-}: {
+interface Props {
   params: { experimentId: string };
-}) {
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { name } = experiments.find(
+    (e) => e.slug === props.params.experimentId
+  )!;
+
+  return {
+    title: `Dashboard | ${name}`,
+  };
+}
+
+export default function ExperimentDashboard({ params }: Props) {
   const { name, background } = experiments.find(
     (e) => e.slug === params.experimentId
   )!;
