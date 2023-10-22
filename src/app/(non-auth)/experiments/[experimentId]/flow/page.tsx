@@ -13,9 +13,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
           <Link href={`/experiments/${params.experimentId}/dashboard`}>
             <ChevronLeft size={16} />
           </Link>
-          <span className="font-medium">
-            Experiment {params.experimentId} - Flow Design
-          </span>
+          <span className="font-medium">Flow Design</span>
         </div>
         <div className="flex gap-2.5 text-white">
           <button className="flex justify-center items-center gap-2 rounded bg-[#4F4F4F] px-2.5 py-1">

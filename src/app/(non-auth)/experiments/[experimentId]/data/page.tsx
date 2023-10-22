@@ -1,3 +1,5 @@
+import { experiments } from "@/app/mock-data";
+import exp from "constants";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -12,14 +14,12 @@ import {
 export default function Page({ params }: { params: { experimentId: string } }) {
   return (
     <div className="flex-1 flex flex-col gap-4">
-      <div className="flex justify-between items-center h-11 bg-light rounded p-2.5 gap-2.5">
+      <div className="flex justify-between items-center h-12 bg-gray-200 rounded p-2.5 gap-2.5">
         <div className="flex justify-center items-center gap-1">
           <Link href={`/experiments/${params.experimentId}/dashboard`}>
             <ChevronLeft size={16} />
           </Link>
-          <span className="font-medium">
-            Experiment {params.experimentId} - Participants and data
-          </span>
+          <span className="font-medium">Participants and data</span>
         </div>
         <div className="flex gap-2.5 text-white">
           <button className="flex justify-center items-center gap-2 rounded bg-[#4F4F4F] px-2.5 py-1">
@@ -33,9 +33,9 @@ export default function Page({ params }: { params: { experimentId: string } }) {
         </div>
       </div>
 
-      <div className="flex flex-col flex-1 bg-white rounded-md p-4 gap-4">
+      <div className="flex flex-col flex-1 bg-gray-200 rounded-md p-4 gap-4">
         <div className="flex gap-3">
-          <div className="bg-gray-200 flex flex-col gap-2 p-2 rounded">
+          <div className="bg-gray-100 flex flex-col gap-2 p-2 rounded">
             <p className="text-3xl flex items-center gap-2">
               <User />
               1024
@@ -43,7 +43,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             <span className="text-xs">Participants</span>
           </div>
 
-          <div className="bg-gray-200 flex flex-col gap-2 p-2 rounded">
+          <div className="bg-gray-100 flex flex-col gap-2 p-2 rounded">
             <p className="text-3xl flex items-center gap-2">
               <Clock />
               5m 32s
@@ -70,14 +70,14 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             </tbody>
           </table>
           <div className="flex gap-2.5 text-black justify-end mt-auto">
-            <span className="flex justify-center items-center gap-2 rounded bg-gray-200 px-2 py-0.5">
+            <span className="flex justify-center items-center gap-2 rounded bg-gray-100 px-2 py-0.5">
               1/20
             </span>
-            <button className="flex justify-center items-center gap-2 rounded bg-gray-200 px-2 py-0.5">
+            <button className="flex justify-center items-center gap-2 rounded bg-gray-100 px-2 py-0.5">
               <ArrowLeft size={16} />
               <span className="text-sm">Previous</span>
             </button>
-            <button className="flex justify-center items-center gap-2 rounded bg-gray-200 px-2 py-0.5">
+            <button className="flex justify-center items-center gap-2 rounded bg-gray-100 px-2 py-0.5">
               <span className="text-sm">Next</span>
               <ArrowRight size={16} />
             </button>
