@@ -11,7 +11,7 @@ export default function Layout(props: {
   )!;
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <div className="flex w-full flex-col gap-6">
         <div className="flex items-start justify-start gap-4 flex-col md:flex-row">
           <div className="aspect-video w-full md:h-full md:w-auto flex justify-center items-center overflow-hidden border border-gray-200 rounded-md">
             <Image
