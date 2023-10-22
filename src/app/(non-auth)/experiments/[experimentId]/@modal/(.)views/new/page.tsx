@@ -47,7 +47,8 @@ export default function NewViewModal(props: Props) {
               New view
             </Dialog.Title>
             <Dialog.Description className="text-sm leading-normal">
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile here. Click save when you&apos;re
+              done.
             </Dialog.Description>
           </div>
 
