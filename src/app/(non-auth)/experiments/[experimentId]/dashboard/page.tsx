@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Activity, Edit3, GitBranch, Settings, Users } from "react-feather";
+import {
+  Activity,
+  Edit3,
+  GitBranch,
+  Monitor,
+  Settings,
+  Users,
+} from "react-feather";
 
 export default function ExperimentDashboard({
   params,
@@ -32,6 +39,14 @@ export default function ExperimentDashboard({
             className="flex gap-2 items-center"
           >
             <GitBranch size={18} /> <span>Flow</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={`/experiments/${params.experimentId}/views`}
+            className="flex gap-2 items-center"
+          >
+            <Monitor size={18} /> <span>Views</span>
           </Link>
         </li>
         <li>
