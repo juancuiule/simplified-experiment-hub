@@ -21,7 +21,7 @@ export default function EditExperiment({
         <Link href={`/experiments/${experimentId}/dashboard`}>
           <ChevronLeft size={24} />
         </Link>
-        <h1 className="text-3xl font-bold">Edit experiment</h1>
+        <h2 className="text-2xl font-semibold">Edit experiment</h2>
       </div>
       <EditExperimentForm
         initialValues={{

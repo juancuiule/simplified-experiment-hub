@@ -2,6 +2,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { X } from "react-feather";
 import * as Yup from "yup";
 
@@ -21,9 +22,10 @@ export default function NewViewModal(props: Props) {
   } = props;
 
   const router = useRouter();
+  const [open, setOpen] = useState(true);
 
   return (
-    <Dialog.Root open>
+    <Dialog.Root open={open}>
       <Dialog.Portal>
         <Dialog.Overlay
           onClick={() => {
@@ -62,6 +64,10 @@ export default function NewViewModal(props: Props) {
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
+                setOpen(false);
+                router.push(
+                  `/experiments/${experimentId}/views/${values.slug}`
+                );
                 setSubmitting(false);
               }, 400);
             }}
