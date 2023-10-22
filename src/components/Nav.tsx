@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LogOut, User } from "react-feather";
+import { LogOut } from "react-feather";
 
 export default function Nav() {
   return (
@@ -17,15 +17,25 @@ export default function Nav() {
       <div className="flex flex-row gap-2">
         <Link
           href="/profile"
-          className="w-10 h-10 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer"
+          className="w-10 h-10 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer transition-colors"
         >
-          <User className="text-white group-hover:text-black" size={20} />
+          <div className="w-4/5 aspect-square flex justify-center items-center rounded-full overflow-hidden">
+            <Image
+              src={"https://cdn.experiment-hub.com/team/juan-ignacio.png"}
+              alt={"Profile picture"}
+              width={200}
+              height={200}
+            />
+          </div>
         </Link>
         <Link
           href="/login"
-          className="w-10 h-10 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer"
+          className="w-10 h-10 flex justify-center items-center rounded-full group hover:bg-[#f4f4f4] cursor-pointer transition-colors"
         >
-          <LogOut className="text-white group-hover:text-black" size={20} />
+          <LogOut
+            className="text-white group-hover:text-black transition-colors"
+            size={20}
+          />
         </Link>
       </div>
     </nav>
