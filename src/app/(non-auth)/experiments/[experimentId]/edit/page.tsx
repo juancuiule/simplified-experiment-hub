@@ -1,4 +1,6 @@
 import { experiments } from "@/app/mock-data";
+import Link from "next/link";
+import { ChevronLeft } from "react-feather";
 import EditExperimentForm from "./EditExperimentForm";
 
 export default function EditExperiment({
@@ -15,7 +17,12 @@ export default function EditExperiment({
 
   return (
     <div className="w-full flex flex-col gap-6">
-      <h1 className="text-3xl font-bold">Edit experiment</h1>
+      <div className="flex justify-start items-center gap-1">
+        <Link href={`/experiments/${experimentId}/dashboard`}>
+          <ChevronLeft size={24} />
+        </Link>
+        <h1 className="text-3xl font-bold">Edit experiment</h1>
+      </div>
       <EditExperimentForm
         initialValues={{
           name,

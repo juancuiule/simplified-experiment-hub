@@ -33,9 +33,7 @@ export default function Page({
           <Link href={`/experiments/${params.experimentId}/views`}>
             <ChevronLeft size={16} />
           </Link>
-          <span className="font-medium">
-            Experiment {params.experimentId} - View Design - {params.viewId}
-          </span>
+          <span className="font-medium">View Design - {params.viewId}</span>
         </div>
         <div className="flex gap-2.5 text-white">
           <button className="flex justify-center items-center gap-2 rounded bg-[#4F4F4F] px-2.5 py-1">
