@@ -1,5 +1,3 @@
-import { experiments } from "@/app/mock-data";
-import exp from "constants";
 import Link from "next/link";
 import {
   ArrowLeft,
