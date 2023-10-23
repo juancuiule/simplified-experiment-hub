@@ -19,6 +19,8 @@
 
   --color-primary: 96 166 188;
   --color-primary-rgb: rgb(96, 166, 188);
+
+  scroll-behavior: smooth;
 }
 
 .auth-button {
