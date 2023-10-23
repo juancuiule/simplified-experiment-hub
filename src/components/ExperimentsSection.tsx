@@ -8,7 +8,7 @@ interface Props {
 
 export default function ExperimentsSection({ experiments }: Props) {
   return (
-    <div className="flex flex-col w-full gap-4">
+    <section className="flex flex-col w-full gap-4">
       <h2 className="text-2xl font-semibold">Experiments</h2>
       <div className="grid grid-cols-12 gap-4">
         {experiments.map((experiment) => {
@@ -52,6 +52,6 @@ export default function ExperimentsSection({ experiments }: Props) {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

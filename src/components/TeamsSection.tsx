@@ -7,7 +7,7 @@ interface Props {
 
 export default function TeamsSection({ teams }: Props) {
   return (
-    <div className="flex flex-col w-full gap-4">
+    <section className="flex flex-col w-full gap-4">
       <h2 className="text-2xl font-semibold">Teams</h2>
       <div className="grid grid-cols-12 gap-4">
         {teams.map((team) => {
@@ -53,6 +53,6 @@ export default function TeamsSection({ teams }: Props) {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
