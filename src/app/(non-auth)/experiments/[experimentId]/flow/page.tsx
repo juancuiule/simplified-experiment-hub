@@ -1,8 +1,9 @@
 import Card from "@/components/Card";
+import Link from "next/link";
+import { Fragment } from "react";
 import { ChevronLeft, Eye, Save } from "react-feather";
 import { items } from "./node-items";
-import { Fragment } from "react";
-import Link from "next/link";
+import { views } from "@/app/mock-data";
 
 export default function Page({ params }: { params: { experimentId: string } }) {
   return (
@@ -31,13 +32,23 @@ export default function Page({ params }: { params: { experimentId: string } }) {
       <div className="flex gap-2 max-h-[calc(80vh-64px-24px*2-44px-10px)]">
         {/* Preview */}
         <div
-          className="flex-1 bg-light rounded"
+          className="flex-1 bg-light rounded flex flex-col gap-2 p-2"
           style={{
             backgroundImage: "url(/dot-tile.png)",
             backgroundRepeat: "repeat",
             backgroundSize: "45px 45px",
           }}
-        ></div>
+        >
+          {views.map((view) => (
+            <Link
+              className="flex w-fit p-2 bg-gray-300 rounded-md"
+              key={view.slug}
+              href={`/experiments/${params.experimentId}/views/${view.slug}`}
+            >
+              {view.name}
+            </Link>
+          ))}
+        </div>
 
         {/* Nodes menu */}
         <div className="flex flex-col p-2 gap-2 overflow-y-scroll rounded bg-light">
