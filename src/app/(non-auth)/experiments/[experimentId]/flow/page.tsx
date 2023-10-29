@@ -1,6 +1,11 @@
 "use client";
 import Card from "@/components/Card";
 import { items } from "@/components/node-items";
+import BranchNode from "@/components/nodes/Branch";
+import CheckpointNode from "@/components/nodes/Checkpoint";
+import ExpeirmentStepNode from "@/components/nodes/ExperimentStep";
+import FinishNode from "@/components/nodes/Finish";
+import StartNode from "@/components/nodes/Start";
 import Link from "next/link";
 import { Fragment, useCallback } from "react";
 import { ChevronLeft, Save } from "react-feather";
@@ -12,6 +17,7 @@ import ReactFlow, {
   Background,
   BackgroundVariant,
   Controls,
+  Edge,
   Node,
   OnConnect,
   addEdge,
@@ -21,11 +27,16 @@ import ReactFlow, {
 
 import "reactflow/dist/style.css";
 
-const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+const initialNodes: Node[] = [];
+const initialEdges: Edge[] = [];
+
+const nodeTypes = {
+  start: StartNode,
+  finish: FinishNode,
+  checkpoint: CheckpointNode,
+  "experiment-step": ExpeirmentStepNode,
+  branch: BranchNode,
+};
 
 export default function Page({ params }: { params: { experimentId: string } }) {
   // TODO: Fetch flow from backend
@@ -73,6 +84,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            nodeTypes={nodeTypes}
           >
             <Controls />
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
@@ -93,6 +105,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
                       id: Math.random().toString(),
                       position: { x: 0, y: 0 },
                       data: { label: item.title },
+                      type: item.title.toLowerCase().replaceAll(" ", "-"),
                     });
                   }}
                   className="text-left"

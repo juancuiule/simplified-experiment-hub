@@ -7,7 +7,7 @@ import { FrameworkWidget } from "@/lib/widgets";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
-import { X } from "react-feather";
+import { Save, X } from "react-feather";
 
 interface Props {
   params: { experimentId: string; viewId: string };
@@ -42,9 +42,8 @@ export default function NewViewModal(props: Props) {
             </button>
           </Dialog.Close>
           <div className="flex flex-col gap-2">
-            <button>Algo</button>
             <Dialog.Title className="m-0 text-2xl font-semibold">
-              View Design
+              View Design ({viewId})
             </Dialog.Title>
             <Dialog.Description className="text-sm leading-normal">
               Make changes to your profile here. Click save when you&apos;re
@@ -104,6 +103,26 @@ export default function NewViewModal(props: Props) {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="flex gap-4 justify-end">
+            <button
+              className="flex justify-center items-center gap-2 rounded bg-gray-400 px-2 py-1"
+              onClick={(e) => {
+                router.back();
+              }}
+            >
+              <span className="font-medium">Cancel</span>
+              <X size={16} />
+            </button>
+            <button
+              className="flex justify-center items-center gap-2 rounded bg-success px-2 py-1"
+              onClick={(e) => {
+                router.back();
+              }}
+            >
+              <span className="font-medium">Save</span>
+              <Save size={16} />
+            </button>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
