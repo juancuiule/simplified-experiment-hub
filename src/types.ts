@@ -6,7 +6,7 @@ export type User = {
   name: string;
   slug: string;
   avatar: string;
-  organization: string
+  organization: string;
 };
 
 export type Team = {

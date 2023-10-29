@@ -17,6 +17,7 @@ export default function Page({
 }: {
   params: { experimentId: string; viewId: string };
 }) {
+  // TODO: Fetch widgets from backend
   const [widgets, setWidgets] = useState<FrameworkWidget[]>([]);
 
   const init = useExperimentStore((e) => e.init);

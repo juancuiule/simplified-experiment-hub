@@ -1,8 +1,9 @@
-import { experiments, members, teams } from "@/app/mock-data";
+import { fetchUser } from "@/api";
 import ExperimentsSection from "@/components/ExperimentsSection";
 import TeamsSection from "@/components/TeamsSection";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { GitHub, Twitter } from "react-feather";
 
 interface Props {
@@ -12,22 +13,27 @@ interface Props {
 export async function generateMetadata({
   params: { userId },
 }: Props): Promise<Metadata> {
-  const { name } = teams
-    .flatMap((t) => t.members)
-    .find((m) => m.slug === userId)!;
-  return {
-    title: `Profile | ${name}`,
-  };
+  const user = await fetchUser(userId);
+
+  if (user !== null) {
+    return {
+      title: `Profile | ${user.name}`,
+    };
+  } else {
+    return {
+      title: `User not found`,
+    };
+  }
 }
 
-export default function UserProfile({ params: { userId } }: Props) {
-  const user = teams.flatMap((t) => t.members).find((m) => m.slug === userId)!;
-  const userTeams = teams.filter((t) =>
-    t.members.some((m) => m.slug === userId)
-  );
-  const userExperiments = experiments.filter((e) =>
-    userTeams.map((t) => t.slug).includes(e.team.slug)
-  );
+export default async function UserProfile({ params: { userId } }: Props) {
+  const user = await fetchUser(userId);
+
+  if (!user) {
+    return notFound();
+  }
+
+  const { teams, experiments } = user;
 
   return (
     <div className="flex flex-col items-start gap-6">
@@ -54,10 +60,10 @@ export default function UserProfile({ params: { userId } }: Props) {
       </div>
 
       {/* Teams */}
-      <TeamsSection teams={userTeams} />
+      <TeamsSection teams={teams} />
 
       {/* Experiments */}
-      <ExperimentsSection experiments={userExperiments} />
+      <ExperimentsSection experiments={experiments} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Team } from "@/app/types";
+import { Team } from "@/types";
 import Link from "next/link";
 
 interface Props {

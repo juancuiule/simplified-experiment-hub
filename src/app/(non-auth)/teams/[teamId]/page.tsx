@@ -1,8 +1,10 @@
-import { experiments, teams } from "@/app/mock-data";
+import { fetchTeam } from "@/api";
 import ExperimentsSection from "@/components/ExperimentsSection";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+
 interface Props {
   params: { teamId: string };
 }
@@ -10,14 +12,27 @@ interface Props {
 export async function generateMetadata({
   params: { teamId },
 }: Props): Promise<Metadata> {
-  const { name } = teams.find((t) => t.slug === teamId)!;
-  return {
-    title: `Team | ${name}`,
-  };
+  const team = await fetchTeam(teamId);
+
+  if (team !== null) {
+    return {
+      title: `Team | ${team.name}`,
+    };
+  } else {
+    return {
+      title: `Team not found`,
+    };
+  }
 }
 
-export default function Team({ params: { teamId } }: Props) {
-  const { members, background, name } = teams.find((t) => t.slug === teamId)!;
+export default async function Team({ params: { teamId } }: Props) {
+  const team = await fetchTeam(teamId);
+
+  if (!team) {
+    return notFound();
+  }
+
+  const { name, description, background, members, experiments } = team;
 
   return (
     <div className="flex flex-col w-full gap-6">
@@ -33,10 +48,7 @@ export default function Team({ params: { teamId } }: Props) {
         </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl font-bold">{name}</h1>
-          <p className="text-sm">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores
-            ipsam quo mollitia, et praesentium nihil
-          </p>
+          <p className="text-sm">{description}</p>
         </div>
       </div>
       <div className="flex flex-col w-full gap-4">
@@ -65,9 +77,7 @@ export default function Team({ params: { teamId } }: Props) {
           })}
         </div>
       </div>
-      <ExperimentsSection
-        experiments={experiments.filter((e) => e.team.slug === teamId)}
-      />
+      <ExperimentsSection experiments={experiments} />
     </div>
   );
 }

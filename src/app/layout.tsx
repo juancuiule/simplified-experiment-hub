@@ -1,6 +1,6 @@
 import { fira_code, montserrat } from "@/fonts";
 import "./globals.css";
-import { LayoutProps } from "./types";
+import { LayoutProps } from "../types";
 import { Metadata } from "next";
 import { BASE_URL } from "@/constants";
 

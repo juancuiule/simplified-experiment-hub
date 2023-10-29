@@ -1,16 +1,16 @@
 import Card from "@/components/Card";
+import { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
 import { ChevronLeft, Eye, Save } from "react-feather";
 import { items } from "./node-items";
-import { views } from "@/app/mock-data";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: `Flow`,
 };
 
 export default function Page({ params }: { params: { experimentId: string } }) {
+  // TODO: Fetch flow from backend
   return (
     <div className="flex flex-col flex-1 gap-2">
       {/* Experiment flow navbar */}
@@ -43,17 +43,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             backgroundRepeat: "repeat",
             backgroundSize: "45px 45px",
           }}
-        >
-          {views.map((view) => (
-            <Link
-              className="flex w-fit p-2 bg-gray-300 rounded-md"
-              key={view.slug}
-              href={`/experiments/${params.experimentId}/views/${view.slug}`}
-            >
-              {view.name}
-            </Link>
-          ))}
-        </div>
+        ></div>
 
         {/* Nodes menu */}
         <div className="flex flex-col p-2 gap-2 overflow-y-scroll rounded bg-light">

@@ -1,6 +1,6 @@
-import { Experiment } from "@/app/types";
+import { Experiment } from "@/types";
 import Link from "next/link";
-import { Edit2, PlayCircle, User } from "react-feather";
+import { ExternalLink, Settings, User } from "react-feather";
 
 interface Props {
   experiments: Experiment[];
@@ -34,13 +34,18 @@ export default function ExperimentsSection({ experiments }: Props) {
                     href={`/experiments/${experiment.slug}/dashboard`}
                     className="flex gap-2 p-1 bg-gray-300 rounded-md"
                   >
-                    <Edit2 size={14} className="stroke-black fill-none" />
+                    <Settings size={14} className="stroke-black fill-none" />
                   </Link>
                   <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
                     href={`/experiments/${experiment.slug}`}
                     className="flex gap-2 p-1 bg-gray-300 rounded-md"
                   >
-                    <PlayCircle size={14} className="stroke-black fill-none" />
+                    <ExternalLink
+                      size={14}
+                      className="stroke-black fill-none"
+                    />
                   </Link>
                 </div>
               </div>

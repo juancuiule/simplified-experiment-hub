@@ -1,7 +1,8 @@
-import { experiments } from "@/app/mock-data";
+import { fetchExperiment } from "@/api";
 import { FrameworkNode } from "@/lib/nodes";
 import { Metadata } from "next";
 import Experiment from "./Experiment";
+import { notFound } from "next/navigation";
 
 type Experiment = {
   nodes: FrameworkNode[];
@@ -11,32 +12,46 @@ interface Props {
   params: { experimentId: string };
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const {
-    name: title,
-    description,
-    background,
-  } = experiments.find((e) => e.slug === props.params.experimentId)!;
+export async function generateMetadata({
+  params: { experimentId },
+}: Props): Promise<Metadata> {
+  const experiment = await fetchExperiment(experimentId);
 
-  return {
-    title,
-    description,
-    openGraph: {
+  if (!experiment) {
+    return {
+      title: "Experiment not found",
+    };
+  } else {
+    const { name: title, description, background } = experiment;
+    return {
       title,
       description,
-      images: {
-        url: background,
+      openGraph: {
+        title,
+        description,
+        images: {
+          url: background,
+        },
       },
-    },
-    twitter: {
-      title,
-      description,
-      images: { url: background },
-    },
-  };
+      twitter: {
+        title,
+        description,
+        images: { url: background },
+      },
+    };
+  }
 }
 
-export default function ExperimentPage({ params }: Props) {
+export default async function ExperimentPage({
+  params: { experimentId },
+}: Props) {
+  const experiment = await fetchExperiment(experimentId);
+
+  if (!experiment) {
+    notFound();
+  }
+
+  // TODO: fetch experiment data
   return (
     <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 border border-black flex-1">
       <Experiment />

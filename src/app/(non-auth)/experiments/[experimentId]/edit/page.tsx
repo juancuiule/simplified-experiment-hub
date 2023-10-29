@@ -1,24 +1,26 @@
-import { experiments } from "@/app/mock-data";
+import { fetchExperiment } from "@/api";
+import { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ChevronLeft } from "react-feather";
 import EditExperimentForm from "./EditExperimentForm";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: `Edit`,
 };
 
-export default function EditExperiment({
+export default async function EditExperiment({
   params: { experimentId },
 }: {
   params: { experimentId: string };
 }) {
-  const {
-    name,
-    description,
-    background: cover,
-    slug,
-  } = experiments.find((e) => e.slug === experimentId)!;
+  const experiment = await fetchExperiment(experimentId);
+
+  if (!experiment) {
+    notFound();
+  }
+
+  const { name, description, background: cover, slug } = experiment;
 
   return (
     <div className="w-full flex flex-col gap-6">

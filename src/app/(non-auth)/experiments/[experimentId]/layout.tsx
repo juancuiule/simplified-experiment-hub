@@ -1,8 +1,9 @@
-import { experiments } from "@/app/mock-data";
+import { fetchExperiment } from "@/api";
 import { BASE_URL } from "@/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
@@ -10,23 +11,38 @@ interface Props {
   params: { experimentId: string };
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { name } = experiments.find(
-    (e) => e.slug === props.params.experimentId
-  )!;
+export async function generateMetadata({
+  params: { experimentId },
+}: Props): Promise<Metadata> {
+  const experiment = await fetchExperiment(experimentId);
 
-  return {
-    title: {
-      template: `%s | ${name}`,
-      default: name,
-    },
-  };
+  if (!experiment) {
+    return {
+      title: "Experiment not found",
+    };
+  } else {
+    return {
+      title: {
+        template: `%s | ${experiment.name}`,
+        default: "Dashboard",
+      },
+    };
+  }
 }
 
-export default function Layout(props: Props) {
-  const { name, description, background, slug, team } = experiments.find(
-    (e) => e.slug === props.params.experimentId
-  )!;
+export default async function Layout({
+  params: { experimentId },
+  modal,
+  children,
+}: Props) {
+  const experiment = await fetchExperiment(experimentId);
+
+  if (!experiment) {
+    notFound();
+  }
+
+  const { background, name, team, slug, description } = experiment;
+
   return (
     <>
       <div className="flex w-full flex-col gap-6">
@@ -45,7 +61,7 @@ export default function Layout(props: Props) {
             <span className="text-xs text-gray-400">
               created by{" "}
               <Link
-                href={`${BASE_URL}/teams/${team.slug}`}
+                href={`/teams/${team.slug}`}
                 className="hover:text-blue-400 font-semibold"
               >
                 {team.name}
@@ -56,15 +72,15 @@ export default function Layout(props: Props) {
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`${BASE_URL}/experiments/${slug}`}
+                href={`/experiments/${slug}`}
                 className="text-blue-400 hover:text-blue-500"
               >{`${BASE_URL}/experiments/${slug}`}</Link>
             </span>
             <p className="text-sm">{description}</p>
           </div>
         </div>
-        {props.children}
-        {props.modal}
+        {children}
+        {modal}
       </div>
     </>
   );

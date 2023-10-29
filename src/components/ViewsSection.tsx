@@ -1,4 +1,4 @@
-import { View } from "@/app/types";
+import { View } from "@/types";
 import Link from "next/link";
 import { ChevronLeft } from "react-feather";
 
@@ -30,7 +30,7 @@ export default function ViewsSection({ experimentId, views }: Props) {
                   backgroundImage: `url(${view.preview})`,
                 }}
               ></div>
-              <div className="p-2 bg-gray-200 flex flex-col flex-1 rounded-b-md">
+              <div className="p-2 bg-gray-200 flex flex-col flex-1 rounded-b-md gap-1">
                 <h4 className="text-sm font-medium">{view.name}</h4>
                 <p className="text-xs font-light">{view.description}</p>
               </div>
