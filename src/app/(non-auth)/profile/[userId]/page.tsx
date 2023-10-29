@@ -1,6 +1,6 @@
 import { fetchUser } from "@/api";
-import ExperimentsSection from "@/components/ExperimentsSection";
-import TeamsSection from "@/components/TeamsSection";
+import ExperimentsSection from "@/ui/ExperimentsSection";
+import TeamsSection from "@/ui/TeamsSection";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";

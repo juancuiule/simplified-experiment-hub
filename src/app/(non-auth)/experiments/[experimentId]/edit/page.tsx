@@ -1,5 +1,5 @@
 import { fetchExperiment } from "@/api";
-import EditExperimentForm from "@/components/EditExperimentForm";
+import EditExperimentForm from "@/ui/edit-experiment-form";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";

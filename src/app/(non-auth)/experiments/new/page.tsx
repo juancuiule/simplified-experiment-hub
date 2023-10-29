@@ -1,4 +1,4 @@
-import CreateExperimentForm from "@/components/CreateExperimentForm";
+import CreateExperimentForm from "@/ui/create-experiment-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

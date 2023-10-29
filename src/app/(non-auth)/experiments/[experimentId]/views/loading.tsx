@@ -1,4 +1,4 @@
-import ViewsSectionSkeleton from "@/components/ViewsSectionSkeleton";
+import ViewsSectionSkeleton from "@/ui/ViewsSectionSkeleton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

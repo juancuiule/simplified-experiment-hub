@@ -1,4 +1,4 @@
-import CreateNewViewForm from "@/components/CreateNewViewForm";
+import CreateNewViewForm from "@/ui/create-new-view-form";
 import Link from "next/link";
 import { ChevronLeft } from "react-feather";
 
