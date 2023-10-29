@@ -54,7 +54,7 @@ export default async function ExperimentPage({
 
   // TODO: fetch experiment data
   return (
-    <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 border border-black flex-1">
+    <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 flex-1">
       <Experiment />
     </div>
   );
