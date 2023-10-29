@@ -1,5 +1,5 @@
 import { fetchExperimentViews } from "@/api";
-import ViewsSection from "@/ui/ViewsSection";
+import ViewsSection from "@/ui/sections/ViewsSection";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
