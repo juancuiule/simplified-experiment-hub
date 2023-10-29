@@ -21,10 +21,7 @@ export default function SignupForm() {
       }}
       validationSchema={signupSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+        // TODO: Handle signup
       }}
     >
       {({
