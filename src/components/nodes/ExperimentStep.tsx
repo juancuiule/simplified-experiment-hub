@@ -29,7 +29,7 @@ export default function ExpeirmentStepNode() {
           </select>
           <Link
             className="hover:text-blue-400"
-            href={`/experiments/dilema-de-la-pandemia/views/${view}`}
+            href={`/experiments/dilemas-de-la-pandemia/views/${view}`}
           >
             <Edit3 size={14} />
           </Link>
