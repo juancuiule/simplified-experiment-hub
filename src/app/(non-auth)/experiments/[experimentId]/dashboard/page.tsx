@@ -2,12 +2,10 @@ import { experiments } from "@/app/mock-data";
 import { Metadata } from "next";
 import Link from "next/link";
 import {
-  Activity,
   Edit3,
   GitBranch,
   Monitor,
-  Settings,
-  Users,
+  Users
 } from "react-feather";
 
 interface Props {
@@ -27,15 +25,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default function ExperimentDashboard({ params }: Props) {
   return (
     <ul>
-      <li>
-        <Link
-          href={`/experiments/${params.experimentId}/analytics`}
-          prefetch
-          className="flex gap-2 items-center"
-        >
-          <Activity size={18} /> <span>Analytics</span>
-        </Link>
-      </li>
       <li>
         <Link
           href={`/experiments/${params.experimentId}/edit`}
@@ -70,15 +59,6 @@ export default function ExperimentDashboard({ params }: Props) {
           className="flex gap-2 items-center"
         >
           <Users size={18} /> <span>Participants and data</span>
-        </Link>
-      </li>
-      <li>
-        <Link
-          href={`/experiments/${params.experimentId}/settings`}
-          prefetch
-          className="flex gap-2 items-center"
-        >
-          <Settings size={18} /> <span>Settings</span>
         </Link>
       </li>
     </ul>
