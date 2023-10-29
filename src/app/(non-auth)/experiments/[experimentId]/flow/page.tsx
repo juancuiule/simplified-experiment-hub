@@ -66,16 +66,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
       {/* Experiment flow design */}
       <div className="flex gap-2 max-h-[calc(80vh-64px-24px*2-44px-10px)]">
         {/* Preview */}
-        <div
-          className="flex-1 bg-light rounded flex flex-col gap-2 p-2"
-          style={
-            {
-              // backgroundImage: "url(/dot-tile.png)",
-              // backgroundRepeat: "repeat",
-              // backgroundSize: "45px 45px",
-            }
-          }
-        >
+        <div className="flex-1 bg-light rounded flex flex-col gap-2 p-2">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -84,7 +75,6 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             onConnect={onConnect}
           >
             <Controls />
-            {/* <MiniMap /> */}
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>
@@ -106,9 +96,9 @@ export default function Page({ params }: { params: { experimentId: string } }) {
                     });
                   }}
                   className="text-left"
+                  key={item.title}
                 >
                   <Card
-                    key={item.title}
                     title={item.title}
                     icon={<item.icon size={16} />}
                     description={item.description}

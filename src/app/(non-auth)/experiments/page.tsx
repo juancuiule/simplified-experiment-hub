@@ -1,3 +1,6 @@
+import { experiments } from "@/mock-data";
+import ExperimentsSection from "@/ui/sections/ExperimentsSection";
+
 export default function Page() {
-  return <h1>Experiments list</h1>;
+  return <ExperimentsSection experiments={experiments} />;
 }
