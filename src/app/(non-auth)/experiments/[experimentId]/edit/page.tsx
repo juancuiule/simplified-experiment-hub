@@ -2,6 +2,11 @@ import { experiments } from "@/app/mock-data";
 import Link from "next/link";
 import { ChevronLeft } from "react-feather";
 import EditExperimentForm from "./EditExperimentForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Edit`,
+};
 
 export default function EditExperiment({
   params: { experimentId },

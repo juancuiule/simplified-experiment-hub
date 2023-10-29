@@ -4,6 +4,11 @@ import { Fragment } from "react";
 import { ChevronLeft, Eye, Save } from "react-feather";
 import { items } from "./node-items";
 import { views } from "@/app/mock-data";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Flow`,
+};
 
 export default function Page({ params }: { params: { experimentId: string } }) {
   return (

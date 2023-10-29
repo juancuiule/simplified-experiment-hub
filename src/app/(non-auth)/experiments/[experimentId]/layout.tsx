@@ -1,13 +1,29 @@
 import { experiments } from "@/app/mock-data";
 import { BASE_URL } from "@/constants";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Layout(props: {
+interface Props {
   children: React.ReactNode;
   modal: React.ReactNode;
   params: { experimentId: string };
-}) {
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { name } = experiments.find(
+    (e) => e.slug === props.params.experimentId
+  )!;
+
+  return {
+    title: {
+      template: `%s | ${name}`,
+      default: name,
+    },
+  };
+}
+
+export default function Layout(props: Props) {
   const { name, description, background, slug, team } = experiments.find(
     (e) => e.slug === props.params.experimentId
   )!;

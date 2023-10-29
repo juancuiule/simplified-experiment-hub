@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -8,6 +9,10 @@ import {
   Table,
   User,
 } from "react-feather";
+
+export const metadata: Metadata = {
+  title: `Data`,
+};
 
 export default function Page({ params }: { params: { experimentId: string } }) {
   return (

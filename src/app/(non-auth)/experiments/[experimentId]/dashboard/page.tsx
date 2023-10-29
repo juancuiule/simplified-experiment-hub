@@ -1,26 +1,14 @@
-import { experiments } from "@/app/mock-data";
 import { Metadata } from "next";
 import Link from "next/link";
-import {
-  Edit3,
-  GitBranch,
-  Monitor,
-  Users
-} from "react-feather";
+import { Edit3, GitBranch, Monitor, Users } from "react-feather";
 
 interface Props {
   params: { experimentId: string };
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { name } = experiments.find(
-    (e) => e.slug === props.params.experimentId
-  )!;
-
-  return {
-    title: `Dashboard | ${name}`,
-  };
-}
+export const metadata: Metadata = {
+  title: `Dashboard`,
+};
 
 export default function ExperimentDashboard({ params }: Props) {
   return (
