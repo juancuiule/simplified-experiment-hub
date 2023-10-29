@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import Image from "next/image";
 import {
   BarChart,
   Clock,
@@ -17,7 +18,7 @@ import {
   Smartphone,
 } from "react-feather";
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <Nav showActions={false} />
@@ -66,10 +67,12 @@ export default function Page() {
 
           <div className="grid grid-cols-12 gap-x-6 gap-y-3">
             <div className="flex col-span-12 md:col-span-8 lg:col-span-6 justify-center items-center">
-              <img
+              <Image
                 src="https://cdn.experiment-hub.com/previews/design-flow.png"
-                alt=""
+                alt="Screenshot of the flow design view"
                 className="w-full h-auto scale-105"
+                width={1000}
+                height={666}
               />
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:col-span-4 lg:col-span-6 justify-center items-start">
@@ -121,10 +124,12 @@ export default function Page() {
 
           <div className="grid grid-cols-12 gap-x-6 gap-y-3">
             <div className="flex col-span-12 md:col-span-8 lg:col-span-6 justify-center items-center">
-              <img
+              <Image
                 src="https://cdn.experiment-hub.com/previews/design-view.png"
                 alt=""
                 className="w-full h-auto scale-105"
+                width={1000}
+                height={666}
               />
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:row-start-1 md:col-span-4 lg:col-span-6 justify-center items-start">
@@ -198,10 +203,12 @@ export default function Page() {
 
           <div className="grid grid-cols-12 gap-6">
             <div className="flex col-span-12 md:col-span-8 lg:col-span-6 justify-center items-center">
-              <img
+              <Image
                 src="https://cdn.experiment-hub.com/previews/collect-mobile.png"
                 alt=""
                 className="w-8/12 h-auto"
+                width={1000}
+                height={666}
               />
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:col-span-4 lg:col-span-6 justify-center items-start">
@@ -256,10 +263,12 @@ export default function Page() {
 
           <div className="grid grid-cols-12 gap-6">
             <div className="flex col-span-12 md:col-span-8 lg:col-span-6 justify-center items-center">
-              <img
+              <Image
                 src="https://cdn.experiment-hub.com/previews/analyze.png"
                 alt=""
                 className="w-full h-auto scale-105"
+                width={1000}
+                height={666}
               />
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:col-span-4 lg:col-span-6 justify-center items-start">
@@ -302,28 +311,40 @@ export default function Page() {
           <p className="text-2xl font-semibold">Partners</p>
           <div className="grid grid-cols-12 gap-6 justify-center items-center">
             <div className="col-span-6 md:col-span-3 flex justify-center items-center">
-              <img
+              <Image
+                width={200}
+                height={100}
+                loading="lazy"
                 className="h-full w-auto max-h-12"
                 src="https://cdn.experiment-hub.com/partners/tedxperiments.png"
                 alt="TEDxperiments logo"
               />
             </div>
             <div className="col-span-6 md:col-span-3 flex justify-center items-center">
-              <img
+              <Image
+                width={200}
+                height={100}
+                loading="lazy"
                 className="h-full w-auto max-h-12"
                 src="https://cdn.experiment-hub.com/partners/elgatoylacaja.png"
                 alt="El Gato y la Caja logo"
               />
             </div>
             <div className="col-span-6 md:col-span-3 flex justify-center items-center">
-              <img
+              <Image
+                width={200}
+                height={100}
+                loading="lazy"
                 className="h-full w-auto max-h-12"
                 src="https://cdn.experiment-hub.com/partners/cocuco.png"
                 alt="Computational Cognitive Neuroscience Lab logo"
               />
             </div>
             <div className="col-span-6 md:col-span-3 flex justify-center items-center">
-              <img
+              <Image
+                width={200}
+                height={100}
+                loading="lazy"
                 className="h-full w-auto max-h-12"
                 src="https://cdn.experiment-hub.com/partners/incyt.png"
                 alt="INCYT logo"
