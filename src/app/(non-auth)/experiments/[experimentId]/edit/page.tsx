@@ -1,9 +1,9 @@
 import { fetchExperiment } from "@/api";
+import EditExperimentForm from "@/components/EditExperimentForm";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "react-feather";
-import EditExperimentForm from "./EditExperimentForm";
 
 export const metadata: Metadata = {
   title: `Edit`,

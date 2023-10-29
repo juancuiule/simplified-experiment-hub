@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { AtSign, GitHub } from "react-feather";
-import LoginForm from "./LoginForm";
+
+import LoginForm from "@/components/LoginForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,7 +1,8 @@
 import { fetchExperiment } from "@/api";
+import Experiment from "@/components/Experiment";
 import { FrameworkNode } from "@/lib/nodes";
 import { Metadata } from "next";
-import Experiment from "./Experiment";
+
 import { notFound } from "next/navigation";
 
 type Experiment = {

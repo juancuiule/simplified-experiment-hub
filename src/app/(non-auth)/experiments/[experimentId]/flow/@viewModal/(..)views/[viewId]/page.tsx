@@ -1,13 +1,13 @@
 "use client";
 import Card from "@/components/Card";
 import RenderState from "@/components/framework/render/RenderState";
+import { items } from "@/components/widget-items";
 import { defaultByType } from "@/lib/default";
 import { FrameworkWidget } from "@/lib/widgets";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 import { X } from "react-feather";
-import { items } from "../../../../views/[viewId]/widget-items";
 
 interface Props {
   params: { experimentId: string; viewId: string };

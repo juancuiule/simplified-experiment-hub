@@ -8,7 +8,7 @@ import { FrameworkWidget } from "@/lib/widgets";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
 import { ChevronLeft, Eye, Save } from "react-feather";
-import { items } from "./widget-items";
+import { items } from "@/components/widget-items";
 
 const fullItems = Object.values(items).reduce((acc, val) => [...acc, ...val]);
 

@@ -1,6 +1,6 @@
+import CreateNewViewForm from "@/components/CreateNewViewForm";
 import Link from "next/link";
 import { ChevronLeft } from "react-feather";
-import CreateNewViewForm from "./CreateNewViewForm";
 
 export default function Page({
   params: { experimentId },
