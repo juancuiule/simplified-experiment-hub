@@ -19,12 +19,10 @@ export default function NewViewModal(props: Props) {
   } = props;
 
   const router = useRouter();
-  const [open, setOpen] = useState(true);
-
   const [widgets, setWidgets] = useState<FrameworkWidget[]>([]);
 
   return (
-    <Dialog.Root open={open}>
+    <Dialog.Root open>
       <Dialog.Portal>
         <Dialog.Overlay
           onClick={() => {
@@ -43,7 +41,7 @@ export default function NewViewModal(props: Props) {
               <X className="group-hover:stroke-info transition-colors" />
             </button>
           </Dialog.Close>
-          <div className="flex pointer-events-none flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <button>Algo</button>
             <Dialog.Title className="m-0 text-2xl font-semibold">
               View Design
