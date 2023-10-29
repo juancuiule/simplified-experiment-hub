@@ -27,13 +27,10 @@ export default function Page() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between gap-4">
-            <button className={`auth-button`}>
+            {/* TODO: implement login with google  */}
+            <button disabled className="auth-button">
               <AtSign size={18} />
               Log in with Google
-            </button>
-            <button disabled className={`auth-button`}>
-              <GitHub size={18} />
-              Log in with Github
             </button>
           </div>
           <div className="flex gap-6 justify-center items-center">

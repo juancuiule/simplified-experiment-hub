@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { AtSign, GitHub } from "react-feather";
+import { AtSign } from "react-feather";
 
-import { Metadata } from "next";
 import SignupForm from "@/components/SignupForm";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Signup | Experiment Hub",
@@ -32,13 +32,10 @@ export default function Page() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between gap-4">
-            <button className="auth-button">
+            {/* TODO: implement login with google  */}
+            <button disabled className="auth-button">
               <AtSign size={18} />
               Log in with Google
-            </button>
-            <button disabled className="auth-button">
-              <GitHub size={18} />
-              Log in with Github
             </button>
           </div>
           <div className="flex gap-6 justify-center items-center">
@@ -51,12 +48,6 @@ export default function Page() {
           <SignupForm />
         </div>
       </div>
-      {/* <div className="col-span-12 lg:col-span-7 xl:col-span-8 bg-info h-full rounded-3xl flex flex-col p-6">
-        <h3 className="text-2xl font-semibold text-white w-3/4 mx-auto">
-          The simplest way to create and manage complex surveys and run online
-          experiments
-        </h3>
-      </div> */}
     </div>
   );
 }
