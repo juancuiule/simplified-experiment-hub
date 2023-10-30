@@ -1,6 +1,7 @@
 "use client";
 import { Formik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 
 const loginSchema = Yup.object().shape({
@@ -9,6 +10,7 @@ const loginSchema = Yup.object().shape({
 });
 
 export default function LoginForm() {
+  const { push } = useRouter();
   return (
     <Formik
       initialValues={{
@@ -16,8 +18,31 @@ export default function LoginForm() {
         password: "",
       }}
       validationSchema={loginSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, setErrors }) => {
         // TODO: Handle login
+        setSubmitting(true);
+        fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        })
+          .then(async (res) => {
+            const data = await res.json();
+            if (res.ok) {
+              alert("Logged in!");
+              push("/profile");
+            } else {
+              setErrors({
+                email: "Invalid email or password",
+                password: "Invalid email or password",
+              });
+            }
+          })
+          .finally(() => {
+            setSubmitting(false);
+          });
       }}
     >
       {({

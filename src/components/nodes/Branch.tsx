@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { updateNode } from "@/ui/flow/store";
 import { Edit3, GitBranch, Plus, X } from "react-feather";
-import { Handle, Position } from "reactflow";
+import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
 
-export default function BranchNode() {
-  const [branches, setBranch] = useState<string[]>([]);
-  const [branch, setBranchName] = useState<string>("");
+type BranchNodeData = {
+  label: "Branch";
+  branches?: string[];
+};
+
+export default function BranchNode(props: NodeProps<BranchNodeData>) {
+  const {
+    data: { branches = [] },
+    id,
+  } = props;
+  const { setNodes } = useReactFlow();
+
   return (
     <>
       <Handle type="target" position={Position.Top} id="a" />
@@ -12,23 +21,34 @@ export default function BranchNode() {
         <div className="flex gap-2 items-center w-full">
           <GitBranch size={16} /> <span>Branch</span>
         </div>
-        <div className="flex gap-2 items-center">
+        <form
+          className="flex gap-2 items-center"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formEl = e.target as HTMLFormElement;
+            const formData = new FormData(formEl);
+            const branchName = formData.get("branch")?.toString()!;
+            updateNode<BranchNodeData>(id, setNodes, (node) => ({
+              ...node,
+              data: {
+                ...node.data,
+                branches: [...(node.data.branches || []), branchName],
+              },
+            }));
+            formEl.reset();
+          }}
+        >
           <input
             className="border w-full rounded-md h-8 px-2 outline-info flex text-xs"
             type="text"
             name="branch"
             id="branch"
             placeholder="Branch name"
-            value={branch}
-            onChange={(e) => setBranchName(e.target.value)}
           />
-          <button
-            className="hover:text-success"
-            onClick={() => setBranch((b) => [...b, branch])}
-          >
+          <button className="hover:text-success" type="submit">
             <Plus size={16} />
           </button>
-        </div>
+        </form>
 
         <ul>
           {branches.map((branch, index) => (
@@ -41,7 +61,15 @@ export default function BranchNode() {
                 <button
                   className="hover:text-error"
                   onClick={() => {
-                    setBranch((b) => b.filter((_, i) => i !== index));
+                    updateNode<BranchNodeData>(id, setNodes, (node) => ({
+                      ...node,
+                      data: {
+                        ...node.data,
+                        branches: (node.data.branches || []).filter(
+                          (_: any, i: number) => i !== index
+                        ),
+                      },
+                    }));
                   }}
                 >
                   <X size={12} />
@@ -57,7 +85,9 @@ export default function BranchNode() {
           type="source"
           position={Position.Bottom}
           id={branch}
-          style={{ left: `${((index + 1) * 100) / (branches.length + 1)}%` }}
+          style={{
+            left: `${((index + 1) * 100) / (branches.length + 1)}%`,
+          }}
         />
       ))}
     </>

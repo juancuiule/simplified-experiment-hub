@@ -1,24 +1,42 @@
 import { views } from "@/mock-data";
+import { updateNode } from "@/ui/flow/store";
 import Link from "next/link";
-import { useState } from "react";
-import { Edit3, Play } from "react-feather";
-import { Handle, Position } from "reactflow";
+import { Edit3, Monitor } from "react-feather";
+import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
 
-export default function ExpeirmentStepNode() {
-  const [view, setView] = useState(views[0].slug);
+type ExperimentStepNodeData = {
+  label: "ExperimentStep";
+  view?: string;
+};
+
+export default function ExpeirmentStepNode(
+  props: NodeProps<ExperimentStepNodeData>
+) {
+  const {
+    data: { view = "" },
+    id,
+  } = props;
+  const { setNodes } = useReactFlow();
+
   return (
     <>
       <Handle type="target" position={Position.Top} id="a" />
       <div className="flex flex-col gap-2 p-2 w-44 bg-white border border-black rounded-sm text-sm">
         <div className="flex gap-2 items-center w-full">
-          <Play size={16} /> <span>ExperimentStep</span>
+          <Monitor size={16} /> <span>ExperimentStep</span>
         </div>
         <div className="flex gap-2 items-center">
           <select
             className="border rounded-md h-8 px-2 outline-info flex text-xs"
-            value={view}
             onChange={(e) => {
-              setView(e.target.value);
+              const view = e.target.value;
+              updateNode<ExperimentStepNodeData>(id, setNodes, (node) => ({
+                ...node,
+                data: {
+                  ...node.data,
+                  view,
+                },
+              }));
             }}
           >
             {views.map((view) => (

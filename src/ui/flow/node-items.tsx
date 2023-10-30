@@ -7,7 +7,7 @@ import {
   Monitor,
   Play,
   Shuffle,
-  SkipForward
+  SkipForward,
 } from "react-feather";
 
 type Item = {
@@ -48,12 +48,6 @@ export const items: Record<string, Item[]> = {
       description:
         "Es un step ad-hoc del experimento (no viene de un cuestionario). Es una lista de widgets que se muestran en esa pantalla",
     },
-    // {
-    //   icon: Monitor,
-    //   title: "Task",
-    //   description:
-    //     "Es un step donde el usuario tiene que realizar una tarea. Puede tener un tiempo límite y un botón para terminar la tarea. Puede tener un botón para empezar la tarea o empezarla automáticamente cuando se llega a ese nodo",
-    // },
   ],
   control: [
     {

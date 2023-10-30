@@ -9,5 +9,16 @@ export async function POST(request: Request) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => res.json());
+  })
+    .then(async (res) => {
+      return { res, data: await res.json() };
+    })
+    .then(({ res, data }) => {
+      return new Response(JSON.stringify(data), { status: res.status });
+    })
+    .catch((err) => {
+      return new Response(JSON.stringify(err), {
+        status: 500,
+      });
+    });
 }
