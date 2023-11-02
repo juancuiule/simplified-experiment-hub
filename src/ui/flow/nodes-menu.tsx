@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/components/Card";
 import { items } from "./node-items";
-import { useFlowContext } from "./store";
+import { FlowNodeTypes, useFlowContext, defaultForType } from "./store";
 
 export default function NodesMenu() {
   const addNode = useFlowContext((state) => state.addNode);
@@ -17,13 +17,16 @@ export default function NodesMenu() {
             {value.map((item) => (
               <button
                 onClick={() => {
+                  const type = item.title
+                    .toLowerCase()
+                    .replaceAll(" ", "-") as unknown as FlowNodeTypes["type"];
                   addNode({
                     id: Math.random().toString(),
                     position: { x: 0, y: 0 },
                     data: {
-                      label: item.title,
+                      ...defaultForType(type),
                     },
-                    type: item.title.toLowerCase().replaceAll(" ", "-"),
+                    type,
                   });
                 }}
                 className="text-left col-span-6 md:col-span-12 flex-1"

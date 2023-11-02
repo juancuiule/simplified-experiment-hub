@@ -13,13 +13,45 @@ import {
 } from "reactflow";
 import { createStore, useStore } from "zustand";
 
+export type StartNode = { type: "start" };
+export type FinishNode = { type: "finish" };
+export type CheckpointNode = { type: "checkpoint"; checkpointId: string };
+export type NoOp = { type: "noop" };
+export type ExperimentStep = { type: "experiment-step"; viewId: string };
+export type BranchNode = { type: "branch"; branches: string[] };
+export type Redirect = { type: "redirect" };
+
+export type FlowNodeTypes =
+  | StartNode
+  | FinishNode
+  | CheckpointNode
+  | NoOp
+  | ExperimentStep
+  | BranchNode
+  | Redirect;
+
+export const defaultForType = (type: FlowNodeTypes["type"]): FlowNodeTypes => {
+  if (type === "branch") {
+    return { branches: [], type: "branch" };
+  }
+  if (type === "experiment-step") {
+    return { viewId: "", type: "experiment-step" };
+  }
+  if (type === "checkpoint") {
+    return { checkpointId: "", type: "checkpoint" };
+  }
+  return { type };
+};
+
+export type FlowNode = Node<FlowNodeTypes, FlowNodeTypes["type"]>;
+
 export interface FlowProps {
-  nodes: Node[];
+  nodes: FlowNode[];
   edges: Edge[];
 }
 
 export interface FlowState extends FlowProps {
-  addNode: (node: Node) => void;
+  addNode: (node: FlowNode) => void;
   addEdge: (edge: Edge) => void;
   onNodesChange: (changes: NodeChange[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
@@ -36,7 +68,7 @@ export const createFlowStore = (initProps?: Partial<FlowProps>) => {
   return createStore<FlowState>()((set, get) => ({
     ...DEFAULT_PROPS,
     ...initProps,
-    addNode: (node: Node) => {
+    addNode: (node: FlowNode) => {
       set({
         nodes: [...get().nodes, node],
       });
@@ -48,7 +80,7 @@ export const createFlowStore = (initProps?: Partial<FlowProps>) => {
     },
     onNodesChange: (changes: NodeChange[]) => {
       set({
-        nodes: applyNodeChanges(changes, get().nodes),
+        nodes: applyNodeChanges(changes, get().nodes) as FlowNode[],
       });
     },
     onEdgesChange: (changes: EdgeChange[]) => {
@@ -80,7 +112,7 @@ export function FlowProvider({ children, ...props }: FlowProviderProps) {
   );
 }
 
-export function updateNode<T>(
+export function updateNode<T extends FlowNodeTypes>(
   id: string,
   setNodes: Instance.SetNodes<any>,
   update: Node<T> | ((node: Node<T>) => Node<T>)

@@ -1,15 +1,10 @@
-import { updateNode } from "@/ui/flow/store";
+import { CheckpointNode, updateNode } from "@/ui/flow/store";
 import { Database } from "react-feather";
 import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
 
-type CheckpointNodeData = {
-  label: "Checkpoint";
-  checkpointName: string;
-};
-
-export default function CheckpointNode(props: NodeProps<CheckpointNodeData>) {
+export default function CheckpointNode(props: NodeProps<CheckpointNode>) {
   const {
-    data: { checkpointName = "" },
+    data: { checkpointId = "" },
     id,
   } = props;
   const { setNodes } = useReactFlow();
@@ -27,14 +22,14 @@ export default function CheckpointNode(props: NodeProps<CheckpointNodeData>) {
           name="checkpoint"
           id="checkpoint"
           placeholder="Checkpoint name"
-          value={checkpointName}
+          value={checkpointId}
           onChange={(e) => {
-            const checkpointName = e.target.value;
-            updateNode<CheckpointNodeData>(id, setNodes, (node) => ({
+            const checkpointId = e.target.value;
+            updateNode<CheckpointNode>(id, setNodes, (node) => ({
               ...node,
               data: {
                 ...node.data,
-                checkpointName,
+                checkpointId,
               },
             }));
           }}

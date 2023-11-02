@@ -1,13 +1,8 @@
-import { updateNode } from "@/ui/flow/store";
+import { BranchNode, updateNode } from "@/ui/flow/store";
 import { Edit3, GitBranch, Plus, X } from "react-feather";
 import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
 
-type BranchNodeData = {
-  label: "Branch";
-  branches?: string[];
-};
-
-export default function BranchNode(props: NodeProps<BranchNodeData>) {
+export default function BranchNode(props: NodeProps<BranchNode>) {
   const {
     data: { branches = [] },
     id,
@@ -28,7 +23,7 @@ export default function BranchNode(props: NodeProps<BranchNodeData>) {
             const formEl = e.target as HTMLFormElement;
             const formData = new FormData(formEl);
             const branchName = formData.get("branch")?.toString()!;
-            updateNode<BranchNodeData>(id, setNodes, (node) => ({
+            updateNode<BranchNode>(id, setNodes, (node) => ({
               ...node,
               data: {
                 ...node.data,
@@ -61,7 +56,7 @@ export default function BranchNode(props: NodeProps<BranchNodeData>) {
                 <button
                   className="hover:text-error"
                   onClick={() => {
-                    updateNode<BranchNodeData>(id, setNodes, (node) => ({
+                    updateNode<BranchNode>(id, setNodes, (node) => ({
                       ...node,
                       data: {
                         ...node.data,
@@ -81,6 +76,7 @@ export default function BranchNode(props: NodeProps<BranchNodeData>) {
       </div>
       {branches.map((branch, index) => (
         <Handle
+          isConnectable
           key={index}
           type="source"
           position={Position.Bottom}

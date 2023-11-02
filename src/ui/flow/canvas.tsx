@@ -12,6 +12,7 @@ import ReactFlow, {
   MiniMap,
 } from "reactflow";
 import { FlowState, useFlowContext } from "./store";
+import NoOpNode from "@/components/nodes/NoOp";
 
 const nodeTypes = {
   start: StartNode,
@@ -19,6 +20,7 @@ const nodeTypes = {
   checkpoint: CheckpointNode,
   "experiment-step": ExpeirmentStepNode,
   branch: BranchNode,
+  noop: NoOpNode,
 };
 const selector = (state: FlowState) => ({
   nodes: state.nodes,
