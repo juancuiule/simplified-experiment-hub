@@ -11,6 +11,7 @@ import Slider from "@/components/framework/widgets/response/SliderWidget";
 import { FrameworkWidget } from "@/lib/widgets";
 import Audio from "../widgets/content/Audio";
 import Rating from "../widgets/response/RatingWidget";
+import Dropdown from "../widgets/response/DropdownWidget";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
@@ -51,8 +52,11 @@ export default function RenderWidget(props: { widget: FrameworkWidget }) {
     case "audio": {
       return <Audio widget={widget} />;
     }
+    case 'dropdown': {
+      return <Dropdown widget={widget} />;
+    }
     default: {
-      return <span>{widget.template}</span>;
+      return <span>Algo</span>;
     }
   }
 }

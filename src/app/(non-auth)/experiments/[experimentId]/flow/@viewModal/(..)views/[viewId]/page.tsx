@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/components/Card";
 import RenderState from "@/components/framework/render/RenderState";
-import { items } from "@/components/widget-items";
+import { items } from "@/ui/views/widget-items";
 import { defaultByType } from "@/lib/default";
 import { FrameworkWidget } from "@/lib/widgets";
 import * as Dialog from "@radix-ui/react-dialog";

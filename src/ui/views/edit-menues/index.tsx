@@ -35,7 +35,7 @@ export default function WidgetMenu(props: MenuProps) {
     });
 
   return (
-    <div className="flex flex-col w-60 gap-2 px-4 py-3 pb-4 bg-gray-300 rounded-md transition-colors">
+    <div className="flex flex-col w-full gap-2 px-4 py-3 pb-4 bg-gray-300 rounded-md transition-colors">
       <div className="flex flex-row items-center justify-between">
         <div className="flex flex-row items-center gap-1.5">
           {icon}{" "}
