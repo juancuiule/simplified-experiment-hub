@@ -26,6 +26,8 @@ const SelectItem = forwardRef(
   }
 );
 
+SelectItem.displayName = "SelectItem";
+
 export default function Dropdown(props: { widget: DropdownWidget }) {
   const {
     widget: {
