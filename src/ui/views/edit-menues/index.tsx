@@ -3,6 +3,10 @@ import { ArrowDown, ArrowUp, X } from "react-feather";
 import SliderWidgetMenu from "./SliderWidgetMenu";
 import React from "react";
 import RichTextWidgetMenu from "./RichTextMenu";
+import { ButtonWidget } from "@/lib/widgets/layout";
+import { Formik } from "formik";
+import CheckboxMenu from "./CheckboxWidgetMenu";
+import RadioWidgetMenu from "./RadioWidgetMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -18,11 +22,53 @@ const titles: Partial<Record<FrameworkWidget["template"], string>> = {
   slider: "Slider",
   image: "Image",
   rich_text: "Rich Text",
+  audio: "Audio",
+  video: "Video",
+  button: "Button",
+  radio: "Radio",
 };
 
+function ButtonWidgetMenu(props: { update: (widget: ButtonWidget) => void }) {
+  return (
+    <Formik
+      initialValues={{
+        label: "",
+      }}
+      onSubmit={(values) => {
+        props.update({
+          template: "button",
+          widgetFamily: "layout",
+          props: {
+            text: values.label,
+            behaivor: "next_node",
+          },
+        });
+      }}
+    >
+      {({ handleSubmit, handleChange }) => {
+        return (
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-1">
+              <label>Label</label>
+              <textarea
+                onChange={handleChange}
+                name="label"
+                className="border border-black rounded-md"
+              />
+            </div>
+            <button type="submit">submit</button>
+          </form>
+        );
+      }}
+    </Formik>
+  );
+}
 const menues = {
   slider: SliderWidgetMenu,
   rich_text: RichTextWidgetMenu,
+  button: ButtonWidgetMenu,
+  checkbox: CheckboxMenu,
+  radio: RadioWidgetMenu,
 };
 
 export default function WidgetMenu(props: MenuProps) {
@@ -69,7 +115,7 @@ export default function WidgetMenu(props: MenuProps) {
           <Menu update={props.updateWidget} />
         ) : null}
       </div>
-      <div>{widget.id}</div>
+      {/* <div>{widget.id}</div> */}
     </div>
   );
 }

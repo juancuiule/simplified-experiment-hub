@@ -29,7 +29,9 @@ export default function WdigetMenu() {
               remove={() => removeWidget(widget.id!)}
               moveDown={() => moveWidgetDown(widget.id!)}
               moveUp={() => moveWidgetUp(widget.id!)}
-              updateWidget={(newWidget) => updateWidget(newWidget)}
+              updateWidget={(newWidget) =>
+                updateWidget({ ...newWidget, id: widget.id })
+              }
             />
           </div>
         );
