@@ -14,41 +14,206 @@ const experiment: Experiment = {
     {
       nodeType: "experiment-step",
       nodeFamily: "study",
-      id: "home",
+      id: "regresores",
       props: {
         widgets: [
           {
             template: "rich_text",
             widgetFamily: "content",
-            props: { content: "# Algo algo nombre" },
-          },
-          {
-            template: "rich_text",
-            widgetFamily: "content",
-            props: { content: "algo algo bajada" },
-          },
-          {
-            template: "button",
-            widgetFamily: "layout",
-            props: { text: "Siguiente", behaivor: "next_node" },
-          },
-          {
-            template: "rating",
-            widgetFamily: "response",
             props: {
-              label: "Culpable",
-              max: 7,
-              optionsLabel: [
-                { value: "1", label: "Nada" },
-                { value: "4", label: "Moderado" },
-                { value: "7", label: "Mucho" },
-              ],
-              dataKey: "culpable",
+              content: "# Para empezar",
             },
           },
         ],
       },
     },
+    {
+      nodeType: "experiment-step",
+      nodeFamily: "study",
+      id: "regresores",
+      props: {
+        widgets: [
+          {
+            template: "rich_text",
+            widgetFamily: "content",
+            props: {
+              content: "# Para empezar",
+            },
+          },
+          {
+            template: "slider",
+            widgetFamily: "response",
+            props: {
+              label: "¿Cuánto te preoucupa el cambio climático?",
+              dataKey: "slider",
+              minLabel: "Nada",
+              maxLabel: "Mucho",
+            },
+          },
+          {
+            template: "radio",
+            widgetFamily: "response",
+            props: {
+              label: "¿Cada cuánto comes carne?",
+              options: [
+                { label: "Nunca", value: "Nunca" },
+                {
+                  label: "Menos de una vez a la semana",
+                  value: "Menos de una vez a la semana",
+                },
+                {
+                  label: "1 ó 2 veces por semana",
+                  value: "1 ó 2 veces por semana",
+                },
+                {
+                  label: "3 a 5 veces por semana",
+                  value: "3 a 5 veces por semana",
+                },
+                {
+                  label: "Todos o casi todos los días",
+                  value: "Todos o casi todos los días",
+                },
+                {
+                  label: "Todos los días en más de una cómida",
+                  value: "Todos los días en más de una cómida",
+                },
+              ],
+              dataKey: "consumo-carne",
+            },
+          },
+          {
+            template: "button",
+            widgetFamily: "layout",
+            props: {
+              text: "Siguiente",
+              behaivor: "next_node",
+            },
+          },
+        ],
+      },
+    },
+    //       // {
+    //       //   template: "numeric_input",
+    //       //   widgetFamily: "response",
+    //       //   props: {
+    //       //     label: "Edad",
+    //       //     dataKey: "edad",
+    //       //     required: true,
+    //       //     placeholder: "30",
+    //       //     min: 0,
+    //       //     max: 120,
+    //       //   },
+    //       // },
+    //       // {
+    //       //   template: "dropdown",
+    //       //   widgetFamily: "response",
+    //       //   props: {
+    //       //     label: "Género",
+    //       //     options: [
+    //       //       { label: "Mujer", value: "mujer" },
+    //       //       { label: "Varón", value: "varon" },
+    //       //       { label: "No binario", value: "no-bin" },
+    //       //       { label: "Género Fluido", value: "gen-fluido" },
+    //       //       {
+    //       //         label: "Ninguna de estas opciones me identifica",
+    //       //         value: "no-identifica",
+    //       //       },
+    //       //       { label: "Prefiero no decirlo", value: "no-decirlo" },
+    //       //     ],
+    //       //     dataKey: "genero",
+    //       //     required: true,
+    //       //   },
+    //       // },
+    //       // {
+    //       //   template: "dropdown",
+    //       //   widgetFamily: "response",
+    //       //   props: {
+    //       //     label: "¿Dónde vivís?",
+    //       //     options: [
+    //       //       { label: "Buenos Aires", value: "buenos_aires" },
+    //       //       { label: "CABA", value: "caba" },
+    //       //       { label: "Catamarca", value: "catamarca" },
+    //       //       { label: "Chaco", value: "chaco" },
+    //       //       { label: "Chubut", value: "chubut" },
+    //       //       { label: "Córdoba", value: "cordoba" },
+    //       //       { label: "Corrientes", value: "corrientes" },
+    //       //       { label: "Entre Ríos", value: "entre_rios" },
+    //       //       { label: "Formosa", value: "formosa" },
+    //       //       { label: "Jujuy", value: "jujuy" },
+    //       //       { label: "La Pampa", value: "la_pampa" },
+    //       //       { label: "La Rioja", value: "la_rioja" },
+    //       //       { label: "Mendoza", value: "mendoza" },
+    //       //       { label: "Misiones", value: "misiones" },
+    //       //       { label: "Neuquén", value: "neuquen" },
+    //       //       { label: "Río Negro", value: "rio_negro" },
+    //       //       { label: "Salta", value: "salta" },
+    //       //       { label: "San Juan", value: "san_juan" },
+    //       //       { label: "San Luis", value: "san_luis" },
+    //       //       { label: "Santa Cruz", value: "santa_cruz" },
+    //       //       { label: "Santa Fe", value: "santa_fe" },
+    //       //       { label: "Santiago del Estero", value: "santiago_del_estero" },
+    //       //       { label: "Tierra del Fuego", value: "tierra_del_fuego" },
+    //       //       { label: "Tucumán", value: "tucuman" },
+    //       //       { label: "Afuera de Argentina", value: "afuera" },
+    //       //     ],
+    //       //     dataKey: "lugar",
+    //       //     required: true,
+    //       //   },
+    //       // },
+    //       // {
+    //       //   template: "radio",
+    //       //   widgetFamily: "response",
+    //       //   props: {
+    //       //     label: "¿Cuántos habitantes hay donde vivís?",
+    //       //     options: [
+    //       //       { label: "Menos de 75.000", value: "<75k" },
+    //       //       {
+    //       //         label: "Entre 75.000 y 1.000.000",
+    //       //         value: "75k-1mill",
+    //       //       },
+    //       //       {
+    //       //         label: "Más de 1 millón",
+    //       //         value: ">1mill",
+    //       //       },
+    //       //     ],
+    //       //     dataKey: "habitantes",
+    //       //     required: true,
+    //       //   },
+    //       // },
+    //       // {
+    //       //   template: "slider",
+    //       //   widgetFamily: "response",
+    //       //   props: {
+    //       //     label: "¿Cuánta confianza te tenés cocinando?",
+    //       //     dataKey: "confianza",
+    //       //     minLabel: "Nada",
+    //       //     maxLabel: "Mucho",
+    //       //     required: true,
+    //       //   },
+    //       // },
+    //       // {
+    //       //   template: "slider",
+    //       //   widgetFamily: "response",
+    //       //   props: {
+    //       //     label: "¿Cuánto te preocupa el cambio climático?",
+    //       //     dataKey: "preocupa-clima",
+    //       //     minLabel: "Nada",
+    //       //     maxLabel: "Mucho",
+    //       //     required: true,
+    //       //   },
+    //       // },
+    //       // {
+    //       //   template: "button",
+    //       //   widgetFamily: "layout",
+    //       //   props: {
+    //       //     text: "Siguiente",
+    //       //     behaivor: "next_node",
+    //       //     className: "ButtonWidget",
+    //       //   },
+    //       // },
+    //     ],
+    //   },
+    // },
     {
       nodeType: "experiment-step",
       nodeFamily: "study",
@@ -59,8 +224,7 @@ const experiment: Experiment = {
             template: "rich_text",
             widgetFamily: "content",
             props: {
-              content:
-                "# Pensá en la ultimas 24 horas y contesta en base a lo que comiste.",
+              content: "# Para empezar",
             },
           },
           {
