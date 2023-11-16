@@ -18,3 +18,21 @@ export async function GET(
     return NextResponse.json({ ...team, experiments: teamExperiments });
   }
 }
+
+export async function POST(
+  request: Request,
+  { params }: { params: { teamId: string } }
+) {
+  // TODO create a new team
+
+  return NextResponse.json({});
+}
+
+export async function PUT(
+  request: Request,
+  { params }: { params: { teamId: string } }
+) {
+  // TODO update a team
+
+  return NextResponse.json({});
+}

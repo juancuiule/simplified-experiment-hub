@@ -1,12 +1,5 @@
 import { views } from "@/mock-data";
 import { NextResponse } from "next/server";
-import { z } from "zod";
-
-const newViewSchema = z.object({
-  name: z.string(),
-  slug: z.string(),
-  description: z.string(),
-});
 
 export async function GET(
   request: Request,
@@ -21,8 +14,7 @@ export async function POST(
   request: Request,
   { params }: { params: { experimentId: string } }
 ) {
-  const { name, slug, description } = newViewSchema.parse(request.body);
-  // TODO create a new view
+  // TODO add an answer to an experiment
 
   return NextResponse.json({});
 }
