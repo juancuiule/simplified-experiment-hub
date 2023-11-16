@@ -1,12 +1,11 @@
 import { FrameworkWidget } from "@/lib/widgets";
-import { ArrowDown, ArrowUp, X } from "react-feather";
-import SliderWidgetMenu from "./SliderWidgetMenu";
 import React from "react";
-import RichTextWidgetMenu from "./RichTextMenu";
-import { ButtonWidget } from "@/lib/widgets/layout";
-import { Formik } from "formik";
+import { ArrowDown, ArrowUp, X } from "react-feather";
+import { ButtonWidgetMenu } from "./ButtonWidgetMenu";
 import CheckboxMenu from "./CheckboxWidgetMenu";
 import RadioWidgetMenu from "./RadioWidgetMenu";
+import RichTextWidgetMenu from "./RichTextMenu";
+import SliderWidgetMenu from "./SliderWidgetMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -28,44 +27,10 @@ const titles: Partial<Record<FrameworkWidget["template"], string>> = {
   radio: "Radio",
 };
 
-function ButtonWidgetMenu(props: { update: (widget: ButtonWidget) => void }) {
-  return (
-    <Formik
-      initialValues={{
-        label: "",
-      }}
-      onSubmit={(values) => {
-        props.update({
-          template: "button",
-          widgetFamily: "layout",
-          props: {
-            text: values.label,
-            behaivor: "next_node",
-          },
-        });
-      }}
-    >
-      {({ handleSubmit, handleChange }) => {
-        return (
-          <form onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-1">
-              <label>Label</label>
-              <textarea
-                onChange={handleChange}
-                name="label"
-                className="border border-black rounded-md"
-              />
-            </div>
-            <button type="submit">submit</button>
-          </form>
-        );
-      }}
-    </Formik>
-  );
-}
 const menues = {
-  slider: SliderWidgetMenu,
   rich_text: RichTextWidgetMenu,
+  // image: ImageWidgetMenu,
+  slider: SliderWidgetMenu,
   button: ButtonWidgetMenu,
   checkbox: CheckboxMenu,
   radio: RadioWidgetMenu,
@@ -112,10 +77,10 @@ export default function WidgetMenu(props: MenuProps) {
       </div>
       <div className="w-full bg-gray-200 p-1 rounded-sm">
         {menues[widget.template as keyof typeof menues] !== undefined ? (
-          <Menu update={props.updateWidget} />
+          // @ts-ignore
+          <Menu widget={widget} update={props.updateWidget} />
         ) : null}
       </div>
-      {/* <div>{widget.id}</div> */}
     </div>
   );
 }

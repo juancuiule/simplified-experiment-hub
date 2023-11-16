@@ -1,23 +1,24 @@
-import { RichTextWidget } from "@/lib/widgets/content";
+import { ButtonWidget } from "@/lib/widgets/layout";
 import { Formik } from "formik";
 
-export default function RichTextWidgetMenu(props: {
-  widget: RichTextWidget;
-  update: (widget: RichTextWidget) => void;
+export function ButtonWidgetMenu(props: {
+  widget: ButtonWidget;
+  update: (widget: ButtonWidget) => void;
 }) {
   const { widget, update } = props;
 
   return (
     <Formik
       initialValues={{
-        content: widget.props.content,
+        label: widget.props.text,
       }}
       onSubmit={(values) => {
         update({
-          template: "rich_text",
-          widgetFamily: "content",
+          template: "button",
+          widgetFamily: "layout",
           props: {
-            content: values.content,
+            text: values.label,
+            behaivor: "next_node",
           },
         });
       }}
@@ -26,11 +27,11 @@ export default function RichTextWidgetMenu(props: {
         return (
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
-              <label>Content</label>
+              <label>Label</label>
               <textarea
-                value={values.content}
+                value={values.label}
                 onChange={handleChange}
-                name="content"
+                name="label"
                 className="border border-black rounded-md"
               />
             </div>

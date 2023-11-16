@@ -5,7 +5,7 @@ import {
   isResponseWidget,
 } from "./common";
 import { ExperimentStepNode } from "./nodes/study";
-import { ResponseWidget } from "./widgets/response";
+import { Option, ResponseWidget } from "./widgets/response";
 
 export function shuffle<T>(original: T[]): T[] {
   const array = [...original];
@@ -222,4 +222,17 @@ export function getInitialValuesForStep(node: ExperimentStepNode) {
     .map((widget) => [widget.props.dataKey, defaultValueForWidget(widget)]);
 
   return Object.fromEntries(entries) as Record<string, DefaultValue>;
+}
+
+export function optionsToString(options: Option[]) {
+  return options.map((option) => option.label).join(",");
+}
+
+export function stringToOptions(str: string): Option[] {
+  return str.split(",").map((option) => {
+    return {
+      label: option.trim(),
+      value: option.trim().replaceAll(" ", "_").toLowerCase(),
+    };
+  });
 }

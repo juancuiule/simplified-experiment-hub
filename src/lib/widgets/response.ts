@@ -48,7 +48,7 @@ export interface TextInputWidget
 export interface DateInputWidget extends BaseResponseWidget<"date_input", {}> {}
 export interface TimeInputWidget extends BaseResponseWidget<"time_input", {}> {}
 
-type Option = {
+export type Option = {
   label: string;
   value: string;
 };

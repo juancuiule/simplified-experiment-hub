@@ -2,8 +2,10 @@ import { SliderWidget } from "@/lib/widgets/response";
 import { Formik } from "formik";
 
 export default function SliderWidgetMenu(props: {
+  widget: SliderWidget;
   update: (widget: SliderWidget) => void;
 }) {
+  const { widget, update } = props;
   return (
     <Formik
       initialValues={{
@@ -11,28 +13,23 @@ export default function SliderWidgetMenu(props: {
         min: 0,
         minLabel: "0",
         maxLabel: "100",
-        dataKey: "",
-        label: "",
+        ...widget.props,
       }}
       onSubmit={(values) => {
-        props.update({
+        update({
           template: "slider",
           widgetFamily: "response",
-          props: {
-            label: values.label,
-            min: values.min,
-            max: values.max,
-            dataKey: values.dataKey,
-          },
+          props: values,
         });
       }}
     >
-      {({ handleSubmit, handleChange }) => {
+      {({ handleSubmit, handleChange, values }) => {
         return (
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
               <label>Label</label>
               <input
+                value={values.label}
                 type="text"
                 onChange={handleChange}
                 name="label"
@@ -42,6 +39,7 @@ export default function SliderWidgetMenu(props: {
             <div className="flex flex-col gap-1">
               <label>Min label</label>
               <input
+                value={values.minLabel}
                 onChange={handleChange}
                 name="min"
                 type="text"
@@ -51,8 +49,19 @@ export default function SliderWidgetMenu(props: {
             <div className="flex flex-col gap-1">
               <label>Max value</label>
               <input
+                value={values.max}
                 onChange={handleChange}
                 name="max"
+                type="text"
+                className="border border-black rounded-md"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label>Data key</label>
+              <input
+                value={values.dataKey}
+                onChange={handleChange}
+                name="dataKey"
                 type="text"
                 className="border border-black rounded-md"
               />

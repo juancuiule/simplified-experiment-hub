@@ -1,41 +1,38 @@
+import { optionsToString, stringToOptions } from "@/lib/utils";
 import { RadioWidget } from "@/lib/widgets/response";
 import { Formik } from "formik";
 
 export default function RadioWidgetMenu(props: {
+  widget: RadioWidget;
   update: (widget: RadioWidget) => void;
 }) {
+  const { widget, update } = props;
   return (
     <Formik
       initialValues={{
-        options: "",
-        dataKey: "",
-        label: "",
+        options: optionsToString(widget.props.options),
+        dataKey: widget.props.dataKey,
+        label: widget.props.label,
       }}
       onSubmit={(values) => {
-        const options = values.options.split(",").map((option) => {
-          return {
-            label: option.trim(),
-            value: option.trim().replaceAll(" ", "_").toLowerCase(),
-          };
-        });
-        console.log(options);
-        props.update({
+        update({
           template: "radio",
           widgetFamily: "response",
           props: {
             label: values.label,
-            options: options,
             dataKey: values.dataKey,
+            options: stringToOptions(values.options),
           },
         });
       }}
     >
-      {({ handleSubmit, handleChange, setFieldValue, values }) => {
+      {({ handleSubmit, handleChange, values }) => {
         return (
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
               <label>Label</label>
               <input
+                value={values.label}
                 type="text"
                 onChange={handleChange}
                 name="label"
@@ -45,18 +42,20 @@ export default function RadioWidgetMenu(props: {
             <div className="flex flex-col gap-1">
               <label>Options</label>
               <input
-                type="text"
-                name="options"
+                value={values.options}
                 onChange={handleChange}
+                name="options"
+                type="text"
                 className="border border-black rounded-md"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label>key</label>
+              <label>Data key</label>
               <input
+                value={values.dataKey}
+                type="text"
                 onChange={handleChange}
                 name="dataKey"
-                type="text"
                 className="border border-black rounded-md"
               />
             </div>
