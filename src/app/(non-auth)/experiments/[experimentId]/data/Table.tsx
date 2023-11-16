@@ -58,36 +58,34 @@ const data = [
   },
 ];
 
-export default () => (
-  <Card className="h-full">
-    <Title>List of Swiss Federal Councillours</Title>
-    <Table className="mt-5 h-full">
-      <TableHead>
-        <TableRow>
-          <TableHeaderCell>Name</TableHeaderCell>
-          <TableHeaderCell>Position</TableHeaderCell>
-          <TableHeaderCell>Department</TableHeaderCell>
-          <TableHeaderCell>Status</TableHeaderCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data.map((item) => (
-          <TableRow key={item.name}>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>
-              <Text>{item.Role}</Text>
-            </TableCell>
-            <TableCell>
-              <Text>{item.departement}</Text>
-            </TableCell>
-            <TableCell>
-              {item.status}
-              {/* <Badge color="emerald" icon={Check}>
-              </Badge> */}
-            </TableCell>
+export default function DataTable() {
+  return (
+    <Card className="h-full">
+      <Title>List of Swiss Federal Councillours</Title>
+      <Table className="mt-5 h-full">
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Position</TableHeaderCell>
+            <TableHeaderCell>Department</TableHeaderCell>
+            <TableHeaderCell>Status</TableHeaderCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </Card>
-);
+        </TableHead>
+        <TableBody>
+          {data.map((item) => (
+            <TableRow key={item.name}>
+              <TableCell>{item.name}</TableCell>
+              <TableCell>
+                <Text>{item.Role}</Text>
+              </TableCell>
+              <TableCell>
+                <Text>{item.departement}</Text>
+              </TableCell>
+              <TableCell>{item.status}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Card>
+  );
+}
