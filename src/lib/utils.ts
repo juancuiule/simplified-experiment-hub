@@ -4,7 +4,7 @@ import {
   Condition,
   isResponseWidget,
 } from "./common";
-import { ExperimentStepNode } from "./nodes/study";
+import { FrameworkWidget } from "./widgets";
 import { Option, ResponseWidget } from "./widgets/response";
 
 export function shuffle<T>(original: T[]): T[] {
@@ -216,8 +216,8 @@ export function defaultValueForWidget(widget: ResponseWidget): DefaultValue {
   }
 }
 
-export function getInitialValuesForStep(node: ExperimentStepNode) {
-  const entries: [string, DefaultValue][] = node.props.widgets
+export function getInitialValuesForStep(widgets: FrameworkWidget[]) {
+  const entries: [string, DefaultValue][] = widgets
     .filter(isResponseWidget)
     .map((widget) => [widget.props.dataKey, defaultValueForWidget(widget)]);
 

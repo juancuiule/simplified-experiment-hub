@@ -1,13 +1,13 @@
+import * as Yup from "yup";
 import {
   isConditionalWidget,
   isNotUndefined,
   isResponseWidget,
 } from "./common";
-import { ExperimentStepNode } from "./nodes/study";
 import { evaluateCondition } from "./utils";
+import { FrameworkWidget } from "./widgets";
 import { ConditionalWidget } from "./widgets/control";
 import { ResponseWidget } from "./widgets/response";
-import * as Yup from "yup";
 
 const getResponseWidgetBaseSchema = ({ template, props }: ResponseWidget) => {
   switch (template) {
@@ -88,12 +88,12 @@ const getConditionalWidgetSchema = (widget: ConditionalWidget) => {
   }
 };
 
-export const getStepSchema = (stepNode: ExperimentStepNode) => {
-  const tuples = stepNode.props.widgets.filter(isResponseWidget).map((w) => {
+export const getStepSchema = (widgets: FrameworkWidget[]) => {
+  const tuples = widgets.filter(isResponseWidget).map((w) => {
     return [w.props.dataKey, getResponseWidgetSchema(w)];
   });
 
-  const tuplesFromConditional = stepNode.props.widgets
+  const tuplesFromConditional = widgets
     .filter(isConditionalWidget)
     .map((w) => {
       const innerWidget = w.props.widget;

@@ -67,9 +67,12 @@ export default function NewViewModal(props: Props) {
                           id: viewId,
                           nodeType: "experiment-step",
                           nodeFamily: "study",
-                          props: { widgets },
+                          props: { slug: viewId },
                         },
                       }}
+                      views={[
+                        { slug: viewId, name: "", description: "", widgets },
+                      ]}
                     />
                   </div>
                 </div>

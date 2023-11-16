@@ -8,6 +8,7 @@ const selector = (state: ViewState) => ({
 });
 
 export default function Canvas(props: { viewId: string }) {
+  const { viewId } = props;
   const { widgets } = useViewContext(selector);
 
   return (
@@ -28,9 +29,10 @@ export default function Canvas(props: { viewId: string }) {
                 id: props.viewId,
                 nodeType: "experiment-step",
                 nodeFamily: "study",
-                props: { widgets },
+                props: { slug: viewId },
               },
             }}
+            views={[{ slug: viewId, name: "", description: "", widgets }]}
           />
         </div>
       </div>

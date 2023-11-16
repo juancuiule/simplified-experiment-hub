@@ -3,6 +3,7 @@ import { subscribeWithSelector } from "zustand/middleware";
 import { FrameworkNode } from "../nodes";
 import { BranchNode, ForkNode, PathNode } from "../nodes/control";
 import { evaluateCondition } from "../utils";
+import { FrameworkView } from "..";
 
 type InNodeState = {
   type: "in-node";
@@ -53,6 +54,7 @@ export type Context = {
   state: ExperimentState;
   step: number;
   nodes: FrameworkNode[];
+  views: FrameworkView[];
   data: Record<string, ResponseValue>;
   debugMode?: boolean;
 };
@@ -103,6 +105,7 @@ function initialStateForNode(
 export function nextState(
   state: ExperimentState,
   nodes: FrameworkNode[],
+  views: FrameworkView[],
   index: number,
   data: Context["data"]
 ): Context & { exitFlag?: boolean } {
@@ -114,6 +117,7 @@ export function nextState(
         state: initialStateForNode(nodes[nextIndex], data),
         step: nextIndex,
         nodes,
+        views,
         data,
       };
     } else {
@@ -121,6 +125,7 @@ export function nextState(
         state,
         step: index,
         nodes,
+        views,
         exitFlag: true,
         data,
       };
@@ -132,7 +137,7 @@ export function nextState(
       return goToNextOrExitPath();
     }
     case "in-branch": {
-      return nextState(state.branch_state, nodes, index, data);
+      return nextState(state.branch_state, nodes, views, index, data);
     }
     case "in-path": {
       const { path_state, path_step, node } = state;
@@ -143,7 +148,7 @@ export function nextState(
         exitFlag,
         state: nextPathState,
         step: nextPathStep,
-      } = nextState(path_state, pathNodes, path_step, data);
+      } = nextState(path_state, pathNodes, views, path_step, data);
 
       if (exitFlag) {
         return goToNextOrExitPath();
@@ -157,6 +162,7 @@ export function nextState(
           },
           step: index,
           nodes,
+          views,
           data,
         };
       }
@@ -172,6 +178,7 @@ export const reducer: Reducer = (context, action) => {
       const next = nextState(
         context.state,
         context.nodes,
+        context.views,
         context.step,
         context.data
       );
@@ -222,6 +229,7 @@ type StoreFns = {
 
 const initialState: Context = {
   nodes: [] as FrameworkNode[],
+  views: [] as FrameworkView[],
   state: {
     type: "in-node",
     node: {

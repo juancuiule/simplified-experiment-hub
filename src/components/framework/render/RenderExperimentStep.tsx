@@ -1,4 +1,5 @@
 "use client";
+import { FrameworkView } from "@/lib";
 import {
   isConditionalWidget,
   isNotUndefined,
@@ -59,19 +60,24 @@ function Stepper(props: {
   );
 }
 
-export function RenderExperimentStep(props: { node: ExperimentStepNode }) {
-  const { node } = props;
+export function RenderExperimentStep(props: {
+  node: ExperimentStepNode;
+  views: FrameworkView[];
+}) {
+  const { node, views } = props;
   const {
-    props: { widgets },
+    props: { slug },
   } = node;
+
+  const { widgets } = views.find((view) => view.slug === slug)!;
 
   const isDebug = useExperimentStore((s) => Boolean(s.debugMode));
   const state = useExperimentStore((s) => s.state);
   const data = useExperimentStore((s) => s.data);
   const dispatch = useExperimentStore((s) => s.dispatch);
 
-  const initialValues = getInitialValuesForStep(node);
-  const validationSchema = getStepSchema(node);
+  const initialValues = getInitialValuesForStep(widgets);
+  const validationSchema = getStepSchema(widgets);
 
   return (
     <div className="flex flex-col flex-1">
