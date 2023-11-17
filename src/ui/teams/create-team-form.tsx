@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import { Formik } from "formik";
 import { Trash } from "react-feather";
 import * as Yup from "yup";
