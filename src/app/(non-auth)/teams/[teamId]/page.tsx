@@ -57,7 +57,7 @@ export default async function Team({ params: { teamId } }: Props) {
           {members.map((member) => {
             return (
               <Link
-                href={`/profile/${member.slug}`}
+                href={`/users/${member.slug}`}
                 className="col-span-3 lg:col-span-2 xl:col-span-1 flex flex-col cursor-pointer flex-1 justify-start items-center gap-2"
                 key={member.slug}
               >

@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Image from "next/image";
+import Link from "next/link";
 import {
   BarChart,
   Clock,
@@ -49,6 +50,13 @@ export default async function Page() {
             culpa quis saepe sint amet ipsa, accusamus omnis minima deleniti sed
             cum incidunt dicta voluptatibus, veritatis, aperiam magnam id ad ut.
           </p>
+
+          <Link
+            href="/experiments"
+            className="text-blue-400 border border-blue-400 px-4 py-2 rounded-md hover:bg-blue-400/10 transition-colors"
+          >
+            Explorá experimentos
+          </Link>
         </header>
 
         <section
