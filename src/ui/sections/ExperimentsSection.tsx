@@ -50,6 +50,13 @@ export default function ExperimentsSection({ experiments }: Props) {
               <div className="p-2 bg-gray-200 flex flex-col flex-1 rounded-b-md">
                 <h4 className="text-sm font-medium">{experiment.name}</h4>
                 <p className="text-xs font-light">{experiment.description}</p>
+                <div className="h-[1px] w-full bg-black/20 my-2"></div>
+                <Link
+                  href={`/experiment/${experiment.slug}`}
+                  className="text-xs text-blue-400"
+                >
+                  /{experiment.slug}
+                </Link>
               </div>
             </div>
           );

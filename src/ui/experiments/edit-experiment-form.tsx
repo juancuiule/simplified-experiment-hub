@@ -1,4 +1,5 @@
 "use client";
+import { updateExperiment } from "@/api";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { Trash } from "react-feather";
@@ -18,20 +19,27 @@ interface Props {
     cover: string;
     slug: string;
   };
+  id: string;
 }
 
 export default function EditExperimentForm(props: Props) {
   const router = useRouter();
+
   return (
     <Formik
       initialValues={props.initialValues}
       validationSchema={editExperimentSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          router.push(`/experiments/${values.slug}`);
-          setSubmitting(false);
-        }, 400);
+        updateExperiment(props.id, {
+          name: values.name,
+          description: values.description,
+          coverImage: values.cover,
+          slug: values.slug,
+        }).then((data) => {
+          if (data) {
+            router.push(`/experiments/${data.id}`);
+          }
+        });
       }}
     >
       {({

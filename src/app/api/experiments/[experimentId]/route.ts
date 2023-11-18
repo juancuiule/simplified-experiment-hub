@@ -71,3 +71,57 @@ export async function GET(
       });
     });
 }
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: { experimentId: string } }
+) {
+  const { experimentId } = params;
+
+  const body = await request.json();
+
+  console.log({ experimentId });
+
+  return await fetch(`${API_URL}/experiments/${experimentId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then(async (res) => {
+      return { res, data: (await res.json()) as ApiExperiment };
+    })
+    .then(({ res, data }) => {
+      const {
+        postgresExperiment: {
+          pk,
+          name,
+          slug,
+          coverImage,
+          description,
+          team: { pk: teamId, name: teamName, description: teamDescription },
+        },
+      } = data;
+      const experiment: Experiment = {
+        id: pk.toString(),
+        name,
+        slug,
+        coverImage,
+        description,
+        team: {
+          slug: teamId.toString(),
+          name: teamName,
+          description: teamDescription,
+          coverImage: "https://placebear.com/1200/600",
+          members: [],
+        },
+      };
+      return new Response(JSON.stringify(experiment), { status: res.status });
+    })
+    .catch((err) => {
+      return new Response(JSON.stringify(err), {
+        status: 500,
+      });
+    });
+}

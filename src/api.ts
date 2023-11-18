@@ -49,6 +49,16 @@ export async function createExperiment(experiment: any) {
   }).then(validationPipe);
 }
 
+export async function updateExperiment(id: string, experiment: any) {
+  return await fetch(`${BASE_URL}/api/experiments/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(experiment),
+  }).then(validationPipe<Experiment>);
+}
+
 export async function fetchTeams() {
   return await fetch(`${BASE_URL}/api/teams`).then(validationPipe);
 }
