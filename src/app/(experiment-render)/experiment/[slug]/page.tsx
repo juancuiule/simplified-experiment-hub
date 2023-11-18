@@ -10,13 +10,13 @@ type Experiment = {
 };
 
 interface Props {
-  params: { experimentId: string };
+  params: { slug: string };
 }
 
 export async function generateMetadata({
-  params: { experimentId },
+  params: { slug },
 }: Props): Promise<Metadata> {
-  const experiment = await fetchExperiment(experimentId);
+  const experiment = await fetchExperiment(slug);
 
   if (!experiment) {
     return {
@@ -44,7 +44,7 @@ export async function generateMetadata({
 }
 
 export default async function ExperimentPage({
-  params: { experimentId },
+  params: { slug: experimentId },
 }: Props) {
   const experiment = await fetchExperiment(experimentId);
 
