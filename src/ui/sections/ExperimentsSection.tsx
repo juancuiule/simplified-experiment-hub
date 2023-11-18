@@ -31,7 +31,7 @@ export default function ExperimentsSection({ experiments }: Props) {
                     </span>
                   </div>
                   <Link
-                    href={`/experiments/${experiment.slug}/dashboard`}
+                    href={`/experiments/${experiment.slug}`}
                     className="flex gap-2 p-1 bg-gray-300 rounded-md"
                   >
                     <Settings size={14} className="stroke-black fill-none" />

@@ -27,7 +27,7 @@ export default function CreateExperimentForm() {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-          router.push(`/experiments/${values.slug}/dashboard`);
+          router.push(`/experiments/${values.slug}`);
         }, 400);
       }}
     >

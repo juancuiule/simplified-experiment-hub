@@ -29,7 +29,7 @@ export default function EditExperimentForm(props: Props) {
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
-          router.push(`/experiments/${values.slug}/dashboard`);
+          router.push(`/experiments/${values.slug}`);
           setSubmitting(false);
         }, 400);
       }}

@@ -234,7 +234,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
       {/* Experiment flow navbar */}
       <div className="sticky z-10 w-full top-2 flex justify-between items-center h-12 bg-light rounded p-2 gap-2">
         <div className="flex justify-center items-center gap-1">
-          <Link href={`/experiments/${params.experimentId}/dashboard`}>
+          <Link href={`/experiments/${params.experimentId}`}>
             <ChevronLeft size={16} />
           </Link>
           <span className="font-medium">Flow Design</span>

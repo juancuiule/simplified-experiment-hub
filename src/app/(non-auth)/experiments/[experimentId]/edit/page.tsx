@@ -25,7 +25,7 @@ export default async function EditExperiment({
   return (
     <div className="w-full flex flex-col gap-6">
       <div className="flex justify-start items-center gap-1">
-        <Link href={`/experiments/${experimentId}/dashboard`}>
+        <Link href={`/experiments/${experimentId}`}>
           <ChevronLeft size={24} />
         </Link>
         <h2 className="text-2xl font-semibold">Edit experiment</h2>
