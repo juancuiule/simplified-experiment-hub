@@ -1,4 +1,5 @@
 "use client";
+import { createExperiment } from "@/api";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { RefreshCw, Trash } from "react-feather";
@@ -9,10 +10,13 @@ const createExperimentSchema = Yup.object().shape({
   description: Yup.string().required(),
   slug: Yup.string().required(),
   cover: Yup.string().required(),
+  team: Yup.string().required(),
 });
 
 export default function CreateExperimentForm() {
   const router = useRouter();
+
+  // TODO fetch user teams as options
 
   return (
     <Formik
@@ -21,14 +25,14 @@ export default function CreateExperimentForm() {
         description: "",
         slug: "",
         cover: "",
+        // hardcoded for now
+        team: "1",
       }}
       validationSchema={createExperimentSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-          router.push(`/experiments/${values.slug}`);
-        }, 400);
+        createExperiment(values).then((res) => {
+          alert(JSON.stringify(res, null, 2));
+        });
       }}
     >
       {({

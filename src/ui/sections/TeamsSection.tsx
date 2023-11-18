@@ -22,7 +22,7 @@ export default function TeamsSection({ teams }: Props) {
               <div
                 className="aspect-video h-40 w-full bg-cover bg-center rounded-t-md relative group"
                 style={{
-                  backgroundImage: `url(${team.background})`,
+                  backgroundImage: `url(${team.coverImage})`,
                   boxShadow: "rgba(0, 0, 0, 0.05) 0px 0 12px 5px inset",
                 }}
               >

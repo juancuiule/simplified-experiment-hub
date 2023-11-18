@@ -41,7 +41,7 @@ export default async function Layout({
     notFound();
   }
 
-  const { background, name, team, slug, description } = experiment;
+  const { coverImage: background, name, team, slug, description } = experiment;
 
   return (
     <>

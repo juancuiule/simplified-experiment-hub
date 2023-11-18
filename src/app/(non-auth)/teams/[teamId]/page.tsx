@@ -32,7 +32,7 @@ export default async function Team({ params: { teamId } }: Props) {
     return notFound();
   }
 
-  const { name, description, background, members, experiments } = team;
+  const { name, description, coverImage: background, members, experiments } = team;
 
   return (
     <div className="flex flex-col w-full gap-6">

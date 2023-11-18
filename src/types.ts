@@ -12,17 +12,19 @@ export type User = {
 export type Team = {
   name: string;
   description: string;
-  background: string;
+  coverImage: string;
   members: User[];
   slug: string;
 };
 
 export type Experiment = {
+  id: string;
   name: string;
   description: string;
-  background: string;
+  coverImage: string;
   slug: string;
   team: Team;
+  answers?: number;
 };
 
 export type View = {

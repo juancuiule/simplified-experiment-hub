@@ -20,7 +20,7 @@ export default async function EditExperiment({
     notFound();
   }
 
-  const { name, description, background: cover, slug } = experiment;
+  const { name, description, coverImage: cover, slug } = experiment;
 
   return (
     <div className="w-full flex flex-col gap-6">

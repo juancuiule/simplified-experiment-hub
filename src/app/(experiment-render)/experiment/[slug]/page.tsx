@@ -23,7 +23,7 @@ export async function generateMetadata({
       title: "Experiment not found",
     };
   } else {
-    const { name: title, description, background } = experiment;
+    const { name: title, description, coverImage: background } = experiment;
     return {
       title,
       description,

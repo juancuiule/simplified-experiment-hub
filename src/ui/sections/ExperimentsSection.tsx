@@ -20,18 +20,16 @@ export default function ExperimentsSection({ experiments }: Props) {
               <div
                 className="aspect-square h-40 w-full bg-cover bg-center rounded-t-md relative group"
                 style={{
-                  backgroundImage: `url(${experiment.background})`,
+                  backgroundImage: `url(${experiment.coverImage})`,
                 }}
               >
                 <div className="absolute flex gap-2 right-2 bottom-2">
                   <div className="flex gap-2 p-1 bg-gray-300 rounded-md">
                     <User size={14} className="stroke-black fill-none" />
-                    <span className="text-xs">
-                      {Math.floor(Math.random() * 2000)}
-                    </span>
+                    <span className="text-xs">{experiment.answers}</span>
                   </div>
                   <Link
-                    href={`/experiments/${experiment.slug}`}
+                    href={`/experiments/${experiment.id}`}
                     className="flex gap-2 p-1 bg-gray-300 rounded-md"
                   >
                     <Settings size={14} className="stroke-black fill-none" />
@@ -39,7 +37,7 @@ export default function ExperimentsSection({ experiments }: Props) {
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={`/experiments/${experiment.slug}`}
+                    href={`/experiment/${experiment.slug}`}
                     className="flex gap-2 p-1 bg-gray-300 rounded-md"
                   >
                     <ExternalLink
