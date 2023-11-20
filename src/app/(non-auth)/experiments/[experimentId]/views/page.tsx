@@ -1,4 +1,4 @@
-import { fetchExperimentViews } from "@/api";
+import { API } from "@/api";
 import ViewsSection from "@/ui/sections/ViewsSection";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -12,7 +12,7 @@ export default async function ExperimentViews({
 }: {
   params: { experimentId: string };
 }) {
-  const views = await fetchExperimentViews(params.experimentId);
+  const { views } = await API.experiments.fetch(params.experimentId);
 
   if (!views) {
     return notFound();

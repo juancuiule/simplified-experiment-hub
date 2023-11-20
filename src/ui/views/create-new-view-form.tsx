@@ -1,5 +1,7 @@
 "use client";
+import { API } from "@/api";
 import { Formik } from "formik";
+import { useRouter } from "next/navigation";
 
 import * as Yup from "yup";
 
@@ -9,7 +11,8 @@ const newViewSchema = Yup.object({
   description: Yup.string().required(),
 });
 
-export default function CreateNewViewForm() {
+export default function CreateNewViewForm(props: { experimentId: string }) {
+  const router = useRouter();
   return (
     <Formik
       initialValues={{
@@ -19,7 +22,14 @@ export default function CreateNewViewForm() {
       }}
       validationSchema={newViewSchema}
       onSubmit={(values, { setSubmitting }) => {
-        // TODO: Handle form submission
+        API.experiments.views
+          .create(props.experimentId)(values)
+          .then((experiment) => {
+            console.log({ experiment });
+            if (experiment) {
+              router.push(`/experiments/${experiment.pk}/views/${values.slug}`);
+            }
+          });
       }}
     >
       {({

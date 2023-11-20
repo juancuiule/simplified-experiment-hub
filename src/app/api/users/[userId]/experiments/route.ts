@@ -4,5 +4,5 @@ export async function GET(
   request: Request,
   { params }: { params: { userId: string } }
 ) {
-  return fetch(`${API_URL}/users/${params.userId}`);
+  return fetch(`${API_URL}/users/${params.userId}/experiments`);
 }

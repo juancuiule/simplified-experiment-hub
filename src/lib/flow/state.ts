@@ -233,10 +233,10 @@ const initialState: Context = {
   state: {
     type: "in-node",
     node: {
-      nodeFamily: "core",
-      nodeType: "noop",
-      props: {},
       id: "",
+      nodeFamily: "core",
+      nodeType: "initial-state",
+      props: {},
     },
   },
   data: {},
@@ -256,6 +256,10 @@ export const useExperimentStore = create<Context & StoreFns>()(
         async (currState, prevState) => {
           const node = currentNode(currState);
           switch (node.nodeType) {
+            case "initial-state": {
+              console.log("initial-state");
+              break;
+            }
             case "start":
             case "noop": {
               console.log("Skipping start or noop state");

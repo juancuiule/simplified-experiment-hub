@@ -1,4 +1,5 @@
 "use client";
+import { API } from "@/api";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
@@ -62,14 +63,17 @@ export default function NewViewModal(props: Props) {
             }}
             validationSchema={newViewSchema}
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setOpen(false);
-                router.push(
-                  `/experiments/${experimentId}/views/${values.slug}`
-                );
-                setSubmitting(false);
-              }, 400);
+              API.experiments.views
+                .create(experimentId)(values)
+                .then((experiment) => {
+                  console.log({ experiment });
+                  setOpen(false);
+                  if (experiment) {
+                    router.push(
+                      `/experiments/${experiment.pk}/views/${values.slug}`
+                    );
+                  }
+                });
             }}
           >
             {({

@@ -7,6 +7,7 @@ import { Edge, Node } from "reactflow";
 
 import NodesMenu from "@/ui/flow/nodes-menu";
 import Debug from "@/ui/flow/debug";
+import { API } from "@/api";
 
 const initialNodes: FlowNode[] = [
   {
@@ -226,8 +227,12 @@ const initialEdges: Edge[] = [
   },
 ];
 
-export default function Page({ params }: { params: { experimentId: string } }) {
-  // TODO: Fetch flow from backend
+export default async function Page({
+  params,
+}: {
+  params: { experimentId: string };
+}) {
+  const { nodes } = await API.experiments.fetch(params.experimentId);
 
   return (
     <div className="flex flex-col flex-1 gap-2">

@@ -1,4 +1,4 @@
-import { fetchTeam } from "@/api";
+import { API } from "@/api";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -9,7 +9,7 @@ interface Props {
 export async function generateMetadata({
   params: { teamId },
 }: Props): Promise<Metadata> {
-  const team = await fetchTeam(teamId);
+  const team = await API.teams.fetch(teamId);
 
   if (team !== null) {
     return {
@@ -23,7 +23,7 @@ export async function generateMetadata({
 }
 
 export default async function Team({ params: { teamId } }: Props) {
-  const team = await fetchTeam(teamId);
+  const team = await API.teams.fetch(teamId);
 
   if (!team) {
     return notFound();

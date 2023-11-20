@@ -1,27 +1,43 @@
 "use client";
+import { API } from "@/api";
 import { Formik } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
 
 const signupSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  organization: Yup.string().required(),
   email: Yup.string().email().required(),
   password: Yup.string().min(8).required(),
+
+  name: Yup.string().required(),
+  username: Yup.string().required(),
+  organization: Yup.string().required(),
 });
 
 export default function SignupForm() {
   return (
     <Formik
       initialValues={{
-        name: "",
         email: "",
-        organization: "",
         password: "",
+
+        name: "",
+        username: "",
+        organization: "",
       }}
       validationSchema={signupSchema}
       onSubmit={(values, { setSubmitting }) => {
-        // TODO: Handle signup
+        setSubmitting(true);
+        API.auth
+          .signup(values)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            setSubmitting(false);
+          });
       }}
     >
       {({
@@ -35,6 +51,51 @@ export default function SignupForm() {
         submitCount,
       }) => (
         <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-1">
+            <label className="text-md font-medium" htmlFor="email">
+              Email
+            </label>
+            <input
+              className={`border rounded-md h-10 px-2 outline-info flex ${
+                submitCount > 0 && errors.email && touched.email
+                  ? "border-error"
+                  : ""
+              }`}
+              id="email"
+              type="email"
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+              placeholder="your@email.com"
+            />
+            {submitCount > 0 && errors.email && touched.email && (
+              <span className="text-error text-xs">{errors.email}</span>
+            )}
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-md font-medium" htmlFor="password">
+              Password
+            </label>
+            <input
+              className={`border rounded-md h-10 px-2 outline-info flex ${
+                submitCount > 0 && errors.password && touched.password
+                  ? "border-error"
+                  : ""
+              }`}
+              type="password"
+              name="password"
+              id="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+              placeholder="Your password"
+            />
+            {submitCount > 0 && errors.password && touched.password && (
+              <span className="text-error text-xs">{errors.password}</span>
+            )}
+          </div>
+
           <div className="flex flex-col gap-1">
             <label className="text-md font-medium" htmlFor="name">
               Name
@@ -58,25 +119,25 @@ export default function SignupForm() {
             )}
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-md font-medium" htmlFor="email">
-              Email
+            <label className="text-md font-medium" htmlFor="name">
+              Username
             </label>
             <input
               className={`border rounded-md h-10 px-2 outline-info flex ${
-                submitCount > 0 && errors.email && touched.email
+                submitCount > 0 && errors.username && touched.username
                   ? "border-error"
                   : ""
               }`}
-              id="email"
-              type="email"
-              name="email"
+              type="text"
+              name="username"
+              id="username"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.email}
-              placeholder="your@email.com"
+              value={values.username}
+              placeholder="juan.cuiule"
             />
-            {submitCount > 0 && errors.email && touched.email && (
-              <span className="text-error text-xs">{errors.email}</span>
+            {submitCount > 0 && errors.username && touched.username && (
+              <span className="text-error text-xs">{errors.username}</span>
             )}
           </div>
 
@@ -100,29 +161,6 @@ export default function SignupForm() {
             />
             {submitCount > 0 && errors.organization && touched.organization && (
               <span className="text-error text-xs">{errors.organization}</span>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="text-md font-medium" htmlFor="password">
-              Password
-            </label>
-            <input
-              className={`border rounded-md h-10 px-2 outline-info flex ${
-                submitCount > 0 && errors.password && touched.password
-                  ? "border-error"
-                  : ""
-              }`}
-              type="password"
-              name="password"
-              id="password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password}
-              placeholder="Your password"
-            />
-            {submitCount > 0 && errors.password && touched.password && (
-              <span className="text-error text-xs">{errors.password}</span>
             )}
           </div>
 

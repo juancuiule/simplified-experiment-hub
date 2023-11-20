@@ -1,5 +1,5 @@
 "use client";
-import { updateExperiment } from "@/api";
+import { API } from "@/api";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { Trash } from "react-feather";
@@ -9,14 +9,14 @@ const editExperimentSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
   slug: Yup.string().required(),
-  cover: Yup.string().required(),
+  coverImage: Yup.string().required(),
 });
 
 interface Props {
   initialValues: {
     name: string;
     description: string;
-    cover: string;
+    coverImage: string;
     slug: string;
   };
   id: string;
@@ -30,16 +30,14 @@ export default function EditExperimentForm(props: Props) {
       initialValues={props.initialValues}
       validationSchema={editExperimentSchema}
       onSubmit={(values, { setSubmitting }) => {
-        updateExperiment(props.id, {
-          name: values.name,
-          description: values.description,
-          coverImage: values.cover,
-          slug: values.slug,
-        }).then((data) => {
-          if (data) {
-            router.push(`/experiments/${data.id}`);
-          }
-        });
+        console.log(props.id);
+        API.experiments
+          .update(props.id)(values)
+          .then((data) => {
+            if (data) {
+              router.push(`/experiments/${data.pk}`);
+            }
+          });
       }}
     >
       {({
@@ -101,50 +99,52 @@ export default function EditExperimentForm(props: Props) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-md font-medium" htmlFor="cover">
+            <label className="text-md font-medium" htmlFor="coverImage">
               Cover image
             </label>
             <input
               className={`border rounded-md h-10 px-2 outline-info flex ${
-                submitCount > 0 && errors.cover && touched.cover
+                submitCount > 0 && errors.coverImage && touched.coverImage
                   ? "border-error"
                   : ""
               }`}
               type="text"
-              name="cover"
-              id="cover"
+              name="coverImage"
+              id="coverImage"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.cover}
+              value={values.coverImage}
               placeholder=""
             />
             <div
               className={`
               w-full h-full aspect-video rounded-md border border-dashed border-black/50 flex justify-center items-center hover:cursor-pointer relative
               ${
-                values.cover !== ""
+                values.coverImage !== ""
                   ? "bg-cover bg-center bg-no-repeat"
                   : "bg-gray-200"
               }
               `}
               style={{
-                backgroundImage: values.cover ? `url(${values.cover})` : "",
+                backgroundImage: values.coverImage
+                  ? `url(${values.coverImage})`
+                  : "",
               }}
             >
-              {values.cover === "" && (
+              {values.coverImage === "" && (
                 <span className={`text-xs text-black/50`}>
                   Drop cover image here
                 </span>
               )}
               <div
                 className={`${
-                  values.cover === "" ? "hidden" : ""
+                  values.coverImage === "" ? "hidden" : ""
                 } absolute right-2 bottom-2`}
               >
                 <button
                   type="button"
                   onClick={() => {
-                    setFieldValue("cover", "");
+                    setFieldValue("coverImage", "");
                   }}
                   className={`bg-gray-400/50 backdrop-blur-sm rounded-sm p-1`}
                 >

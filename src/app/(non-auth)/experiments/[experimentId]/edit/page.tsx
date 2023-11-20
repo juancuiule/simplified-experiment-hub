@@ -1,4 +1,4 @@
-import { fetchExperiment } from "@/api";
+import { API } from "@/api";
 import EditExperimentForm from "@/ui/experiments/edit-experiment-form";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -14,13 +14,13 @@ export default async function EditExperiment({
 }: {
   params: { experimentId: string };
 }) {
-  const experiment = await fetchExperiment(experimentId);
+  const experiment = await API.experiments.fetch(experimentId);
 
   if (!experiment) {
     notFound();
   }
 
-  const { name, description, coverImage: cover, slug } = experiment;
+  const { name, description, coverImage, slug } = experiment;
 
   return (
     <div className="w-full flex flex-col gap-6">
@@ -35,7 +35,7 @@ export default async function EditExperiment({
         initialValues={{
           name,
           description,
-          cover,
+          coverImage,
           slug,
         }}
       />

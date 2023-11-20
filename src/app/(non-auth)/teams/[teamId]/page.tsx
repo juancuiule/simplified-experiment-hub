@@ -1,4 +1,4 @@
-import { fetchTeam } from "@/api";
+import { API } from "@/api";
 import ExperimentsSection from "@/ui/sections/ExperimentsSection";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -12,7 +12,7 @@ interface Props {
 export async function generateMetadata({
   params: { teamId },
 }: Props): Promise<Metadata> {
-  const team = await fetchTeam(teamId);
+  const team = await API.teams.fetch(teamId);
 
   if (team !== null) {
     return {
@@ -26,13 +26,19 @@ export async function generateMetadata({
 }
 
 export default async function Team({ params: { teamId } }: Props) {
-  const team = await fetchTeam(teamId);
+  const team = await API.teams.fetch(teamId);
 
   if (!team) {
     return notFound();
   }
 
-  const { name, description, coverImage: background, members, experiments } = team;
+  const {
+    name,
+    description,
+    coverImage: background,
+    users: members,
+    experiments,
+  } = team;
 
   return (
     <div className="flex flex-col w-full gap-6">
@@ -57,9 +63,9 @@ export default async function Team({ params: { teamId } }: Props) {
           {members.map((member) => {
             return (
               <Link
-                href={`/users/${member.slug}`}
+                href={`/users/${member.pk}`}
                 className="col-span-3 lg:col-span-2 xl:col-span-1 flex flex-col cursor-pointer flex-1 justify-start items-center gap-2"
-                key={member.slug}
+                key={member.username}
               >
                 <div className="w-4/5 aspect-square flex justify-center items-center rounded-full overflow-hidden">
                   <Image

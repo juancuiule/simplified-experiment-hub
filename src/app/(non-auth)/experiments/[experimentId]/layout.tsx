@@ -1,4 +1,4 @@
-import { fetchExperiment } from "@/api";
+import { API } from "@/api";
 import { BASE_URL } from "@/constants";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -11,10 +11,12 @@ interface Props {
   params: { experimentId: string };
 }
 
+export const revalidate = 0;
+
 export async function generateMetadata({
   params: { experimentId },
 }: Props): Promise<Metadata> {
-  const experiment = await fetchExperiment(experimentId);
+  const experiment = await API.experiments.fetch(experimentId);
 
   if (!experiment) {
     return {
@@ -35,13 +37,13 @@ export default async function Layout({
   modal,
   children,
 }: Props) {
-  const experiment = await fetchExperiment(experimentId);
+  const experiment = await API.experiments.fetch(experimentId);
 
   if (!experiment) {
     notFound();
   }
 
-  const { coverImage: background, name, team, slug, description } = experiment;
+  const { coverImage, name, team, slug, description } = experiment;
 
   return (
     <>
@@ -49,7 +51,7 @@ export default async function Layout({
         <div className="flex items-start justify-start gap-4 flex-col md:flex-row">
           <div className="aspect-video w-full md:h-full md:w-auto flex justify-center items-center overflow-hidden border border-gray-200 rounded-md">
             <Image
-              src={background}
+              src={coverImage}
               alt="Team background image"
               width={200}
               height={200}
@@ -61,7 +63,7 @@ export default async function Layout({
             <span className="text-xs text-gray-400">
               created by{" "}
               <Link
-                href={`/teams/${team.slug}`}
+                href={`/teams/${team.pk}`}
                 className="hover:text-blue-400 font-semibold"
               >
                 {team.name}

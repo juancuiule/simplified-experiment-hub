@@ -1,9 +1,9 @@
-import { Experiment } from "@/types";
+import { Entity, Experiment } from "@/api";
 import Link from "next/link";
 import { ExternalLink, Settings, User } from "react-feather";
 
 interface Props {
-  experiments: Experiment[];
+  experiments: Entity<Experiment>[];
 }
 
 export default function ExperimentsSection({ experiments }: Props) {
@@ -29,7 +29,7 @@ export default function ExperimentsSection({ experiments }: Props) {
                     <span className="text-xs">{experiment.answers}</span>
                   </div>
                   <Link
-                    href={`/experiments/${experiment.id}`}
+                    href={`/experiments/${experiment.pk}`}
                     className="flex gap-2 p-1 bg-gray-300 rounded-md"
                   >
                     <Settings size={14} className="stroke-black fill-none" />
@@ -61,6 +61,18 @@ export default function ExperimentsSection({ experiments }: Props) {
             </div>
           );
         })}
+        <Link
+          href={`/experiments/new`}
+          className={`
+              flex flex-col justify-center items-center flex-1
+              border border-dashed border-gray-300 text-gray-300
+              hover:border-black hover:text-black
+              col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer rounded-md
+              transition-colors aspect-video h-full w-full
+              `}
+        >
+          <span className="text-sm font-semibold">New view</span>
+        </Link>
       </div>
     </section>
   );

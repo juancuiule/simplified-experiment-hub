@@ -1,8 +1,8 @@
-import { Team } from "@/types";
+import { UserTeam } from "@/api";
 import Link from "next/link";
 
 interface Props {
-  teams: Team[];
+  teams: UserTeam[];
 }
 
 export default function TeamsSection({ teams }: Props) {
@@ -11,11 +11,11 @@ export default function TeamsSection({ teams }: Props) {
       <h2 className="text-2xl font-semibold">Teams</h2>
       <div className="grid grid-cols-12 gap-4">
         {teams.map((team) => {
-          const membersToShow = team.members.slice(0, 3);
-          const membersDiff = team.members.length - membersToShow.length;
+          const membersToShow = team.users.slice(0, 3);
+          const membersDiff = team.users.length - membersToShow.length;
           return (
             <Link
-              href={`/teams/${team.slug}`}
+              href={`/teams/${team.pk}`}
               className="col-span-6 lg:col-span-4 xl:col-span-3 flex flex-col cursor-pointer"
               key={team.slug}
             >

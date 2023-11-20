@@ -1,4 +1,5 @@
 "use client";
+import { API } from "@/api";
 import { Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,26 +20,18 @@ export default function LoginForm() {
       }}
       validationSchema={loginSchema}
       onSubmit={(values, { setSubmitting, setErrors }) => {
-        // TODO: Handle login
         setSubmitting(true);
-        fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        })
-          .then(async (res) => {
-            const data = await res.json();
-            if (res.ok) {
-              alert("Logged in!");
-              push("/profile");
-            } else {
-              setErrors({
-                email: "Invalid email or password",
-                password: "Invalid email or password",
-              });
-            }
+        const { email, password } = values;
+        API.auth
+          .login({ email, password })
+          .then((res) => {
+            push("/profile");
+          })
+          .catch((err) => {
+            setErrors({
+              email: "Invalid email or password",
+              password: "Invalid email or password",
+            });
           })
           .finally(() => {
             setSubmitting(false);

@@ -1,9 +1,9 @@
-import { View } from "@/types";
+import { FrameworkView } from "@/lib";
 import Link from "next/link";
 import { ChevronLeft } from "react-feather";
 
 interface Props {
-  views: View[];
+  views: FrameworkView[];
   experimentId: string;
 }
 
@@ -27,7 +27,7 @@ export default function ViewsSection({ experimentId, views }: Props) {
               <div
                 className="aspect-video h-40 w-full bg-cover bg-center rounded-t-md relative group"
                 style={{
-                  backgroundImage: `url(${view.preview})`,
+                  backgroundImage: `url(${"https://cdn.experiment-hub.com/previews/preview-para-empezar.png"})`,
                 }}
               ></div>
               <div className="p-2 bg-gray-200 flex flex-col flex-1 rounded-b-md gap-1">

@@ -1,4 +1,4 @@
-import { fetchUser } from "@/api";
+import { API } from "@/api";
 import ExperimentsSection from "@/ui/sections/ExperimentsSection";
 import TeamsSection from "@/ui/sections/TeamsSection";
 import { Metadata } from "next";
@@ -13,7 +13,7 @@ interface Props {
 export async function generateMetadata({
   params: { userId },
 }: Props): Promise<Metadata> {
-  const user = await fetchUser(userId);
+  const user = await API.users.fetch(userId);
 
   if (user !== null) {
     return {
@@ -27,13 +27,19 @@ export async function generateMetadata({
 }
 
 export default async function UserProfile({ params: { userId } }: Props) {
-  const user = await fetchUser(userId);
+  const user = await API.users.fetch(userId);
+  const teams = await API.users.teams(userId);
+  const experiments = await API.users.experiments(userId);
+
+  console.log({
+    user,
+    teams,
+    experiments,
+  });
 
   if (!user) {
     return notFound();
   }
-
-  const { teams, experiments } = user;
 
   return (
     <div className="flex flex-col items-start gap-6">

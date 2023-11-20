@@ -1,64 +1,99 @@
-import { BASE_URL } from "./constants";
-import { Experiment, Team, User, View } from "./types";
+import { GET, PATCH, POST, PUT } from "./api_utils";
+import { FrameworkView } from "./lib";
+import { FrameworkNode } from "./lib/nodes";
 
-const validationPipe = <T extends any>(res: Response) => {
-  if (res.status === 404) {
-    return null;
-  } else {
-    return res.json() as Promise<T>;
-  }
+export type Entity<T> = {
+  pk: number;
+} & T;
+
+export type User = {
+  email: string;
+  name: string;
+  username: string;
+  avatar: string;
+  organization: string;
 };
 
-export async function fetchUser(userId: string) {
-  return await fetch(`${BASE_URL}/api/users/${userId}`).then(
-    validationPipe<User & { teams: Team[]; experiments: Experiment[] }>
-  );
-}
+export type UserTeam = Entity<Omit<Team, "experiments">>;
 
-export async function fetchTeam(teamId: string) {
-  return await fetch(`${BASE_URL}/api/teams/${teamId}`).then(
-    validationPipe<Team & { experiments: Experiment[] }>
-  );
-}
+export type BaseExperiment = Omit<
+  Experiment,
+  "team" | "nodes" | "views" | "answers"
+>;
 
-export async function fetchExperiment(experimentId: string) {
-  return await fetch(`${BASE_URL}/api/experiments/${experimentId}`).then(
-    validationPipe<Experiment>
-  );
-}
+export type Experiment = {
+  name: string;
+  slug: string;
+  description: string;
+  coverImage: string;
+  team: Entity<Omit<Team, "experiments">>;
+  nodes: FrameworkNode[];
+  views: FrameworkView[];
+  answers: number;
+};
 
-export async function fetchExperimentViews(experimentId: string) {
-  return await fetch(`${BASE_URL}/api/experiments/${experimentId}/views`).then(
-    validationPipe<View[]>
-  );
-}
+export type Team = {
+  name: string;
+  slug: string;
+  coverImage: string;
+  description: string;
+  experiments: Entity<Experiment>[];
+  users: Entity<User>[];
+};
 
-export async function fetchExperiments() {
-  return await fetch(`${BASE_URL}/api/experiments`).then(
-    validationPipe<Experiment[]>
-  );
-}
+export type LoginBody = { email: string; password: string };
+export type SignupBody = Omit<User, "avatar"> & { password: string };
+export type AuthResponse = { accessToken: string };
 
-export async function createExperiment(experiment: any) {
-  return await fetch(`${BASE_URL}/api/experiments`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+export type CreateTeamBody = UserTeam & { userId: number };
+export type CreateExperimentBody = BaseExperiment & { teamId: number };
+export type CreateViewBody = Omit<FrameworkView, "widgets">;
+
+export const API = {
+  auth: {
+    login: POST<LoginBody, AuthResponse>("/api/auth/login"),
+    signup: POST<SignupBody, AuthResponse>("/api/auth/signup"),
+  },
+  users: {
+    fetch: (id: string) => GET<Entity<User>>(`/api/users/${id}`),
+    update: (id: string) =>
+      PATCH<Partial<User>, Entity<User>>(`/api/users/${id}`),
+    teams: (id: string) => GET<UserTeam[]>(`/api/users/${id}/teams`),
+    experiments: (id: string) =>
+      GET<Entity<Experiment>[]>(`/api/users/${id}/experiments`),
+  },
+  teams: {
+    fetch: (id: string) => GET<Entity<Team>>(`/api/teams/${id}`),
+    members: (id: string) => GET<Entity<User>[]>(`/api/teams/${id}/members`),
+    experiments: (id: string) =>
+      GET<Entity<BaseExperiment>[]>(`/api/teams/${id}/experiments`),
+    create: POST<CreateTeamBody, Entity<UserTeam>>("/api/teams"),
+  },
+  experiments: {
+    fetchAll: () => GET<Entity<Experiment>[]>("/api/experiments"),
+    fetch: (id: string) => GET<Entity<Experiment>>(`/api/experiments/${id}`),
+    fetchBySlug: (slug: string) =>
+      GET<Entity<Experiment>>(`/api/experiments/slug/${slug}`),
+    create: POST<CreateExperimentBody, Entity<Experiment>>("/api/experiments"),
+    update: (id: string) =>
+      PATCH<Partial<BaseExperiment>, Entity<Experiment>>(
+        `/api/experiments/${id}`
+      ),
+    views: {
+      create: (id: string) =>
+        POST<CreateViewBody, Entity<Experiment>>(
+          `/api/experiments/${id}/views`
+        ),
+      update: (slug: string) =>
+        PUT<Pick<FrameworkView, "widgets">, Entity<Experiment>>(
+          `/api/experiments/${slug}/views`
+        ),
     },
-    body: JSON.stringify(experiment),
-  }).then(validationPipe);
-}
-
-export async function updateExperiment(id: string, experiment: any) {
-  return await fetch(`${BASE_URL}/api/experiments/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
+    nodes: {
+      update: (id: string) =>
+        PUT<Pick<Experiment, "nodes">, Entity<Experiment>>(
+          `/api/experiments/${id}/nodes`
+        ),
     },
-    body: JSON.stringify(experiment),
-  }).then(validationPipe<Experiment>);
-}
-
-export async function fetchTeams() {
-  return await fetch(`${BASE_URL}/api/teams`).then(validationPipe);
-}
+  },
+};

@@ -16,7 +16,6 @@ export default function AuthLayout({ children }: LayoutProps) {
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex justify-between gap-4">
-          {/* TODO: implement login with google  */}
           <button disabled className="auth-button">
             <AtSign size={18} />
             Log in with Google

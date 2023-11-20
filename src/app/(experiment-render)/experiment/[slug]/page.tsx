@@ -1,4 +1,4 @@
-import { fetchExperiment } from "@/api";
+import { API } from "@/api";
 import Experiment from "@/components/Experiment";
 import { FrameworkNode } from "@/lib/nodes";
 import { Metadata } from "next";
@@ -16,7 +16,7 @@ interface Props {
 export async function generateMetadata({
   params: { slug },
 }: Props): Promise<Metadata> {
-  const experiment = await fetchExperiment(slug);
+  const experiment = await API.experiments.fetchBySlug(slug);
 
   if (!experiment) {
     return {
@@ -43,19 +43,16 @@ export async function generateMetadata({
   }
 }
 
-export default async function ExperimentPage({
-  params: { slug: experimentId },
-}: Props) {
-  const experiment = await fetchExperiment(experimentId);
+export default async function ExperimentPage({ params: { slug } }: Props) {
+  const experiment = await API.experiments.fetchBySlug(slug);
 
   if (!experiment) {
     notFound();
   }
 
-  // TODO: fetch experiment data
   return (
     <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 flex-1">
-      <Experiment />
+      <Experiment experiment={experiment} />
     </div>
   );
 }

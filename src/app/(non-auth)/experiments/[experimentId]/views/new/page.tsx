@@ -21,7 +21,7 @@ export default function Page({
         </p>
       </div>
 
-      <CreateNewViewForm />
+      <CreateNewViewForm experimentId={experimentId} />
     </div>
   );
 }
