@@ -1,5 +1,4 @@
 import { views } from "@/mock-data";
-import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
@@ -7,7 +6,7 @@ export async function GET(
 ) {
   const { experimentId } = params;
 
-  return NextResponse.json(views);
+  return Response.json(views);
 }
 
 export async function POST(
@@ -16,5 +15,5 @@ export async function POST(
 ) {
   // TODO add an answer to an experiment
 
-  return NextResponse.json({});
+  return Response.json({});
 }

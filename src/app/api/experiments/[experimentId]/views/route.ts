@@ -6,10 +6,11 @@ export async function POST(
 ) {
   const body = await request.json();
   const headers = new Headers(request.headers);
-  console.log(body);
-  return await fetch(`${API_URL}/experiments/${experimentId}/views`, {
+  const res = await fetch(`${API_URL}/experiments/${experimentId}/views`, {
     method: "POST",
     body: JSON.stringify(body),
     headers,
   });
+  const data = await res.json();
+  return Response.json(data);
 }

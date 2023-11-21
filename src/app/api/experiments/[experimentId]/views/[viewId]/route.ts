@@ -6,11 +6,16 @@ export async function PUT(
 ) {
   const body = await request.json();
   const { experimentId, viewId } = params;
-  return await fetch(`${API_URL}/experiments/${experimentId}/views/${viewId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  const res = await fetch(
+    `${API_URL}/experiments/${experimentId}/views/${viewId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+  const data = await res.json();
+  return Response.json(data);
 }

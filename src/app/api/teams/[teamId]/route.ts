@@ -5,5 +5,7 @@ export async function GET(
   request: Request,
   { params }: { params: { teamId: string } }
 ) {
-  return fetch(`${API_URL}/teams/${params.teamId}`);
+  const res = await fetch(`${API_URL}/teams/${params.teamId}`);
+  const data = await res.json();
+  return Response.json(data);
 }

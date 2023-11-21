@@ -37,13 +37,12 @@ const handleReqWithBody =
 export const GET = async <U>(path: string, token?: string) =>
   await fetch(`${BASE_URL}${path}`, {
     method: "GET",
-    credentials: "include",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      ...(token !== undefined
-        ? { Authorization: `Bearer ${token}`, "X-AUTH-TOKEN": token }
-        : {}),
+      // ...(token !== undefined
+      //   ? { Authorization: `Bearer ${token}`, "X-AUTH-TOKEN": token }
+      //   : {}),
     },
   }).then((r) => handleResponse<U>(r));
 
