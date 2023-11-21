@@ -1,4 +1,5 @@
 import { API_URL } from "@/constants";
+import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
@@ -6,5 +7,5 @@ export async function GET(
 ) {
   const res = await fetch(`${API_URL}/users/${params.userId}`);
   const data = await res.json();
-  return Response.json(data);
+  return NextResponse.json(data);
 }

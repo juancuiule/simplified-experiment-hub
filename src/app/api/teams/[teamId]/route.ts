@@ -7,5 +7,5 @@ export async function GET(
 ) {
   const res = await fetch(`${API_URL}/teams/${params.teamId}`);
   const data = await res.json();
-  return Response.json(data);
+  return NextResponse.json(data);
 }

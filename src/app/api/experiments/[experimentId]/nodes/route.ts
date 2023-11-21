@@ -1,4 +1,5 @@
 import { API_URL } from "@/constants";
+import { NextResponse } from "next/server";
 
 export async function PUT(
   request: Request,
@@ -14,5 +15,5 @@ export async function PUT(
     body: JSON.stringify(body),
   });
   const data = await res.json();
-  return Response.json(data);
+  return NextResponse.json(data);
 }

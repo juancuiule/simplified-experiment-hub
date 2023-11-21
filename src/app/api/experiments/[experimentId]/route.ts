@@ -1,4 +1,5 @@
 import { API_URL } from "@/constants";
+import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
@@ -6,7 +7,7 @@ export async function GET(
 ) {
   const res = await fetch(`${API_URL}/experiments/${params.experimentId}`);
   const data = await res.json();
-  return Response.json(data);
+  return NextResponse.json(data);
 }
 
 export async function PATCH(
@@ -25,5 +26,5 @@ export async function PATCH(
     body: JSON.stringify(body),
   });
   const data = await res.json();
-  return Response.json(data);
+  return NextResponse.json(data);
 }
