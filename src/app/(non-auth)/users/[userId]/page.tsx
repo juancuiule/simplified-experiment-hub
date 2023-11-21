@@ -6,6 +6,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { GitHub, Twitter } from "react-feather";
 
+export const revalidate = 10;
+
 interface Props {
   params: { userId: string };
 }
@@ -30,12 +32,6 @@ export default async function UserProfile({ params: { userId } }: Props) {
   const user = await API.users.fetch(userId);
   const teams = await API.users.teams(userId);
   const experiments = await API.users.experiments(userId);
-
-  console.log({
-    user,
-    teams,
-    experiments,
-  });
 
   if (!user) {
     return notFound();
