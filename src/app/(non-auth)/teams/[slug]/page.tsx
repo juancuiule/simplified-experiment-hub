@@ -6,13 +6,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: { teamId: string };
+  params: { slug: string };
 }
 
 export async function generateMetadata({
-  params: { teamId },
+  params: { slug },
 }: Props): Promise<Metadata> {
-  const team = await API.teams.fetch(teamId);
+  const team = await API.teams.fetchBySlug(slug);
 
   if (team !== null) {
     return {
@@ -25,8 +25,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function Team({ params: { teamId } }: Props) {
-  const team = await API.teams.fetch(teamId);
+export default async function Team({ params: { slug } }: Props) {
+  const team = await API.teams.fetchBySlug(slug);
 
   if (!team) {
     return notFound();
@@ -36,8 +36,8 @@ export default async function Team({ params: { teamId } }: Props) {
     name,
     description,
     coverImage: background,
-    users: members,
-    experiments,
+    users: members = [],
+    experiments = [],
   } = team;
 
   return (
@@ -63,7 +63,7 @@ export default async function Team({ params: { teamId } }: Props) {
           {members.map((member) => {
             return (
               <Link
-                href={`/users/${member.pk}`}
+                href={`/users/${member.username}`}
                 className="col-span-3 lg:col-span-2 xl:col-span-1 flex flex-col cursor-pointer flex-1 justify-start items-center gap-2"
                 key={member.username}
               >

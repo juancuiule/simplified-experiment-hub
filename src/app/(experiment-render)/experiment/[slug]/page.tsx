@@ -5,6 +5,8 @@ import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 
+export const revalidate = 0;
+
 type Experiment = {
   nodes: FrameworkNode[];
 };
@@ -52,7 +54,7 @@ export default async function ExperimentPage({ params: { slug } }: Props) {
 
   return (
     <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 flex-1">
-      <Experiment experiment={experiment} />
+      <Experiment experiment={experiment} id={experiment.pk.toString()} />
     </div>
   );
 }

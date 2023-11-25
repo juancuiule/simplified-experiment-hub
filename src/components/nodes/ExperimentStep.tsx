@@ -1,4 +1,3 @@
-import { views } from "@/mock-data";
 import { ExperimentStep, updateNode } from "@/ui/flow/store";
 import Link from "next/link";
 import { Edit3, Monitor } from "react-feather";
@@ -32,11 +31,11 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
               }));
             }}
           >
-            {views.map((view) => (
+            {/* {views.map((view) => (
               <option key={view.slug} value={view.slug}>
                 {view.name}
               </option>
-            ))}
+            ))} */}
           </select>
           <Link
             className="hover:text-blue-400"

@@ -1,6 +1,6 @@
 import { BASE_URL } from "./constants";
 
-const handleResponse = async <U>(response: Response) => {
+export const handleResponse = async <U>(response: Response) => {
   if (response.ok) {
     if (response.status !== 204) {
       return (await response.json()) as U;
@@ -43,6 +43,17 @@ export const GET = async <U>(path: string, token?: string) =>
       // ...(token !== undefined
       //   ? { Authorization: `Bearer ${token}`, "X-AUTH-TOKEN": token }
       //   : {}),
+    },
+    next: {
+      revalidate: 0,
+    },
+  }).then((r) => handleResponse<U>(r));
+
+export const DELETE = async <U>(path: string) =>
+  await fetch(`${BASE_URL}${path}`, {
+    method: "DELETE",
+    next: {
+      revalidate: 0,
     },
   }).then((r) => handleResponse<U>(r));
 

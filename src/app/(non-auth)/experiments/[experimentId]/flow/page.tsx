@@ -1,13 +1,12 @@
 import Canvas from "@/ui/flow/canvas";
 import { FlowNode, FlowProvider } from "@/ui/flow/store";
-import Link from "next/link";
-import { ChevronLeft, Save } from "react-feather";
 
-import { Edge, Node } from "reactflow";
+import { Edge } from "reactflow";
 
-import NodesMenu from "@/ui/flow/nodes-menu";
-import Debug from "@/ui/flow/debug";
 import { API } from "@/api";
+import Debug from "@/ui/flow/debug";
+import NodesMenu from "@/ui/flow/nodes-menu";
+import TopNav from "@/ui/flow/top-nav";
 
 const initialNodes: FlowNode[] = [
   {
@@ -236,35 +235,23 @@ export default async function Page({
 
   return (
     <div className="flex flex-col flex-1 gap-2">
-      {/* Experiment flow navbar */}
-      <div className="sticky z-10 w-full top-2 flex justify-between items-center h-12 bg-light rounded p-2 gap-2">
-        <div className="flex justify-center items-center gap-1">
-          <Link href={`/experiments/${params.experimentId}`}>
-            <ChevronLeft size={16} />
-          </Link>
-          <span className="font-medium">Flow Design</span>
-        </div>
-        <div className="flex gap-2 text-white">
-          <button className="flex justify-center items-center gap-2 rounded bg-success px-2 py-1">
-            <span className="font-medium">Save</span>
-            <Save size={16} />
-          </button>
-        </div>
-      </div>
-
-      {/* Experiment flow design */}
       <FlowProvider nodes={initialNodes} edges={initialEdges}>
-        <div className="grid grid-cols-12 gap-2 md:max-h-[calc(60vh)]">
-          <div className="col-span-12 md:col-span-9 lg:col-span-10 h-[60vh]">
-            <Canvas />
+        <>
+          {/* Experiment flow navbar */}
+          <TopNav experimentId={params.experimentId} />
+          {/* Experiment flow design */}
+          <div className="grid grid-cols-12 gap-2 md:max-h-[calc(60vh)]">
+            <div className="col-span-12 md:col-span-9 lg:col-span-10 h-[60vh]">
+              <Canvas />
+            </div>
+            <div className="col-span-12 md:col-span-3 lg:col-span-2 overflow-y-scroll md:max-h-[60vh]">
+              <NodesMenu />
+            </div>
           </div>
-          <div className="col-span-12 md:col-span-3 lg:col-span-2 overflow-y-scroll md:max-h-[60vh]">
-            <NodesMenu />
+          <div className="flex">
+            <Debug />
           </div>
-        </div>
-        <div className="flex">
-          <Debug />
-        </div>
+        </>
       </FlowProvider>
     </div>
   );

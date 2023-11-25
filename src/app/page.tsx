@@ -22,7 +22,7 @@ import {
 export default async function Page() {
   return (
     <>
-      <Nav showActions={false} />
+      <Nav showActions />
       <main className="flex flex-col flex-1 w-full min-h-full bg-white p-6 gap-10">
         <header className="flex w-full flex-col gap-6 items-center py-6">
           <div className="flex flex-col justify-center items-center gap-1 mx-auto">

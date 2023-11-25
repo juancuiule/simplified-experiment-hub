@@ -6,16 +6,15 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { GitHub, Twitter } from "react-feather";
 
-export const revalidate = 10;
-
+// export const revalidate = 10;
 interface Props {
-  params: { userId: string };
+  params: { slug: string };
 }
 
 export async function generateMetadata({
-  params: { userId },
+  params: { slug },
 }: Props): Promise<Metadata> {
-  const user = await API.users.fetch(userId);
+  const user = await API.users.fetchByUsername(slug);
 
   if (user !== null) {
     return {
@@ -28,14 +27,17 @@ export async function generateMetadata({
   }
 }
 
-export default async function UserProfile({ params: { userId } }: Props) {
-  const user = await API.users.fetch(userId);
-  const teams = await API.users.teams(userId);
-  const experiments = await API.users.experiments(userId);
+export default async function UserProfile({ params: { slug } }: Props) {
+  const user = await API.users.fetchByUsername(slug);
 
   if (!user) {
     return notFound();
   }
+
+  const { pk: userId } = user;
+
+  const teams = await API.users.teams(userId.toString());
+  const experiments = await API.users.experiments(userId.toString());
 
   return (
     <div className="flex flex-col items-start gap-6">

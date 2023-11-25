@@ -1,5 +1,5 @@
 "use client";
-import { API } from "@/api";
+import { API, Entity, Team, UserTeam } from "@/api";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { RefreshCw, Trash } from "react-feather";
@@ -13,8 +13,14 @@ const createExperimentSchema = Yup.object().shape({
   team: Yup.string().required(),
 });
 
-export default function CreateExperimentForm() {
+type Props = {
+  teams: UserTeam[];
+};
+
+export default function CreateExperimentForm(props: Props) {
   const router = useRouter();
+
+  const { teams } = props;
 
   // TODO fetch user teams
 
@@ -26,13 +32,14 @@ export default function CreateExperimentForm() {
         slug: "",
         coverImage: "",
         // hardcoded for now
-        team: "3",
+        team: "",
       }}
       validationSchema={createExperimentSchema}
       onSubmit={(values, { setSubmitting }) => {
         API.experiments
           .create({ ...values, teamId: Number(values.team) })
           .then((res) => {
+            console.log({ res });
             router.push(`/experiments/${res.pk}`);
           });
       }}
@@ -100,6 +107,36 @@ export default function CreateExperimentForm() {
             />
             {submitCount > 0 && errors.description && touched.description && (
               <span className="text-error text-xs">{errors.description}</span>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label className="text-md font-medium" htmlFor="team">
+              Team
+            </label>
+            <select
+              className={`border rounded-md h-10 px-2 outline-info flex ${
+                submitCount > 0 && errors.team && touched.team
+                  ? "border-error"
+                  : ""
+              }`}
+              name="team"
+              id="team"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.team}
+            >
+              <option value={""} disabled defaultChecked>
+                Pick a team
+              </option>
+              {teams.map((team) => (
+                <option key={team.pk} value={team.pk}>
+                  {team.name}
+                </option>
+              ))}
+            </select>
+            {submitCount > 0 && errors.team && touched.team && (
+              <span className="text-error text-xs">{errors.team}</span>
             )}
           </div>
 
@@ -210,6 +247,10 @@ export default function CreateExperimentForm() {
           >
             Create experiment
           </button>
+
+          <pre>
+            <code>{JSON.stringify(values, null, 2)}</code>
+          </pre>
         </form>
       )}
     </Formik>

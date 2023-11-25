@@ -28,3 +28,16 @@ export async function PATCH(
   const data = await res.json();
   return NextResponse.json(data);
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { experimentId: string } }
+) {
+  const { experimentId } = params;
+
+  const res = await fetch(`${API_URL}/experiments/${experimentId}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  return NextResponse.json(data);
+}

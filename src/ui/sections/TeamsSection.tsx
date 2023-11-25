@@ -15,7 +15,7 @@ export default function TeamsSection({ teams }: Props) {
           const membersDiff = team.users.length - membersToShow.length;
           return (
             <Link
-              href={`/teams/${team.pk}`}
+              href={`/teams/${team.slug}`}
               className="col-span-6 lg:col-span-4 xl:col-span-3 flex flex-col cursor-pointer"
               key={team.slug}
             >

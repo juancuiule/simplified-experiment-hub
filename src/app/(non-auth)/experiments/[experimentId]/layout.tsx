@@ -63,7 +63,7 @@ export default async function Layout({
             <span className="text-xs text-gray-400">
               created by{" "}
               <Link
-                href={`/teams/${team.pk}`}
+                href={`/teams/${team.slug}`}
                 className="hover:text-blue-400 font-semibold"
               >
                 {team.name}
@@ -74,7 +74,7 @@ export default async function Layout({
               <Link
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`/experiments/${slug}`}
+                href={`/experiment/${slug}`}
                 className="text-blue-400 hover:text-blue-500"
               >{`${BASE_URL}/experiments/${slug}`}</Link>
             </span>

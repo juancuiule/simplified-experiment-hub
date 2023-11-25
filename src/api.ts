@@ -1,4 +1,4 @@
-import { GET, PATCH, POST, PUT } from "./api_utils";
+import { GET, PATCH, POST, PUT, DELETE } from "./api_utils";
 import { FrameworkView } from "./lib";
 import { FrameworkNode } from "./lib/nodes";
 
@@ -49,12 +49,20 @@ export type CreateTeamBody = UserTeam & { userId: number };
 export type CreateExperimentBody = BaseExperiment & { teamId: number };
 export type CreateViewBody = Omit<FrameworkView, "widgets">;
 
+export type Answer = {
+  id: string;
+  body: any;
+  experimentId: string;
+};
+
 export const API = {
   auth: {
     login: POST<LoginBody, AuthResponse>("/api/auth/login"),
     signup: POST<SignupBody, AuthResponse>("/api/auth/signup"),
   },
   users: {
+    fetchByUsername: (username: string) =>
+      GET<Entity<User>>(`/api/users/slug/${username}`),
     fetch: (id: string) => GET<Entity<User>>(`/api/users/${id}`),
     update: (id: string) =>
       PATCH<Partial<User>, Entity<User>>(`/api/users/${id}`),
@@ -63,6 +71,7 @@ export const API = {
       GET<Entity<Experiment>[]>(`/api/users/${id}/experiments`),
   },
   teams: {
+    fetchBySlug: (slug: string) => GET<Entity<Team>>(`/api/teams/slug/${slug}`),
     fetch: (id: string) => GET<Entity<Team>>(`/api/teams/${id}`),
     members: (id: string) => GET<Entity<User>[]>(`/api/teams/${id}/members`),
     experiments: (id: string) =>
@@ -79,14 +88,16 @@ export const API = {
       PATCH<Partial<BaseExperiment>, Entity<Experiment>>(
         `/api/experiments/${id}`
       ),
+    delete: (id: string) =>
+      DELETE<Entity<Experiment>>(`/api/experiments/${id}`),
     views: {
       create: (id: string) =>
         POST<CreateViewBody, Entity<Experiment>>(
           `/api/experiments/${id}/views`
         ),
-      update: (slug: string) =>
+      update: (id: string, slug: string) =>
         PUT<Pick<FrameworkView, "widgets">, Entity<Experiment>>(
-          `/api/experiments/${slug}/views`
+          `/api/experiments/${id}/views/${slug}`
         ),
     },
     nodes: {
@@ -94,6 +105,11 @@ export const API = {
         PUT<Pick<Experiment, "nodes">, Entity<Experiment>>(
           `/api/experiments/${id}/nodes`
         ),
+    },
+    answers: {
+      create: (id: string) =>
+        POST<{ body: any }, { id: string }>(`/api/experiments/${id}/answers`),
+      fetch: (id: string) => GET<Answer[]>(`/api/experiments/${id}/answers`),
     },
   },
 };

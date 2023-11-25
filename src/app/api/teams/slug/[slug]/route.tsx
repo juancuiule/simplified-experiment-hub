@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: { params: { slug: string } }
 ) {
-  const res = await fetch(`${API_URL}/users/${params.userId}/teams`, {
-    next: { revalidate: 5 },
+  const res = await fetch(`${API_URL}/teams/slug/${params.slug}`, {
+    next: { revalidate: 0 },
   });
   const data = await res.json();
   return NextResponse.json(data);

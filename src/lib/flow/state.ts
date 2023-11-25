@@ -4,6 +4,7 @@ import { FrameworkNode } from "../nodes";
 import { BranchNode, ForkNode, PathNode } from "../nodes/control";
 import { evaluateCondition } from "../utils";
 import { FrameworkView } from "..";
+import { API } from "@/api";
 
 type InNodeState = {
   type: "in-node";
@@ -51,6 +52,7 @@ export type Action = NextNode | GoToNode | SetData;
 export type ResponseValue = string | boolean | number | string[] | undefined;
 
 export type Context = {
+  id: string;
   state: ExperimentState;
   step: number;
   nodes: FrameworkNode[];
@@ -107,13 +109,15 @@ export function nextState(
   nodes: FrameworkNode[],
   views: FrameworkView[],
   index: number,
-  data: Context["data"]
+  data: Context["data"],
+  id: string
 ): Context & { exitFlag?: boolean } {
   const nextIndex = index + 1;
 
   const goToNextOrExitPath = () => {
     if (nextIndex < nodes.length) {
       return {
+        id,
         state: initialStateForNode(nodes[nextIndex], data),
         step: nextIndex,
         nodes,
@@ -122,6 +126,7 @@ export function nextState(
       };
     } else {
       return {
+        id,
         state,
         step: index,
         nodes,
@@ -137,7 +142,7 @@ export function nextState(
       return goToNextOrExitPath();
     }
     case "in-branch": {
-      return nextState(state.branch_state, nodes, views, index, data);
+      return nextState(state.branch_state, nodes, views, index, data, id);
     }
     case "in-path": {
       const { path_state, path_step, node } = state;
@@ -148,12 +153,13 @@ export function nextState(
         exitFlag,
         state: nextPathState,
         step: nextPathStep,
-      } = nextState(path_state, pathNodes, views, path_step, data);
+      } = nextState(path_state, pathNodes, views, path_step, data, id);
 
       if (exitFlag) {
         return goToNextOrExitPath();
       } else {
         return {
+          id,
           state: {
             type: "in-path",
             path_state: nextPathState,
@@ -180,7 +186,8 @@ export const reducer: Reducer = (context, action) => {
         context.nodes,
         context.views,
         context.step,
-        context.data
+        context.data,
+        context.id
       );
       return next;
     }
@@ -221,13 +228,17 @@ export function currentNode(state: ExperimentState): FrameworkNode {
 
 type StoreFns = {
   dispatch: (action: Action) => void;
-  init: (nodes: FrameworkNode[], debugMode?: boolean) => void;
+  init: (
+    context: Pick<Context, "nodes" | "views" | "id">,
+    debugMode?: boolean
+  ) => void;
   unsub: () => void;
   unsubTransient: () => void;
   reset: () => void;
 };
 
 const initialState: Context = {
+  id: "",
   nodes: [] as FrameworkNode[],
   views: [] as FrameworkView[],
   state: {
@@ -250,7 +261,7 @@ export const useExperimentStore = create<Context & StoreFns>()(
       get().unsubTransient();
       set((state) => ({ ...state, ...initialState }));
     },
-    init: (nodes: FrameworkNode[], debugMode: boolean = false) => {
+    init: ({ nodes, views, id }, debugMode: boolean = false) => {
       const unsub = api.subscribe(
         (s) => s.state,
         async (currState, prevState) => {
@@ -271,12 +282,13 @@ export const useExperimentStore = create<Context & StoreFns>()(
               break;
             }
             case "checkpoint": {
-              console.log("Sending data");
-              const sleep = (ms: number) =>
-                new Promise((r) => setTimeout(r, ms));
-              await sleep(1000);
-              console.log("Sent data");
-              get().dispatch({ type: "NEXT_NODE" });
+              API.experiments.answers
+                .create(get().id)({
+                  body: get().data,
+                })
+                .then((res) => {
+                  get().dispatch({ type: "NEXT_NODE" });
+                });
               break;
             }
             default: {
@@ -286,7 +298,7 @@ export const useExperimentStore = create<Context & StoreFns>()(
         }
       );
 
-      set((state) => ({ ...state, unsub, nodes, debugMode }));
+      set((state) => ({ ...state, unsub, nodes, views, id, debugMode }));
       get().dispatch({ type: "NEXT_NODE" });
     },
     unsub: () => {
