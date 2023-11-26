@@ -33,6 +33,9 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
             }}
             defaultValue={viewId}
           >
+            <option value="" disabled>
+              Select a view
+            </option>
             {views.map((view) => (
               <option key={view.slug} value={view.slug}>
                 {view.name}

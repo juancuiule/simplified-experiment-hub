@@ -42,7 +42,10 @@ export type Team = {
 };
 
 export type LoginBody = { email: string; password: string };
-export type SignupBody = Omit<User, "avatar"> & { password: string };
+export type SignupBody = Omit<User, "avatar"> & {
+  password: string;
+  avatar?: string;
+};
 export type AuthResponse = { accessToken: string };
 
 export type CreateTeamBody = Omit<UserTeam, "pk" | "users"> & {
@@ -76,6 +79,8 @@ export const API = {
     fetchBySlug: (slug: string) => GET<Entity<Team>>(`/api/teams/slug/${slug}`),
     fetch: (id: string) => GET<Entity<Team>>(`/api/teams/${id}`),
     members: (id: string) => GET<Entity<User>[]>(`/api/teams/${id}/members`),
+    invite: (id: string) =>
+      PATCH<{ members: string[] }, Entity<Team>>(`/api/teams/${id}/members`),
     experiments: (id: string) =>
       GET<Entity<BaseExperiment>[]>(`/api/teams/${id}/experiments`),
     create: POST<CreateTeamBody, Entity<UserTeam>>("/api/teams"),

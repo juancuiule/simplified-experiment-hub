@@ -6,7 +6,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { GitHub, Twitter } from "react-feather";
 
-// export const revalidate = 10;
+export const revalidate = 0;
 interface Props {
   params: { slug: string };
 }

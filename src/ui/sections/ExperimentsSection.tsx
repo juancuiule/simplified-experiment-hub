@@ -6,9 +6,13 @@ import { ExternalLink, Settings, Trash2, User } from "react-feather";
 
 interface Props {
   experiments: Entity<Experiment>[];
+  showNew?: boolean;
 }
 
-export default function ExperimentsSection({ experiments }: Props) {
+export default function ExperimentsSection({
+  experiments,
+  showNew = true,
+}: Props) {
   const [experimentList, setExperimentList] = useState(experiments);
 
   return (
@@ -82,18 +86,20 @@ export default function ExperimentsSection({ experiments }: Props) {
             </div>
           );
         })}
-        <Link
-          href={`/experiments/new`}
-          className={`
-              flex flex-col justify-center items-center flex-1
-              border border-dashed border-gray-300 text-gray-300
-              hover:border-black hover:text-black
-              col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer rounded-md
-              transition-colors aspect-video h-full w-full
-              `}
-        >
-          <span className="text-sm font-semibold">New experiment</span>
-        </Link>
+        {showNew && (
+          <Link
+            href={`/experiments/new`}
+            className={`
+                flex flex-col justify-center items-center flex-1
+                border border-dashed border-gray-300 text-gray-300
+                hover:border-black hover:text-black
+                col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer rounded-md
+                transition-colors aspect-video h-full w-full
+                `}
+          >
+            <span className="text-sm font-semibold">New experiment</span>
+          </Link>
+        )}
       </div>
     </section>
   );

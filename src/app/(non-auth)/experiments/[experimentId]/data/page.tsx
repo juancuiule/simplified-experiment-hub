@@ -1,17 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronLeft,
-  Clock,
-  Code,
-  Table,
-  User,
-} from "react-feather";
+import { ChevronLeft, Code, Table } from "react-feather";
 
-import { BadgeDelta, Card, Flex, Grid, Metric, Text } from "@tremor/react";
-import AnswersTable from "./Table";
+import { API } from "@/api";
+import FlatTable from "./FlatTable";
 const categories = [
   {
     title: "Sales",
@@ -40,7 +32,13 @@ export const metadata: Metadata = {
   title: `Data`,
 };
 
-export default function Page({ params }: { params: { experimentId: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: { experimentId: string };
+}) {
+  const data = await API.experiments.answers.fetch(params.experimentId);
+
   return (
     <div className="flex-1 flex flex-col gap-4">
       <div className="flex justify-between items-center h-12 bg-gray-200 rounded p-2.5 gap-2.5">
@@ -50,7 +48,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
           </Link>
           <span className="font-medium">Participants and data</span>
         </div>
-        <div className="flex gap-2.5 text-white">
+        {/* <div className="flex gap-2.5 text-white">
           <button className="flex justify-center items-center gap-2 rounded bg-[#4F4F4F] px-2.5 py-1">
             <span className="font-medium">JSON</span>
             <Code size={16} />
@@ -59,11 +57,18 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             <span className="font-medium">CSV</span>
             <Table size={16} />
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col flex-1 bg-gray-200 rounded-md p-4 gap-4">
-        <Grid numItemsSm={2} numItemsLg={3} className="gap-6">
+        <FlatTable data={data.reverse()} />
+      </div>
+    </div>
+  );
+}
+
+/*
+<Grid numItemsSm={2} numItemsLg={3} className="gap-6">
           {categories.map((item) => (
             <Card key={item.title} className="bg-gray-200">
               <Flex alignItems="start">
@@ -81,7 +86,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             </Card>
           ))}
         </Grid>
-        {/* <div className="flex gap-3">
+         <div className="flex gap-3">
           <div className="bg-gray-100 flex flex-col gap-2 p-2 rounded">
             <p className="text-3xl flex items-center gap-2">
               <User />
@@ -97,7 +102,7 @@ export default function Page({ params }: { params: { experimentId: string } }) {
             </p>
             <span className="text-xs">Average time</span>
           </div>
-        </div> */}
+        </div> 
 
         <div className="w-full flex-1 flex flex-col gap-4">
           <AnswersTable />
@@ -114,8 +119,4 @@ export default function Page({ params }: { params: { experimentId: string } }) {
               <ArrowRight size={16} />
             </button>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+        </div> */
