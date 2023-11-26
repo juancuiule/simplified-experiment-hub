@@ -139,14 +139,19 @@ export function RenderExperimentStep(props: {
       >
         {({ handleSubmit, values }) => {
           return (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-6 flex-1"
-            >
-              {widgets.map((widget, i) => {
-                return <RenderWidget widget={widget} key={i} />;
-              })}
-            </form>
+            <>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-6 flex-1"
+              >
+                {widgets.map((widget, i) => {
+                  return <RenderWidget widget={widget} key={i} />;
+                })}
+              </form>
+              {/* <pre>
+                <code>{JSON.stringify(values, null, 2)}</code>
+              </pre> */}
+            </>
           );
         }}
       </Formik>

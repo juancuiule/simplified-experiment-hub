@@ -6,6 +6,7 @@ import CheckboxMenu from "./CheckboxWidgetMenu";
 import RadioWidgetMenu from "./RadioWidgetMenu";
 import RichTextWidgetMenu from "./RichTextMenu";
 import SliderWidgetMenu from "./SliderWidgetMenu";
+import DropdownWidgetMenu from "./DropdownWidgetMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -34,6 +35,7 @@ const menues = {
   button: ButtonWidgetMenu,
   checkbox: CheckboxMenu,
   radio: RadioWidgetMenu,
+  dropdown: DropdownWidgetMenu,
 };
 
 export default function WidgetMenu(props: MenuProps) {
