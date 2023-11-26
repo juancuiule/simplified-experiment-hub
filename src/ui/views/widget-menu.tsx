@@ -21,6 +21,7 @@ export default function WdigetMenu() {
         const item = fullItems.find(
           (item) => item.template === widget.template
         )!;
+
         return (
           <div key={`${widget.id}`} className="w-full flex flex-col gap-1">
             <WidgetMenu

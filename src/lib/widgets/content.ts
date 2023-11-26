@@ -12,12 +12,7 @@ export interface ImageWidget
   extends BaseContentWidget<
     "image",
     {
-      url:
-        | string
-        | {
-            desktop: string;
-            mobile: string;
-          };
+      url: string;
       alt: string;
     }
   > {}

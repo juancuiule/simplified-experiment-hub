@@ -1,16 +1,15 @@
-import { ImageWidget } from "@/lib/widgets/content";
+import { TextInputWidget } from "@/lib/widgets/response";
 import { Formik } from "formik";
 
-export default function ImageWidgetMenu(props: {
-  widget: ImageWidget;
-  update: (widget: ImageWidget) => void;
+export default function TextInputWidgetMenu(props: {
+  widget: TextInputWidget;
+  update: (widget: TextInputWidget) => void;
 }) {
-  const { widget, update } = props;
+  const { widget, update } = props
+
   return (
     <Formik
-      initialValues={{
-        ...widget.props,
-      }}
+      initialValues={widget.props}
       onSubmit={(values) => {
         update({
           ...widget,
@@ -25,22 +24,32 @@ export default function ImageWidgetMenu(props: {
         return (
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
-              <label>Url</label>
+              <label>Label</label>
               <input
-                value={values.url}
                 type="text"
+                value={values.label}
                 onChange={handleChange}
-                name="url"
+                name="label"
                 className="border border-black rounded-md"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label>Alt text</label>
+              <label>Placeholder</label>
               <input
-                value={values.alt}
                 type="text"
+                value={values.placeholder}
                 onChange={handleChange}
-                name="alt"
+                name="placeholder"
+                className="border border-black rounded-md"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label>Data key</label>
+              <input
+                type="text"
+                value={values["dataKey"]}
+                onChange={handleChange}
+                name="dataKey"
                 className="border border-black rounded-md"
               />
             </div>

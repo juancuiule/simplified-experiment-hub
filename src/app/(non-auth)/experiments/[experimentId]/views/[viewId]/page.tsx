@@ -18,7 +18,6 @@ export default async function Page({
     .then((res) => {
       return res.views.find((view) => view.slug === viewId);
     });
-  console.log(params, view);
 
   if (view === undefined) {
     notFound();
@@ -34,13 +33,13 @@ export default async function Page({
           <TopNav experimentId={params.experimentId} viewId={params.viewId} />
           {/* Experiment view design */}
           <div className="grid grid-cols-12 gap-2 md:max-h-[calc(60vh)]">
-            <div className="col-span-12 md:col-span-6 xl:col-span-8 h-[60vh]">
+            <div className="col-span-12 md:col-span-4 xl:col-span-6 h-[60vh]">
               <Canvas viewId={params.viewId} />
             </div>
-            <div className="col-span-12 md:col-span-3 xl:col-span-2 overflow-y-scroll md:max-h-[60vh]">
+            <div className="col-span-12 md:col-span-4 xl:col-span-4 overflow-y-scroll md:max-h-[60vh] w-full max-w-none">
               <WdigetMenu />
             </div>
-            <div className="col-span-12 md:col-span-3 xl:col-span-2 overflow-y-scroll md:max-h-[60vh]">
+            <div className="col-span-12 md:col-span-4 xl:col-span-2 overflow-y-scroll md:max-h-[60vh] w-full max-w-none">
               <WidgetsMenu />
             </div>
           </div>

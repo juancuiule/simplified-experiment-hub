@@ -40,6 +40,7 @@ export interface TextInputWidget
   extends BaseResponseWidget<
     "text_input",
     {
+      label: string;
       placeholder?: string;
     }
   > {}

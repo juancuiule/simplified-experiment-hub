@@ -1,4 +1,4 @@
-import { FrameworkWidget } from "@/lib/widgets";
+import { BaseWidget, FrameworkWidget } from "@/lib/widgets";
 import React from "react";
 import { ArrowDown, ArrowUp, X } from "react-feather";
 import { ButtonWidgetMenu } from "./ButtonWidgetMenu";
@@ -7,6 +7,9 @@ import RadioWidgetMenu from "./RadioWidgetMenu";
 import RichTextWidgetMenu from "./RichTextMenu";
 import SliderWidgetMenu from "./SliderWidgetMenu";
 import DropdownWidgetMenu from "./DropdownWidgetMenu";
+import SingleCheckboxMenu from "./SingleCheckboxWidgetMenu";
+import ImageWidgetMenu from "./ImageWidgetMenu";
+import TextInputWidgetMenu from "./TextInputWidgetMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -26,16 +29,21 @@ const titles: Partial<Record<FrameworkWidget["template"], string>> = {
   video: "Video",
   button: "Button",
   radio: "Radio",
+  dropdown: "Dropdown",
+  single_checkbox: "Single Checkbox",
+  text_input: "Text Input",
 };
 
-const menues = {
+const menues: Partial<Record<FrameworkWidget["template"], any>> = {
+  image: ImageWidgetMenu,
   rich_text: RichTextWidgetMenu,
-  // image: ImageWidgetMenu,
   slider: SliderWidgetMenu,
   button: ButtonWidgetMenu,
   checkbox: CheckboxMenu,
   radio: RadioWidgetMenu,
   dropdown: DropdownWidgetMenu,
+  single_checkbox: SingleCheckboxMenu,
+  text_input: TextInputWidgetMenu,
 };
 
 export default function WidgetMenu(props: MenuProps) {
