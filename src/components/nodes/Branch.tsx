@@ -23,13 +23,13 @@ export default function BranchNode(props: NodeProps<BranchNode>) {
             const formEl = e.target as HTMLFormElement;
             const formData = new FormData(formEl);
             const branchName = formData.get("branch")?.toString()!;
-            updateNode<BranchNode>(id, setNodes, (node) => ({
-              ...node,
-              data: {
-                ...node.data,
-                branches: [...(node.data.branches || []), branchName],
-              },
-            }));
+            // updateNode<BranchNode>(id, setNodes, (node) => ({
+            //   ...node,
+            //   data: {
+            //     ...node.data,
+            //     branches: [...(node.data.branches || []), branchName],
+            //   },
+            // }));
             formEl.reset();
           }}
         >
@@ -48,7 +48,7 @@ export default function BranchNode(props: NodeProps<BranchNode>) {
         <ul>
           {branches.map((branch, index) => (
             <li key={index} className="flex gap-1 items-center justify-between">
-              <span className="text-xs">{branch}</span>
+              <span className="text-xs">{branch.group}</span>
               <div className="flex gap-1">
                 <button className="hover:text-info">
                   <Edit3 size={12} />
@@ -80,7 +80,7 @@ export default function BranchNode(props: NodeProps<BranchNode>) {
           key={index}
           type="source"
           position={Position.Bottom}
-          id={branch}
+          id={branch.group}
           style={{
             left: `${((index + 1) * 100) / (branches.length + 1)}%`,
           }}
