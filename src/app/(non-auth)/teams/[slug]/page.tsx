@@ -1,5 +1,6 @@
 import { API } from "@/api";
 import ExperimentsSection from "@/ui/sections/ExperimentsSection";
+import RemoveTeamButton from "@/ui/teams/RemoveTeamButton";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -42,7 +43,7 @@ export default async function Team({ params: { slug } }: Props) {
 
   return (
     <div className="flex flex-col w-full gap-6">
-      <div className="flex items-start justify-start gap-4 flex-col md:flex-row">
+      <div className="flex items-start justify-start gap-4 flex-col md:flex-row w-full">
         <div className="aspect-video w-full md:h-full md:w-auto flex justify-center items-center overflow-hidden border border-gray-200 rounded-md">
           <Image
             src={background}
@@ -56,6 +57,7 @@ export default async function Team({ params: { slug } }: Props) {
           <h1 className="text-4xl font-bold">{name}</h1>
           <p className="text-sm">{description}</p>
         </div>
+        <RemoveTeamButton teamId={team.pk} />
       </div>
       <div className="flex flex-col w-full gap-4">
         <h2 className="text-2xl font-semibold">Members</h2>

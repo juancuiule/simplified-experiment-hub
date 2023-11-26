@@ -76,7 +76,7 @@ export default async function Layout({
                 rel="noopener noreferrer"
                 href={`/experiment/${slug}`}
                 className="text-blue-400 hover:text-blue-500"
-              >{`${BASE_URL}/experiments/${slug}`}</Link>
+              >{`${BASE_URL}/experiment/${slug}`}</Link>
             </span>
             <p className="text-sm">{description}</p>
           </div>

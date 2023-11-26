@@ -45,7 +45,9 @@ export type LoginBody = { email: string; password: string };
 export type SignupBody = Omit<User, "avatar"> & { password: string };
 export type AuthResponse = { accessToken: string };
 
-export type CreateTeamBody = UserTeam & { userId: number };
+export type CreateTeamBody = Omit<UserTeam, "pk" | "users"> & {
+  userId: number;
+};
 export type CreateExperimentBody = BaseExperiment & { teamId: number };
 export type CreateViewBody = Omit<FrameworkView, "widgets">;
 
@@ -77,6 +79,7 @@ export const API = {
     experiments: (id: string) =>
       GET<Entity<BaseExperiment>[]>(`/api/teams/${id}/experiments`),
     create: POST<CreateTeamBody, Entity<UserTeam>>("/api/teams"),
+    delete: (id: string) => DELETE<Entity<Team>>(`/api/teams/${id}`),
   },
   experiments: {
     fetchAll: () => GET<Entity<Experiment>[]>("/api/experiments"),
