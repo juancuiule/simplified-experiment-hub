@@ -13,12 +13,4 @@ export interface ExperimentStepNode
     }
   > {}
 
-export interface CustomViewNode
-  extends BaseStudyNode<
-    "custom-view",
-    {
-      slug: string;
-    }
-  > {}
-
-export type StudyNode = ExperimentStepNode | CustomViewNode;
+export type StudyNode = ExperimentStepNode;

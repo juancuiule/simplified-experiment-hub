@@ -5,6 +5,7 @@ import { ChevronLeft, Save } from "react-feather";
 import { useFlowContext } from "./store";
 import { API } from "@/api";
 import { useRouter } from "next/navigation";
+import { toFrameworkNodes } from "@/utils";
 
 export default function TopNav(props: { experimentId: string }) {
   const router = useRouter();
@@ -28,13 +29,10 @@ export default function TopNav(props: { experimentId: string }) {
           onClick={() => {
             API.experiments.nodes
               .update(experimentId)({
-                nodes: [],
+                nodes: toFrameworkNodes(nodes, edges),
               })
               .then((res) => {
                 router.push(`/experiments/${experimentId}`);
-              })
-              .catch((err) => {
-                console.log(err);
               });
           }}
         >

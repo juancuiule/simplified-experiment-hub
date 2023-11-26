@@ -54,7 +54,7 @@ const parseFlowNode = (
             .map((branch) => {
               return edges.find(
                 (edge) =>
-                  edge.source === node.id && edge.sourceHandle === branch
+                  edge.source === node.id && edge.sourceHandle === branch.group
               );
             })
             .map((edge) => nodes.find((node) => node.id === edge?.target))
@@ -95,44 +95,24 @@ const parseFlowNode = (
   return [];
 };
 
-const a = {
-  parsed: [
-    "start",
-    "experiment-step => terms",
-    ["branch", ["noop"], ["experiment-step => psicodelicos"]],
-    "checkpoint => first-save",
-    "experiment-step => gracias",
-    "finish",
-  ],
-};
 export default function Debug() {
   const { nodes, edges } = useFlowContext((state) => ({
     nodes: state.nodes,
     edges: state.edges,
   }));
 
-  const parsed = useMemo(() => {
-    const startNode = nodes.find((n) => n.type === "start");
-    if (startNode) {
-      return parseFlowNode(startNode, nodes, edges);
-    } else {
-      return {};
-    }
-  }, [nodes, edges]);
+  // const parsed = useMemo(() => {
+  //   const startNode = nodes.find((n) => n.type === "start");
+  //   if (startNode) {
+  //     return parseFlowNode(startNode, nodes, edges);
+  //   } else {
+  //     return {};
+  //   }
+  // }, [nodes, edges]);
 
   return (
     <div>
       <pre>
-        <code>
-          {JSON.stringify(
-            {
-              parsed,
-            },
-            null,
-            2
-          )}
-        </code>
-        <br />
         <code>{JSON.stringify({ nodes, edges }, null, 2)}</code>
       </pre>
     </div>

@@ -55,23 +55,23 @@ export const items: Record<string, Item[]> = {
       title: "Branch",
       description: "Nodo que sirve para dividir el flujo en base a algún valor",
     },
-    {
-      icon: CornerUpRight,
-      title: "Redirect",
-      description:
-        "Es un nodo que tiene un nodeId y te lleva a ese punto del experimento (podríamos configurar si esto resetea el contexto o no)",
-    },
-    {
-      icon: Monitor,
-      title: "Path",
-      description:
-        "Es un nodo que agrupa otros nodos que constituyen toda un camino posible dentro del experimento. Tiene un bool para indicar si esos nodos van acompañados de un stepper o no",
-    },
-    {
-      icon: Shuffle,
-      title: "Fork",
-      description:
-        "Nodo que sirve para dividir el flujo en distintos forks de forma aleatoria",
-    },
+    // {
+    //   icon: CornerUpRight,
+    //   title: "Redirect",
+    //   description:
+    //     "Es un nodo que tiene un nodeId y te lleva a ese punto del experimento (podríamos configurar si esto resetea el contexto o no)",
+    // },
+    // {
+    //   icon: Monitor,
+    //   title: "Path",
+    //   description:
+    //     "Es un nodo que agrupa otros nodos que constituyen toda un camino posible dentro del experimento. Tiene un bool para indicar si esos nodos van acompañados de un stepper o no",
+    // },
+    // {
+    //   icon: Shuffle,
+    //   title: "Fork",
+    //   description:
+    //     "Nodo que sirve para dividir el flujo en distintos forks de forma aleatoria",
+    // },
   ],
 };

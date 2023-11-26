@@ -5,7 +5,11 @@ export async function GET(
   request: Request,
   { params }: { params: { experimentId: string } }
 ) {
-  const res = await fetch(`${API_URL}/experiments/${params.experimentId}`);
+  const res = await fetch(`${API_URL}/experiments/${params.experimentId}`, {
+    next: {
+      revalidate: 0,
+    },
+  });
   const data = await res.json();
   return NextResponse.json(data);
 }

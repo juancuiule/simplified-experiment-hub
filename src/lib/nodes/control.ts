@@ -11,7 +11,7 @@ type Ramification = {
   nextNode: FrameworkNode;
 };
 
-type Branch = ConditionConfig & Ramification;
+export type Branch = ConditionConfig & Ramification;
 
 export interface BranchNode
   extends BaseControlNode<
@@ -59,7 +59,7 @@ export interface ForkNode
   extends BaseControlNode<
     "fork",
     {
-      groups: ForkGroup;
+      groups: ForkGroup[];
       dataKey: string;
     }
   > {}

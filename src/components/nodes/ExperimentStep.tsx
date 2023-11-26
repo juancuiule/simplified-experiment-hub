@@ -1,4 +1,4 @@
-import { ExperimentStep, updateNode } from "@/ui/flow/store";
+import { ExperimentStep, updateNode, useFlowContext } from "@/ui/flow/store";
 import Link from "next/link";
 import { Edit3, Monitor } from "react-feather";
 import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
@@ -9,6 +9,7 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
     id,
   } = props;
   const { setNodes } = useReactFlow();
+  const views = useFlowContext((state) => state.views);
 
   return (
     <>
@@ -30,12 +31,13 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
                 },
               }));
             }}
+            defaultValue={viewId}
           >
-            {/* {views.map((view) => (
+            {views.map((view) => (
               <option key={view.slug} value={view.slug}>
                 {view.name}
               </option>
-            ))} */}
+            ))}
           </select>
           <Link
             className="hover:text-blue-400"

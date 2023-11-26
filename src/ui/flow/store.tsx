@@ -1,4 +1,6 @@
 "use client";
+import { FrameworkView } from "@/lib";
+import { Branch } from "@/lib/nodes/control";
 import { createContext, useContext, useRef } from "react";
 import {
   Connection,
@@ -18,8 +20,8 @@ export type FinishNode = { type: "finish" };
 export type CheckpointNode = { type: "checkpoint"; checkpointId: string };
 export type NoOp = { type: "noop" };
 export type ExperimentStep = { type: "experiment-step"; viewId: string };
-export type BranchNode = { type: "branch"; branches: string[] };
-export type Redirect = { type: "redirect" };
+export type BranchNode = { type: "branch"; branches: Branch[] };
+// export type Redirect = { type: "redirect" };
 
 export type FlowNodeTypes =
   | StartNode
@@ -27,8 +29,8 @@ export type FlowNodeTypes =
   | CheckpointNode
   | NoOp
   | ExperimentStep
-  | BranchNode
-  | Redirect;
+  | BranchNode;
+// | Redirect;
 
 export const defaultForType = (type: FlowNodeTypes["type"]): FlowNodeTypes => {
   if (type === "branch") {
@@ -44,10 +46,12 @@ export const defaultForType = (type: FlowNodeTypes["type"]): FlowNodeTypes => {
 };
 
 export type FlowNode = Node<FlowNodeTypes, FlowNodeTypes["type"]>;
+export type FlowEdge = Edge;
 
 export interface FlowProps {
   nodes: FlowNode[];
   edges: Edge[];
+  views: FrameworkView[];
 }
 
 export interface FlowState extends FlowProps {
@@ -64,6 +68,7 @@ export const createFlowStore = (initProps?: Partial<FlowProps>) => {
   const DEFAULT_PROPS: FlowProps = {
     nodes: [],
     edges: [],
+    views: [],
   };
   return createStore<FlowState>()((set, get) => ({
     ...DEFAULT_PROPS,
