@@ -1,12 +1,6 @@
 "use client";
-import Card from "@/components/Card";
-import RenderState from "@/components/framework/render/RenderState";
-import { items } from "@/ui/views/widget-items";
-import { defaultByType } from "@/lib/default";
-import { FrameworkWidget } from "@/lib/widgets";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
-import { Fragment, useState } from "react";
 import { Save, X } from "react-feather";
 
 interface Props {
@@ -15,11 +9,10 @@ interface Props {
 
 export default function NewViewModal(props: Props) {
   const {
-    params: { experimentId, viewId },
+    params: { viewId },
   } = props;
 
   const router = useRouter();
-  const [widgets, setWidgets] = useState<FrameworkWidget[]>([]);
 
   return (
     <Dialog.Root open>
@@ -49,61 +42,6 @@ export default function NewViewModal(props: Props) {
               Make changes to your profile here. Click save when you&apos;re
               done.
             </Dialog.Description>
-            <div className="grid grid-cols-12 gap-2 md:max-h-[calc(60vh)]">
-              <div className="col-span-12 md:col-span-9 lg:col-span-10 h-[60vh]">
-                <div
-                  className="flex flex-col flex-1 p-6 bg-light rounded h-full overflow-y-scroll"
-                  style={{
-                    backgroundImage: "url(/dot-tile.png)",
-                    backgroundRepeat: "repeat",
-                    backgroundSize: "45px 45px",
-                  }}
-                >
-                  <div className="flex flex-col flex-1 mx-auto gap-4 max-w-lg w-full p-6 border border-black bg-white min-h-fit">
-                    <RenderState
-                      state={{
-                        type: "in-node",
-                        node: {
-                          id: viewId,
-                          nodeType: "experiment-step",
-                          nodeFamily: "study",
-                          props: { slug: viewId },
-                        },
-                      }}
-                      views={[
-                        { slug: viewId, name: "", description: "", widgets },
-                      ]}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-12 md:col-span-3 lg:col-span-2 overflow-y-scroll md:max-h-[60vh]">
-                <div className="flex flex-col p-2 gap-2 overflow-y-scroll rounded bg-light">
-                  {Object.entries(items).map(([key, value]) => (
-                    <Fragment key={key}>
-                      <h4 className="text-md font-semibold">{`${key
-                        .charAt(0)
-                        .toUpperCase()}${key.slice(1)}`}</h4>
-                      {value.map((item) => (
-                        <Card
-                          key={item.title}
-                          title={item.title}
-                          icon={<item.icon size={16} />}
-                          description={item.description}
-                          onClick={() => {
-                            const newWidget: FrameworkWidget = {
-                              ...defaultByType(item.template),
-                              id: new Date().getTime().toString(),
-                            };
-                            setWidgets((ws) => [...ws, newWidget]);
-                          }}
-                        />
-                      ))}
-                    </Fragment>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
           <div className="flex gap-4 justify-end">
             <button
