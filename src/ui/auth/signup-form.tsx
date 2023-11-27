@@ -2,6 +2,7 @@
 import { API } from "@/api";
 import { Formik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 
 const signupSchema = Yup.object().shape({
@@ -14,6 +15,7 @@ const signupSchema = Yup.object().shape({
 });
 
 export default function SignupForm() {
+  const router = useRouter();
   return (
     <Formik
       initialValues={{
@@ -30,7 +32,7 @@ export default function SignupForm() {
         API.auth
           .signup(values)
           .then((res) => {
-            console.log(res);
+            router.push(`/users/${values.username}`);
           })
           .catch((err) => {
             console.log(err);
