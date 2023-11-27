@@ -1,5 +1,6 @@
 "use client";
-import { API, Entity, Team, UserTeam } from "@/api";
+import { API, UserTeam } from "@/api";
+import { slugify } from "@/utils";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { RefreshCw, Trash } from "react-feather";
@@ -22,8 +23,6 @@ export default function CreateExperimentForm(props: Props) {
 
   const { teams } = props;
 
-  // TODO fetch user teams
-
   return (
     <Formik
       initialValues={{
@@ -31,7 +30,6 @@ export default function CreateExperimentForm(props: Props) {
         description: "",
         slug: "",
         coverImage: "",
-        // hardcoded for now
         team: "",
       }}
       validationSchema={createExperimentSchema}
@@ -39,7 +37,6 @@ export default function CreateExperimentForm(props: Props) {
         API.experiments
           .create({ ...values, teamId: Number(values.team) })
           .then((res) => {
-            console.log({ res });
             router.push(`/experiments/${res.pk}`);
           });
       }}
@@ -72,10 +69,7 @@ export default function CreateExperimentForm(props: Props) {
               onChange={(e) => {
                 handleChange(e);
                 if (!Boolean(touched.slug)) {
-                  setFieldValue(
-                    "slug",
-                    e.target.value.toLowerCase().replace(/ /g, "-")
-                  );
+                  setFieldValue("slug", slugify(e.target.value));
                 }
               }}
               onBlur={handleBlur}
@@ -162,10 +156,7 @@ export default function CreateExperimentForm(props: Props) {
               <button
                 type="button"
                 onClick={() => {
-                  setFieldValue(
-                    "slug",
-                    values.name.toLowerCase().replace(/ /g, "-")
-                  );
+                  setFieldValue("slug", slugify(values.name));
                 }}
                 aria-label="Refresh slug"
               >

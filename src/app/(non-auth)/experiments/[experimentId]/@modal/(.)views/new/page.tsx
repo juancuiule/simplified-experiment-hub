@@ -1,5 +1,6 @@
 "use client";
 import { API } from "@/api";
+import { slugify } from "@/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
@@ -103,10 +104,7 @@ export default function NewViewModal(props: Props) {
                     id="name"
                     onChange={(e) => {
                       handleChange(e);
-                      setFieldValue(
-                        "slug",
-                        e.target.value.toLowerCase().replace(/ /g, "-")
-                      );
+                      setFieldValue("slug", slugify(e.target.value));
                     }}
                     onBlur={handleBlur}
                     value={values.name}
