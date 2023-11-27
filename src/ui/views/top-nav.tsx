@@ -38,7 +38,7 @@ export default function TopNav(props: {
               )({ widgets })
               .then((res) => {
                 startTransition(() => {
-                  router.push(`/experiments/${experimentId}/views/${viewId}`);
+                  router.push(`/experiments/${experimentId}/views/`);
                 });
                 startTransition(() => {
                   router.refresh();
