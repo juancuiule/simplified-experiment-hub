@@ -4,12 +4,14 @@ import {
   CheckSquare,
   ChevronDown,
   GitCommit,
+  Headphones,
   Icon,
   Image,
   List,
   MoreHorizontal,
   MousePointer,
   Type,
+  Video,
 } from "react-feather";
 
 export type Item = {
@@ -34,18 +36,18 @@ export const items: Record<string, Item[]> = {
       template: "image",
       description: "An image that can be uploaded or selected from a URL.",
     },
-    // {
-    //   icon: Headphones,
-    //   title: "Audio",
-    //   template: "audio",
-    //   description: "An audio player that allows you to play audio files.",
-    // },
-    // {
-    //   icon: Video,
-    //   title: "Video",
-    //   template: "video",
-    //   description: "A video player that allows you to play video files.",
-    // },
+    {
+      icon: Headphones,
+      title: "Audio",
+      template: "audio",
+      description: "An audio player that allows you to play audio files.",
+    },
+    {
+      icon: Video,
+      title: "Video",
+      template: "video",
+      description: "A video player that allows you to play video files.",
+    },
   ],
   layout: [
     {

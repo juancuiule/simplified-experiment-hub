@@ -12,6 +12,7 @@ import Image from "../widgets/content/Image";
 import Dropdown from "../widgets/response/DropdownWidget";
 import Rating from "../widgets/response/RatingWidget";
 import TextInput from "../widgets/response/TextInputWidget";
+import Video from "../widgets/content/Video";
 
 export default function RenderWidget(props: { widget: FrameworkWidget }) {
   const { widget } = props;
@@ -48,6 +49,9 @@ export default function RenderWidget(props: { widget: FrameworkWidget }) {
     }
     case "audio": {
       return <Audio widget={widget} />;
+    }
+    case "video": {
+      return <Video widget={widget} />;
     }
     case "dropdown": {
       return <Dropdown widget={widget} />;

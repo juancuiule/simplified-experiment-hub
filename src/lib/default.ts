@@ -147,6 +147,26 @@ export function defaultByType(
         },
       };
     }
+    case "video": {
+      return {
+        template: "video",
+        widgetFamily: "content",
+        props: {
+          url: "https://cdn.experiment-hub.com/video.webm",
+          muted: true,
+          autoplay: false,
+        },
+      };
+    }
+    case "audio": {
+      return {
+        template: "audio",
+        widgetFamily: "content",
+        props: {
+          url: "https://cdn.experiment-hub.com/audio.mp3",
+        },
+      };
+    }
     default: {
       return {
         template: "group",

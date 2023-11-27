@@ -11,6 +11,8 @@ import SingleCheckboxMenu from "./SingleCheckboxWidgetMenu";
 import ImageWidgetMenu from "./ImageWidgetMenu";
 import TextInputWidgetMenu from "./TextInputWidgetMenu";
 import RatingWidgetMenu from "./RatingWidgetMenu";
+import VideoWidgetMenu from "./VideoWidgetMenu";
+import AudioWidgetMenu from "./AudioWidgetMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -47,6 +49,8 @@ const menues: Partial<Record<FrameworkWidget["template"], any>> = {
   single_checkbox: SingleCheckboxMenu,
   text_input: TextInputWidgetMenu,
   rating: RatingWidgetMenu,
+  video: VideoWidgetMenu,
+  audio: AudioWidgetMenu,
 };
 
 export default function WidgetMenu(props: MenuProps) {

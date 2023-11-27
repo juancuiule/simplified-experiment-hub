@@ -41,17 +41,17 @@ export default function SliderWidgetMenu(props: {
               <input
                 value={values.minLabel}
                 onChange={handleChange}
-                name="min"
+                name="minLabel"
                 type="text"
                 className="border border-black rounded-md"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label>Max value</label>
+              <label>Max label</label>
               <input
-                value={values.max}
+                value={values.maxLabel}
                 onChange={handleChange}
-                name="max"
+                name="maxLabel"
                 type="text"
                 className="border border-black rounded-md"
               />
