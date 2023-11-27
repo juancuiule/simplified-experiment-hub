@@ -7,7 +7,7 @@ export default function Layout({ children }: LayoutProps) {
     <main className="flex flex-1">
       {children}
 
-      <div className="hidden lg:flex gap-2 items-center text-xs text-gray-400 absolute right-2 bottom-2">
+      <div className="hidden lg:flex gap-2 items-center text-xs text-gray-400 fixed right-2 bottom-2">
         Powered by{" "}
         <Link href="/">
           <Image
