@@ -6,6 +6,7 @@ import { useFlowContext } from "./store";
 import { API } from "@/api";
 import { useRouter } from "next/navigation";
 import { toFrameworkNodes } from "@/utils";
+import { useTransition } from "react";
 
 export default function TopNav(props: { experimentId: string }) {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function TopNav(props: { experimentId: string }) {
     nodes: s.nodes,
     edges: s.edges,
   }));
+  const [isPending, startTransition] = useTransition();
 
   return (
     <div className="sticky z-10 w-full top-2 flex justify-between items-center h-12 bg-light rounded p-2 gap-2">
@@ -31,8 +33,13 @@ export default function TopNav(props: { experimentId: string }) {
               .update(experimentId)({
                 nodes: toFrameworkNodes(nodes, edges),
               })
-              .then((res) => {
-                router.push(`/experiments/${experimentId}`);
+              .then((data) => {
+                startTransition(() => {
+                  router.push(`/experiments/${data.pk}`);
+                });
+                startTransition(() => {
+                  router.refresh();
+                });
               });
           }}
         >

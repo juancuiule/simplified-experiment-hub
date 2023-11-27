@@ -5,6 +5,7 @@ import { ChevronLeft, Save } from "react-feather";
 import { useViewContext } from "./store";
 import { API } from "@/api";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 
 export default function TopNav(props: {
   experimentId: string;
@@ -15,6 +16,7 @@ export default function TopNav(props: {
   const { widgets } = useViewContext((s) => ({
     widgets: s.widgets,
   }));
+  const [isPending, startTransition] = useTransition();
 
   return (
     <div className="sticky z-10 w-full top-2 flex justify-between items-center h-12 bg-light rounded p-2 gap-2">
@@ -35,8 +37,12 @@ export default function TopNav(props: {
                 viewId
               )({ widgets })
               .then((res) => {
-                console.log(res);
-                router.push(`/experiments/${experimentId}/views`);
+                startTransition(() => {
+                  router.push(`/experiments/${experimentId}/views/${viewId}`);
+                });
+                startTransition(() => {
+                  router.refresh();
+                });
               })
               .catch((err) => {
                 console.log(err);

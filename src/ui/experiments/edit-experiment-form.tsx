@@ -2,6 +2,7 @@
 import { API } from "@/api";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { Trash } from "react-feather";
 import * as Yup from "yup";
 
@@ -24,6 +25,7 @@ interface Props {
 
 export default function EditExperimentForm(props: Props) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   return (
     <Formik
@@ -35,7 +37,12 @@ export default function EditExperimentForm(props: Props) {
           .update(props.id)(values)
           .then((data) => {
             if (data) {
-              router.push(`/experiments/${data.pk}`);
+              startTransition(() => {
+                router.push(`/experiments/${data.pk}`);
+              });
+              startTransition(() => {
+                router.refresh();
+              });
             }
           });
       }}
