@@ -1,6 +1,7 @@
 "use client";
-import { API } from "@/api";
+import { API, Entity, User } from "@/api";
 import { Formik } from "formik";
+import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
@@ -15,7 +16,7 @@ const signupSchema = Yup.object().shape({
 });
 
 export default function SignupForm() {
-  const router = useRouter();
+  const { push, refresh } = useRouter();
   return (
     <Formik
       initialValues={{
@@ -32,7 +33,9 @@ export default function SignupForm() {
         API.auth
           .signup(values)
           .then((res) => {
-            router.push(`/users/${values.username}`);
+            const decoded: { user: Entity<User> } = jwtDecode(res.accessToken);
+            push(`/users/${decoded.user.username}`);
+            refresh();
           })
           .catch((err) => {
             console.log(err);

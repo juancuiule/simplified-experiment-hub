@@ -64,6 +64,7 @@ export const API = {
   auth: {
     login: POST<LoginBody, AuthResponse>("/api/auth/login"),
     signup: POST<SignupBody, AuthResponse>("/api/auth/signup"),
+    logout: POST<{}, {}>("/api/auth/logout"),
   },
   users: {
     fetchByUsername: (username: string) =>

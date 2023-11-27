@@ -1,5 +1,6 @@
 import { API_URL } from "@/constants";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -11,8 +12,13 @@ export async function POST(request: Request) {
         "Content-Type": "application/json",
       },
     });
+
     const data = await res.json();
-    return NextResponse.json(data);
+    const response = NextResponse.json(data);
+
+    cookies().set("accessToken", data.accessToken);
+
+    return response;
   } catch (error) {
     console.log(error);
     return NextResponse.error();

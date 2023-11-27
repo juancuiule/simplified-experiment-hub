@@ -1,4 +1,5 @@
 import { API_URL } from "@/constants";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -11,5 +12,9 @@ export async function POST(request: Request) {
     },
   });
   const data = await res.json();
-  return NextResponse.json(data);
+  const response = NextResponse.json(data);
+
+  cookies().set("accessToken", data.accessToken);
+
+  return response;
 }
