@@ -22,13 +22,9 @@ const handleReqWithBody =
   async (bodyData: T, extraHeaders?: HeadersInit) =>
     await fetch(`${BASE_URL}${path}`, {
       method,
-      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        ...(token !== undefined
-          ? { Authorization: `Bearer ${token}`, "X-AUTH-TOKEN": token }
-          : {}),
         ...extraHeaders,
       },
       body: JSON.stringify(bodyData),
@@ -40,9 +36,6 @@ export const GET = async <U>(path: string, token?: string) =>
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      // ...(token !== undefined
-      //   ? { Authorization: `Bearer ${token}`, "X-AUTH-TOKEN": token }
-      //   : {}),
     },
     next: {
       revalidate: 0,

@@ -6,11 +6,12 @@ export async function POST(
   { params: { experimentId } }: { params: { experimentId: string } }
 ) {
   const body = await request.json();
-  const headers = new Headers(request.headers);
   const res = await fetch(`${API_URL}/experiments/${experimentId}/views`, {
     method: "POST",
     body: JSON.stringify(body),
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+    }
   });
   const data = await res.json();
   return NextResponse.json(data);
