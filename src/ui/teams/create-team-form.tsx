@@ -11,7 +11,7 @@ const createTeamSchema = Yup.object().shape({
   cover: Yup.string().required(),
 });
 
-export default function CreateTeamForm() {
+export default function CreateTeamForm(props: { userId: string }) {
   const router = useRouter();
 
   // TODO: add input to invite members
@@ -32,7 +32,7 @@ export default function CreateTeamForm() {
             description: values.description,
             name: values.name,
             slug: values.slug,
-            userId: 1,
+            userId: Number(props.userId),
           })
           .then((team) => {
             router.push(`/teams/${team.slug}`);
