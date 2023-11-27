@@ -1,18 +1,15 @@
 "use client";
+import { Experiment } from "@/api";
 import RenderState from "@/components/framework/render/RenderState";
-import { FrameworkExperiment } from "@/lib";
 import { useExperimentStore } from "@/lib/flow/state";
 import { useEffect } from "react";
 
 export default function Experiment(props: {
-  experiment: FrameworkExperiment;
+  experiment: Experiment;
   id: string;
 }) {
-  const {
-    experiment: { nodes, views },
-    id,
-  } = props;
-  const data = useExperimentStore((e) => e.data);
+  const { experiment, id } = props;
+  const { nodes, views } = experiment;
   const state = useExperimentStore((e) => e.state);
   const init = useExperimentStore((e) => e.init);
   const unsubTransient = useExperimentStore((e) => e.unsubTransient);
@@ -29,9 +26,6 @@ export default function Experiment(props: {
   return (
     <>
       <RenderState state={state} views={views} />
-      <pre>
-        <code>{JSON.stringify(data, null, 2)}</code>
-      </pre>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { FrameworkView } from "@/lib";
 import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkNode } from "@/lib/nodes";
+import { Loader } from "react-feather";
 import { RenderExperimentStep } from "./RenderExperimentStep";
 
 export function RenderNode(props: {
@@ -12,6 +13,15 @@ export function RenderNode(props: {
   const data = useExperimentStore((s) => s.data);
 
   switch (node.nodeType) {
+    case "start":
+    case "initial-state":
+    case "checkpoint": {
+      return (
+        <div className="flex flex-col flex-1 justify-center items-center">
+          <Loader className="animate-spin" />
+        </div>
+      );
+    }
     case "experiment-step": {
       return <RenderExperimentStep key={node.id} node={node} views={views} />;
     }
@@ -25,6 +35,10 @@ export function RenderNode(props: {
           </pre>
         </div>
       );
+    }
+    case "noop":
+    case "redirect": {
+      return <></>;
     }
     default: {
       return (

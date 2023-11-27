@@ -1,7 +1,9 @@
 import { Context } from "@/lib/flow/state";
 import { RenderNode } from "./RenderNode";
 
-const RenderState = (props: Pick<Context, "views" | "state">) => {
+type Props = Pick<Context, "views" | "state">;
+
+const RenderState = (props: Props) => {
   const { state, views } = props;
 
   switch (state.type) {

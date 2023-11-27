@@ -268,12 +268,10 @@ export const useExperimentStore = create<Context & StoreFns>()(
           const node = currentNode(currState);
           switch (node.nodeType) {
             case "initial-state": {
-              console.log("initial-state");
               break;
             }
             case "start":
             case "noop": {
-              console.log("Skipping start or noop state");
               get().dispatch({ type: "NEXT_NODE" });
               break;
             }
