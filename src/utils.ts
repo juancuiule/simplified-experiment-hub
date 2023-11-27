@@ -69,7 +69,9 @@ const toFrameworkNode = (node: FlowNode): FrameworkNode => {
         id: node.id,
         nodeFamily: "core",
         nodeType: "checkpoint",
-        props: {},
+        props: {
+          id: node.data.checkpointId,
+        },
       };
     }
     case "experiment-step": {
@@ -127,7 +129,7 @@ const toFlowNode = (node: FrameworkNode): Pair | Pair[] => {
     case "checkpoint": {
       return {
         frameworkNode: node,
-        flowNode: { type: "checkpoint", checkpointId: node.id },
+        flowNode: { type: "checkpoint", checkpointId: node.props.id },
       };
     }
     case "experiment-step": {
@@ -180,7 +182,7 @@ export const nodeData = (node: FrameworkNode): FlowNodeTypes => {
     case "checkpoint": {
       return {
         type: "checkpoint",
-        checkpointId: node.id,
+        checkpointId: node.props.id,
       };
     }
     case "noop": {
@@ -241,3 +243,23 @@ export const parseEdges = (nodes: FrameworkNode[]): Edge[] => {
     })
     .filter(Boolean) as Edge[];
 };
+
+export function slugify(text: string) {
+  const dict = {
+    á: "a",
+    é: "e",
+    í: "i",
+    ó: "o",
+    ú: "u",
+    ä: "ae",
+    ä: "ae",
+  };
+
+  return Object.entries(dict)
+    .reduce((acc, [key, value]) => {
+      return acc.replace(new RegExp(key, "g"), value);
+    }, text.replace(/^\s+|\s+$/g, "").toLowerCase())
+    .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+    .replace(/\s+/g, "-") // collapse whitespace and replace by -
+    .replace(/-+/g, "-"); // collapse dashes;
+}

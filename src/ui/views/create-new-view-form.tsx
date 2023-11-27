@@ -1,5 +1,6 @@
 "use client";
 import { API } from "@/api";
+import { slugify } from "@/utils";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 
@@ -25,7 +26,6 @@ export default function CreateNewViewForm(props: { experimentId: string }) {
         API.experiments.views
           .create(props.experimentId)(values)
           .then((experiment) => {
-            console.log({ experiment });
             if (experiment) {
               router.push(`/experiments/${experiment.pk}/views/${values.slug}`);
             }
@@ -59,10 +59,8 @@ export default function CreateNewViewForm(props: { experimentId: string }) {
               id="name"
               onChange={(e) => {
                 handleChange(e);
-                setFieldValue(
-                  "slug",
-                  e.target.value.toLowerCase().replace(/ /g, "-")
-                );
+                const value = e.target.value;
+                setFieldValue("slug", slugify(value));
               }}
               onBlur={handleBlur}
               value={values.name}
