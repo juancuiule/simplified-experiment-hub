@@ -10,6 +10,7 @@ import DropdownWidgetMenu from "./DropdownWidgetMenu";
 import SingleCheckboxMenu from "./SingleCheckboxWidgetMenu";
 import ImageWidgetMenu from "./ImageWidgetMenu";
 import TextInputWidgetMenu from "./TextInputWidgetMenu";
+import RatingWidgetMenu from "./RatingWidgetMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -32,6 +33,7 @@ const titles: Partial<Record<FrameworkWidget["template"], string>> = {
   dropdown: "Dropdown",
   single_checkbox: "Single Checkbox",
   text_input: "Text Input",
+  rating: "Rating",
 };
 
 const menues: Partial<Record<FrameworkWidget["template"], any>> = {
@@ -44,6 +46,7 @@ const menues: Partial<Record<FrameworkWidget["template"], any>> = {
   dropdown: DropdownWidgetMenu,
   single_checkbox: SingleCheckboxMenu,
   text_input: TextInputWidgetMenu,
+  rating: RatingWidgetMenu,
 };
 
 export default function WidgetMenu(props: MenuProps) {

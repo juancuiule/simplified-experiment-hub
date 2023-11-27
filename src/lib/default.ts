@@ -35,6 +35,30 @@ export function defaultByType(
         },
       };
     }
+    case "text_input": {
+      return {
+        template: "text_input",
+        widgetFamily: "response",
+        props: {
+          label: "¿Cuál es tu nombre?",
+          placeholder: "Juan",
+          dataKey: "nombre",
+          required: true,
+        },
+      };
+    }
+    case "rating": {
+      return {
+        template: "rating",
+        widgetFamily: "response",
+        props: {
+          label: "¿Qué tan bien te sentís?",
+          max: 5,
+          dataKey: "rating",
+          required: true,
+        },
+      };
+    }
     case "checkbox": {
       return {
         template: "checkbox",
@@ -110,6 +134,16 @@ export function defaultByType(
             { label: "Venezuela", value: "venezuela" },
           ],
           dataKey: "pais",
+        },
+      };
+    }
+    case "image": {
+      return {
+        template: "image",
+        widgetFamily: "content",
+        props: {
+          alt: "Experiment Hub Logo",
+          url: "https://cdn.experiment-hub.com/team/experiment-hub-opengraph.png",
         },
       };
     }

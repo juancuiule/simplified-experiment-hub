@@ -100,7 +100,7 @@ export interface RatingWidget
     {
       label: string;
       max: number;
-      optionsLabel: Option[];
+      optionsLabel?: Option[];
     }
   > {}
 

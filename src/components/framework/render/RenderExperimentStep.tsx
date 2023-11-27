@@ -148,9 +148,9 @@ export function RenderExperimentStep(props: {
                   return <RenderWidget widget={widget} key={i} />;
                 })}
               </form>
-              {/* <pre>
+              <pre>
                 <code>{JSON.stringify(values, null, 2)}</code>
-              </pre> */}
+              </pre>
             </>
           );
         }}

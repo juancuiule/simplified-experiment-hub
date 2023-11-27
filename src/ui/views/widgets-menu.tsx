@@ -1,9 +1,10 @@
 "use client";
 import Card from "@/components/Card";
 import { items } from "./widget-items";
-import { defaultByType, useViewContext } from "./store";
+import { useViewContext } from "./store";
 import { Fragment } from "react";
 import { FrameworkWidget } from "@/lib/widgets";
+import { defaultByType } from "@/lib/default";
 
 export default function WidgetsMenu() {
   const addWidget = useViewContext((state) => state.addWidget);
