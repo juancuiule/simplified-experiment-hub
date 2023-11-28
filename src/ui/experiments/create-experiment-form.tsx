@@ -33,11 +33,21 @@ export default function CreateExperimentForm(props: Props) {
         team: "",
       }}
       validationSchema={createExperimentSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, setErrors }) => {
+        setSubmitting(true);
         API.experiments
           .create({ ...values, teamId: Number(values.team) })
           .then((res) => {
             router.push(`/experiments/${res.pk}`);
+          })
+          .catch((err) => {
+            setErrors({
+              slug: "An experiment with this slug may already exist",
+              team: "Check if you have access to this team",
+            });
+          })
+          .finally(() => {
+            setSubmitting(false);
           });
       }}
     >

@@ -28,7 +28,7 @@ export default function SignupForm() {
         organization: "",
       }}
       validationSchema={signupSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, setErrors }) => {
         setSubmitting(true);
         API.auth
           .signup(values)
@@ -38,7 +38,10 @@ export default function SignupForm() {
             refresh();
           })
           .catch((err) => {
-            console.log(err);
+            setErrors({
+              email: "Invalid email or username",
+              username: "Invalid email or username",
+            });
           })
           .finally(() => {
             setSubmitting(false);
