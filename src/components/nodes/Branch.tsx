@@ -1,56 +1,78 @@
+"use client";
 import { BranchNode, updateNode } from "@/ui/flow/store";
+import { useState } from "react";
 import { Edit3, GitBranch, Plus, X } from "react-feather";
 import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
+import BranchConfigModal from "./BranchConfigModal";
+import { Branch } from "@/lib/nodes/control";
+import NodeHandle from "./NodeHandle";
 
 export default function BranchNode(props: NodeProps<BranchNode>) {
   const {
     data: { branches = [] },
     id,
   } = props;
-  const { setNodes } = useReactFlow();
+  const { setNodes, setEdges } = useReactFlow();
+
+  const [open, setOpen] = useState(false);
+  const [initialState, setInitialState] = useState<
+    Partial<Omit<Branch, "nextNode">> | undefined
+  >(undefined);
+
+  const addBranch = (branch: Omit<Branch, "nextNode">) => {
+    updateNode<BranchNode>(id, setNodes, (node) => ({
+      ...node,
+      data: {
+        ...node.data,
+        branches: [...(node.data.branches || []), branch],
+      },
+    }));
+  };
+
+  const updateBranch = (group: string, branch: Omit<Branch, "nextNode">) => {
+    updateNode<BranchNode>(id, setNodes, (node) => ({
+      ...node,
+      data: {
+        ...node.data,
+        branches: (node.data.branches || []).map((b) =>
+          b.group === group ? branch : b
+        ),
+      },
+    }));
+  };
 
   return (
     <>
+      <BranchConfigModal
+        isOpen={open}
+        addBranch={addBranch}
+        updateBranch={updateBranch}
+        initialState={initialState}
+        close={() => {
+          setOpen(false);
+          setInitialState(undefined);
+        }}
+      />
       <Handle type="target" position={Position.Top} id="a" />
-      <div className="flex flex-col gap-2 p-2 w-44 bg-white border border-black rounded-sm text-sm">
+      <div className="flex flex-col gap-2 p-2 min-w-[theme(spacing.44)] bg-white border border-black rounded-sm text-sm">
         <div className="flex gap-2 items-center w-full">
           <GitBranch size={16} /> <span>Branch</span>
         </div>
-        <form
-          className="flex gap-2 items-center"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formEl = e.target as HTMLFormElement;
-            const formData = new FormData(formEl);
-            const branchName = formData.get("branch")?.toString()!;
-            // updateNode<BranchNode>(id, setNodes, (node) => ({
-            //   ...node,
-            //   data: {
-            //     ...node.data,
-            //     branches: [...(node.data.branches || []), branchName],
-            //   },
-            // }));
-            formEl.reset();
-          }}
-        >
-          <input
-            className="border w-full rounded-md h-8 px-2 outline-info flex text-xs"
-            type="text"
-            name="branch"
-            id="branch"
-            placeholder="Branch name"
-          />
-          <button className="hover:text-success" type="submit">
-            <Plus size={16} />
-          </button>
-        </form>
 
         <ul>
           {branches.map((branch, index) => (
             <li key={index} className="flex gap-1 items-center justify-between">
-              <span className="text-xs">{branch.group}</span>
+              <span className="text-xs">
+                {index + 1}. {branch.group}
+              </span>
               <div className="flex gap-1">
-                <button className="hover:text-info">
+                <button
+                  className="hover:text-info"
+                  onClick={() => {
+                    setInitialState(branch);
+                    setOpen(true);
+                  }}
+                >
                   <Edit3 size={12} />
                 </button>
                 <button
@@ -65,6 +87,11 @@ export default function BranchNode(props: NodeProps<BranchNode>) {
                         ),
                       },
                     }));
+                    setEdges((edges) => {
+                      return edges.filter(
+                        (edge) => edge.sourceHandle !== branch.group
+                      );
+                    });
                   }}
                 >
                   <X size={12} />
@@ -73,9 +100,35 @@ export default function BranchNode(props: NodeProps<BranchNode>) {
             </li>
           ))}
         </ul>
+        <div className="flex items-center justify-center">
+          <button
+            className="hover:text-success"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            <Plus size={16} />
+          </button>
+        </div>
+        {branches.length > 0 && (
+          <div className="relative h-3">
+            {branches.map((branch, index) => (
+              <div
+                key={index}
+                className="absolute text-center -translate-x-1/2"
+                style={{
+                  left: `${((index + 1) * 100) / (branches.length + 1)}%`,
+                }}
+              >
+                {index + 1}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {branches.map((branch, index) => (
-        <Handle
+        <NodeHandle
+          maxConnections={1}
           isConnectable
           key={index}
           type="source"

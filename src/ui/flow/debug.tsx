@@ -101,17 +101,20 @@ export default function Debug() {
     edges: state.edges,
   }));
 
-  // const parsed = useMemo(() => {
-  //   const startNode = nodes.find((n) => n.type === "start");
-  //   if (startNode) {
-  //     return parseFlowNode(startNode, nodes, edges);
-  //   } else {
-  //     return {};
-  //   }
-  // }, [nodes, edges]);
+  const parsed = useMemo(() => {
+    const startNode = nodes.find((n) => n.type === "start");
+    if (startNode) {
+      return parseFlowNode(startNode, nodes, edges);
+    } else {
+      return {};
+    }
+  }, [nodes, edges]);
 
   return (
     <div>
+      <pre>
+        <code>{JSON.stringify(parsed, null, 2)}</code>
+      </pre>
       <pre>
         <code>{JSON.stringify({ nodes, edges }, null, 2)}</code>
       </pre>

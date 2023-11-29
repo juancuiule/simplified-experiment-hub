@@ -1,5 +1,6 @@
 import { SkipForward } from "react-feather";
 import { Handle, Position } from "reactflow";
+import NodeHandle from "./NodeHandle";
 
 export default function NoOpNode() {
   return (
@@ -10,7 +11,7 @@ export default function NoOpNode() {
           <SkipForward size={16} /> <span>NoOp</span>
         </div>
       </div>
-      <Handle type="source" position={Position.Bottom} id="a" />
+      <NodeHandle maxConnections={1} type="source" position={Position.Bottom} id="a" />
     </>
   );
 }

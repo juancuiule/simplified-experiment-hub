@@ -2,6 +2,7 @@ import { ExperimentStep, updateNode, useFlowContext } from "@/ui/flow/store";
 import Link from "next/link";
 import { Edit3, Monitor } from "react-feather";
 import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
+import NodeHandle from "./NodeHandle";
 
 export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
   const {
@@ -14,7 +15,7 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
   return (
     <>
       <Handle type="target" position={Position.Top} id="a" />
-      <div className="flex flex-col gap-2 p-2 w-44 bg-white border border-black rounded-sm text-sm">
+      <div className="flex flex-col gap-2 p-2 min-w-[theme(spacing.44)] bg-white border border-black rounded-sm text-sm">
         <div className="flex gap-2 items-center w-full">
           <Monitor size={16} /> <span>ExperimentStep</span>
         </div>
@@ -50,7 +51,7 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
           </Link>
         </div>
       </div>
-      <Handle type="source" position={Position.Bottom} id="b" />
+      <NodeHandle maxConnections={1} type="source" position={Position.Bottom} id="b" />
     </>
   );
 }

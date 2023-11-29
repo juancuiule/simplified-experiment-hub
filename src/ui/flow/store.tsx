@@ -20,7 +20,10 @@ export type FinishNode = { type: "finish" };
 export type CheckpointNode = { type: "checkpoint"; checkpointId: string };
 export type NoOp = { type: "noop" };
 export type ExperimentStep = { type: "experiment-step"; viewId: string };
-export type BranchNode = { type: "branch"; branches: Branch[] };
+export type BranchNode = {
+  type: "branch";
+  branches: Omit<Branch, "nextNode">[];
+};
 // export type Redirect = { type: "redirect" };
 
 export type FlowNodeTypes =

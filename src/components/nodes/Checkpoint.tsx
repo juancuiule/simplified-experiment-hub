@@ -1,6 +1,7 @@
 import { CheckpointNode, updateNode } from "@/ui/flow/store";
 import { Database } from "react-feather";
 import { Handle, NodeProps, Position, useReactFlow } from "reactflow";
+import NodeHandle from "./NodeHandle";
 
 export default function CheckpointNode(props: NodeProps<CheckpointNode>) {
   const {
@@ -35,7 +36,7 @@ export default function CheckpointNode(props: NodeProps<CheckpointNode>) {
           }}
         />
       </div>
-      <Handle type="source" position={Position.Bottom} id="a" />
+      <NodeHandle maxConnections={1} type="source" position={Position.Bottom} id="a" />
     </>
   );
 }

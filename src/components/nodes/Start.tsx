@@ -1,5 +1,6 @@
 import { Play } from "react-feather";
 import { Handle, Position } from "reactflow";
+import NodeHandle from "./NodeHandle";
 
 export default function StartNode() {
   return (
@@ -9,7 +10,12 @@ export default function StartNode() {
           <Play size={16} /> <span>Start</span>
         </div>
       </div>
-      <Handle type="source" position={Position.Bottom} id="a" />
+      <NodeHandle
+        maxConnections={1}
+        type="source"
+        position={Position.Bottom}
+        id="a"
+      />
     </>
   );
 }
