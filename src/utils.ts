@@ -90,7 +90,15 @@ const toFrameworkNode = (node: FlowNode): FrameworkNode => {
         nodeFamily: "control",
         nodeType: "branch",
         props: {
-          branches: node.data.branches,
+          branches: node.data.branches.map((n) => ({
+            ...n,
+            nextNode: {
+              id: "noop-1",
+              nodeFamily: "core",
+              nodeType: "noop",
+              props: {},
+            },
+          })),
         },
       };
     }
