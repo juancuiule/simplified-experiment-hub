@@ -6,7 +6,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Experiment Hub",
-  description: "Un laboratorio virtual para diseñar encuestas complejas, compartir conocimiento y analizar descubrimientos. Descubrí el futuro de la investigación científica sin límites.",
+  description:
+    "Un laboratorio virtual para diseñar encuestas complejas, compartir conocimiento y analizar descubrimientos. Descubrí el futuro de la investigación científica sin límites.",
   metadataBase: new URL(BASE_URL),
   openGraph: {
     title: "Experiment Hub",
