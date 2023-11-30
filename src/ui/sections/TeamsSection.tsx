@@ -3,9 +3,10 @@ import Link from "next/link";
 
 interface Props {
   teams: UserTeam[];
+  isAuthed?: boolean;
 }
 
-export default function TeamsSection({ teams }: Props) {
+export default function TeamsSection({ teams, isAuthed = false }: Props) {
   return (
     <section className="flex flex-col w-full gap-4">
       <h2 className="text-2xl font-semibold">Teams</h2>
@@ -52,18 +53,20 @@ export default function TeamsSection({ teams }: Props) {
             </Link>
           );
         })}
-        <Link
-          href={`/teams/new`}
-          className={`
-              flex flex-col justify-center items-center flex-1
-              border border-dashed border-gray-300 text-gray-300
-              hover:border-black hover:text-black
-              col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer rounded-md
-              transition-colors aspect-video h-full w-full
-              `}
-        >
-          <span className="text-sm font-semibold">New team</span>
-        </Link>
+        {isAuthed && (
+          <Link
+            href={`/teams/new`}
+            className={`
+                flex flex-col justify-center items-center flex-1
+                border border-dashed border-gray-300 text-gray-300
+                hover:border-black hover:text-black
+                col-span-6 lg:col-span-4 xl:col-span-3 cursor-pointer rounded-md
+                transition-colors aspect-video h-full w-full
+                `}
+          >
+            <span className="text-sm font-semibold">New team</span>
+          </Link>
+        )}
       </div>
     </section>
   );

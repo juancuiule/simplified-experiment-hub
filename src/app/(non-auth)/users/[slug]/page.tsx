@@ -2,6 +2,7 @@ import { API } from "@/api";
 import ExperimentsSection from "@/ui/sections/ExperimentsSection";
 import TeamsSection from "@/ui/sections/TeamsSection";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { GitHub, Twitter } from "react-feather";
@@ -39,6 +40,9 @@ export default async function UserProfile({ params: { slug } }: Props) {
   const teams = await API.users.teams(userId.toString());
   const experiments = await API.users.experiments(userId.toString());
 
+  const accessToken = cookies().get("accessToken");
+  const isAuthed = accessToken !== undefined;
+
   return (
     <div className="flex flex-col items-start gap-6">
       {/* Profile info */}
@@ -64,10 +68,10 @@ export default async function UserProfile({ params: { slug } }: Props) {
       </div>
 
       {/* Teams */}
-      <TeamsSection teams={teams} />
+      <TeamsSection teams={teams} isAuthed={isAuthed} />
 
       {/* Experiments */}
-      <ExperimentsSection experiments={experiments} />
+      <ExperimentsSection experiments={experiments} isAuthed={isAuthed} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ export async function POST(request: Request) {
   try {
     const response = NextResponse.json({});
 
-    cookies().set("accessToken", "", { maxAge: 0 });
+    cookies().delete("accessToken");
 
     return response;
   } catch (error) {

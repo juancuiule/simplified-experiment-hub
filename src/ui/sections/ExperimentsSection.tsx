@@ -7,12 +7,12 @@ import { toast } from "sonner";
 
 interface Props {
   experiments: Entity<Experiment>[];
-  showNew?: boolean;
+  isAuthed?: boolean;
 }
 
 export default function ExperimentsSection({
   experiments,
-  showNew = true,
+  isAuthed = false,
 }: Props) {
   const [experimentList, setExperimentList] = useState(experiments);
 
@@ -37,12 +37,14 @@ export default function ExperimentsSection({
                     <User size={14} className="stroke-black fill-none" />
                     <span className="text-xs">{experiment.answers}</span>
                   </div>
-                  <Link
-                    href={`/experiments/${experiment.pk}`}
-                    className="flex gap-2 p-1 bg-gray-300 rounded-md"
-                  >
-                    <Settings size={14} className="stroke-black fill-none" />
-                  </Link>
+                  {isAuthed && (
+                    <Link
+                      href={`/experiments/${experiment.pk}`}
+                      className="flex gap-2 p-1 bg-gray-300 rounded-md"
+                    >
+                      <Settings size={14} className="stroke-black fill-none" />
+                    </Link>
+                  )}
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
@@ -54,33 +56,35 @@ export default function ExperimentsSection({
                       className="stroke-black fill-none"
                     />
                   </Link>
-                  <button
-                    className="flex gap-2 p-1 bg-gray-300 rounded-md group/delete hover:bg-white transition-colors"
-                    onClick={() => {
-                      toast.promise(
-                        API.experiments
-                          .delete(experiment.pk.toString())
-                          .then((res) => {
-                            setExperimentList(
-                              experimentList.filter(
-                                (e) => e.pk !== experiment.pk
-                              )
-                            );
-                          }),
-                        {
-                          loading: "Deleting experiment...",
-                          success: "Experiment deleted",
-                          error:
-                            "Could not delete experiment. Please try again",
-                        }
-                      );
-                    }}
-                  >
-                    <Trash2
-                      size={14}
-                      className="stroke-black fill-none group-hover/delete:stroke-error transition-colors"
-                    />
-                  </button>
+                  {isAuthed && (
+                    <button
+                      className="flex gap-2 p-1 bg-gray-300 rounded-md group/delete hover:bg-white transition-colors"
+                      onClick={() => {
+                        toast.promise(
+                          API.experiments
+                            .delete(experiment.pk.toString())
+                            .then((res) => {
+                              setExperimentList(
+                                experimentList.filter(
+                                  (e) => e.pk !== experiment.pk
+                                )
+                              );
+                            }),
+                          {
+                            loading: "Deleting experiment...",
+                            success: "Experiment deleted",
+                            error:
+                              "Could not delete experiment. Please try again",
+                          }
+                        );
+                      }}
+                    >
+                      <Trash2
+                        size={14}
+                        className="stroke-black fill-none group-hover/delete:stroke-error transition-colors"
+                      />
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="p-2 bg-gray-200 flex flex-col flex-1 rounded-b-md">
@@ -97,7 +101,7 @@ export default function ExperimentsSection({
             </div>
           );
         })}
-        {showNew && (
+        {isAuthed && (
           <Link
             href={`/experiments/new`}
             className={`

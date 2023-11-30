@@ -2,6 +2,7 @@ import { API } from "@/api";
 import ExperimentsSection from "@/ui/sections/ExperimentsSection";
 import RemoveTeamButton from "@/ui/teams/RemoveTeamButton";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -41,6 +42,9 @@ export default async function Team({ params: { slug } }: Props) {
     experiments = [],
   } = team;
 
+  const accessToken = cookies().get("accessToken");
+  const isAuthed = accessToken !== undefined;
+
   return (
     <div className="flex flex-col w-full gap-6">
       <div className="flex items-start justify-start gap-4 flex-col md:flex-row w-full">
@@ -57,7 +61,7 @@ export default async function Team({ params: { slug } }: Props) {
           <h1 className="text-4xl font-bold">{name}</h1>
           <p className="text-sm">{description}</p>
         </div>
-        <RemoveTeamButton teamId={team.pk} />
+        {isAuthed && <RemoveTeamButton teamId={team.pk} />}
       </div>
       <div className="flex flex-col w-full gap-4">
         <h2 className="text-2xl font-semibold">Members</h2>
@@ -85,7 +89,7 @@ export default async function Team({ params: { slug } }: Props) {
           })}
         </div>
       </div>
-      <ExperimentsSection experiments={experiments} />
+      <ExperimentsSection experiments={experiments} isAuthed={isAuthed} />
     </div>
   );
 }
