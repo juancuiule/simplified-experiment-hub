@@ -249,9 +249,9 @@ export default function CreateExperimentForm(props: Props) {
             Create experiment
           </button>
 
-          <pre>
+          {/* <pre>
             <code>{JSON.stringify(values, null, 2)}</code>
-          </pre>
+          </pre> */}
         </form>
       )}
     </Formik>
