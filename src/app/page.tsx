@@ -48,7 +48,7 @@ export default async function Page() {
           <p className="w-4/5 md:w-3/5 lg:w-2/5 text-center mx-auto text-black/50 leading-tight">
             Un laboratorio virtual para diseñar encuestas complejas, compartir
             conocimiento y analizar descubrimientos. Descubrí el futuro de la
-            investigación científica sin límites."
+            investigación científica sin límites.
           </p>
 
           <Link
