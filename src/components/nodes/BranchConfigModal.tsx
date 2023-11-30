@@ -184,7 +184,7 @@ export default function BranchConfigModal(props: Props) {
                             Pick a condition
                           </option>
                           {branchOptions.map((opt, i) => (
-                            <option key={i} value={i}>
+                            <option key={i} value={opt.value}>
                               {opt.name}
                             </option>
                           ))}

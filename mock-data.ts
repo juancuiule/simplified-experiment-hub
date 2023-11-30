@@ -91,7 +91,7 @@ const invites = [
 async function run() {
   // users.forEach((user, i) => {
   //   setTimeout(() => {
-  //     fetch("http://localhost:3000/auth/signup", {
+  //     fetch("https://api.experiment-hub.com/auth/signup", {
   //       method: "POST",
   //       headers: { "Content-Type": "application/json" },
   //       body: JSON.stringify(user),
@@ -102,7 +102,7 @@ async function run() {
   // });
   // teams.forEach((team, i) => {
   //   setTimeout(() => {
-  //     fetch("http://localhost:3000/teams", {
+  //     fetch("https://api.experiment-hub.com/teams", {
   //       method: "POST",
   //       headers: { "Content-Type": "application/json" },
   //       body: JSON.stringify(team),
@@ -113,7 +113,7 @@ async function run() {
   // });
   invites.forEach((invite, i) => {
     setTimeout(() => {
-      fetch(`http://localhost:3000/teams/${invite.id}/members`, {
+      fetch(`https://api.experiment-hub.com/teams/${invite.id}/members`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ members: invite.members }),

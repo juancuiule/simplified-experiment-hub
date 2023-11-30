@@ -30,9 +30,9 @@ export function RenderNode(props: {
         <div>
           <h1>Finish</h1>
           <p>Experiment finished</p>
-          <pre>
+          {/* <pre>
             <code>{JSON.stringify(data, null, 2)}</code>
-          </pre>
+          </pre> */}
         </div>
       );
     }

@@ -3,11 +3,120 @@
 import { Edge } from "reactflow";
 import { FrameworkNode } from "./lib/nodes";
 import { FlowNode, FlowNodeTypes } from "./ui/flow/store";
+import { Branch, PathNode } from "./lib/nodes/control";
 
 type Pair = {
   frameworkNode: FrameworkNode;
   flowNode: FlowNodeTypes;
 };
+
+export function toFrameworkNodes(
+  node: FlowNode,
+  nodes: FlowNode[],
+  edges: Edge[]
+): FrameworkNode[] {
+  const edgesFromNode = edges.filter((edge) => edge.source === node.id);
+
+  if (edgesFromNode.length === 0) {
+    return [toFrameworkNode(node)];
+  }
+
+  switch (node.data.type) {
+    case "start":
+    case "checkpoint":
+    case "experiment-step":
+    case "finish":
+    case "noop": {
+      const nextNode = nodes.find(
+        (node) => node.id === edgesFromNode[0].target
+      );
+      return nextNode !== undefined
+        ? [toFrameworkNode(node), ...toFrameworkNodes(nextNode, nodes, edges)]
+        : [toFrameworkNode(node)];
+    }
+    case "branch": {
+      const { branches } = node.data;
+
+      const nextNodeForEachBranch = branches
+        .map((branch) => {
+          const edge = edges.find(
+            (edge) =>
+              edge.source === node.id && edge.sourceHandle === branch.group
+          );
+          if (edge) {
+            const nextNode = nodes.find((node) => node.id === edge.target);
+            return nextNode;
+          }
+          return undefined;
+        })
+        .filter(Boolean) as FlowNode[];
+
+      const sharedComponents: FrameworkNode[] = nextNodeForEachBranch
+        .map((firstNodeOfBranch) =>
+          toFrameworkNodes(firstNodeOfBranch, nodes, edges)
+        )
+        .reduce(
+          (acc, val) =>
+            acc.length === 0
+              ? val
+              : acc.filter((x) => val.map((_) => _.id).includes(x.id)),
+          []
+        );
+
+      const notSharedComponents: FrameworkNode[][] = nextNodeForEachBranch
+        .map((firstNodeOfBranch) =>
+          toFrameworkNodes(firstNodeOfBranch, nodes, edges)
+        )
+        .map((firstNodeOfBranch, i) => {
+          const notShared = firstNodeOfBranch.filter(
+            (x) => !sharedComponents.map((s) => s.id).includes(x.id)
+          );
+          if (notShared.length === 0 && sharedComponents.length !== 0) {
+            return [
+              {
+                id: `noop-${branches[i].group}`,
+                nodeFamily: "core",
+                nodeType: "noop",
+                props: {},
+              },
+            ];
+          } else {
+            return notShared;
+          }
+        });
+
+      return [
+        toFrameworkNode(
+          node,
+          branches.map((branch, i) => {
+            const branchNodes = notSharedComponents[i];
+            const nextNode =
+              branchNodes.length === 1
+                ? branchNodes[0]
+                : ({
+                    id: `path-${branch.group}`,
+                    nodeType: "path",
+                    nodeFamily: "control",
+                    props: {
+                      nodes: branchNodes,
+                      stepper: false,
+                    },
+                  } as PathNode);
+
+            return {
+              ...branch,
+              nextNode,
+            };
+          })
+        ),
+        ...sharedComponents,
+      ];
+    }
+    default: {
+      return [];
+    }
+  }
+}
 
 function sortEdges(edges: Edge[]) {
   // Create a map to quickly access edges by their target
@@ -25,7 +134,6 @@ function sortEdges(edges: Edge[]) {
   while (sortedEdges.length < edges.length) {
     const lastEdge = sortedEdges[sortedEdges.length - 1]!;
     const nextEdge = edgeMap[lastEdge.source];
-    console.log({ nextEdge });
 
     if (nextEdge) {
       sortedEdges.push(nextEdge);
@@ -38,7 +146,10 @@ function sortEdges(edges: Edge[]) {
   return sortedEdges;
 }
 
-const toFrameworkNode = (node: FlowNode): FrameworkNode => {
+const toFrameworkNode = (
+  node: FlowNode,
+  branches: Branch[] = []
+): FrameworkNode => {
   switch (node.data.type) {
     case "start": {
       return {
@@ -62,6 +173,17 @@ const toFrameworkNode = (node: FlowNode): FrameworkNode => {
         nodeFamily: "core",
         nodeType: "noop",
         props: {},
+      };
+    }
+    case "path": {
+      return {
+        id: node.id,
+        nodeFamily: "control",
+        nodeType: "path",
+        props: {
+          nodes: [],
+          stepper: false,
+        },
       };
     }
     case "checkpoint": {
@@ -90,38 +212,30 @@ const toFrameworkNode = (node: FlowNode): FrameworkNode => {
         nodeFamily: "control",
         nodeType: "branch",
         props: {
-          branches: node.data.branches.map((n) => ({
-            ...n,
-            nextNode: {
-              id: "noop-1",
-              nodeFamily: "core",
-              nodeType: "noop",
-              props: {},
-            },
-          })),
+          branches,
         },
       };
     }
   }
 };
 
-export const toFrameworkNodes = (
-  nodes: FlowNode[],
-  edges: Edge[]
-): FrameworkNode[] => {
-  const node = (id: string) => nodes.find((node) => node.id === id)!;
-  const sorted = sortEdges(edges);
-  return sorted.flatMap((edge, i) => {
-    if (i === sorted.length - 1) {
-      return [
-        toFrameworkNode(node(edge.source)),
-        toFrameworkNode(node(edge.target)),
-      ];
-    } else {
-      return toFrameworkNode(node(edge.source));
-    }
-  });
-};
+// export const toFrameworkNodes = (
+//   nodes: FlowNode[],
+//   edges: Edge[]
+// ): FrameworkNode[] => {
+//   const node = (id: string) => nodes.find((node) => node.id === id)!;
+//   const sorted = sortEdges(edges);
+//   return sorted.flatMap((edge, i) => {
+//     if (i === sorted.length - 1) {
+//       return [
+//         toFrameworkNode(node(edge.source)),
+//         toFrameworkNode(node(edge.target)),
+//       ];
+//     } else {
+//       return toFrameworkNode(node(edge.source));
+//     }
+//   });
+// };
 
 const toFlowNode = (node: FrameworkNode): Pair | Pair[] => {
   switch (node.nodeType) {
@@ -131,7 +245,9 @@ const toFlowNode = (node: FrameworkNode): Pair | Pair[] => {
     case "finish": {
       return { frameworkNode: node, flowNode: { type: "finish" } };
     }
+    // ocultarlo, que sea un salto de edge
     case "noop": {
+      return [];
       return { frameworkNode: node, flowNode: { type: "noop" } };
     }
     case "checkpoint": {
@@ -157,24 +273,18 @@ const toFlowNode = (node: FrameworkNode): Pair | Pair[] => {
         ...nodes,
       ];
     }
+    case "path": {
+      return node.props.nodes.flatMap((node) => toFlowNode(node));
+    }
     case "initial-state":
-    case "path":
     case "fork":
     case "redirect": {
       return [];
     }
-    // case "path": {
-    //   return node.props.nodes.flatMap((node) => toFlowNode(node));
-    // }
-    // case "fork": {
-    //   return node.props.groups.flatMap((group) => toFlowNode(group.node));
-    // }
-    // case "redirect": {
-    //   return [];
-    // }
   }
 };
 
+// ocultar patth y noop
 export const nodeData = (node: FrameworkNode): FlowNodeTypes => {
   switch (node.nodeType) {
     case "start": {
@@ -193,9 +303,10 @@ export const nodeData = (node: FrameworkNode): FlowNodeTypes => {
         checkpointId: node.props.id,
       };
     }
-    case "noop": {
+    case "noop":
+    case "path": {
       return {
-        type: "noop",
+        type: node.nodeType,
       };
     }
     case "experiment-step": {
@@ -236,17 +347,110 @@ export const parseNodes = (nodes: FrameworkNode[]): FlowNode[] => {
     });
 };
 
-export const parseEdges = (nodes: FrameworkNode[]): Edge[] => {
-  return nodes
-    .map((node, i) => {
-      if (i !== nodes.length - 1) {
+function connect(
+  node: FrameworkNode,
+  nextNode: FrameworkNode,
+  nextNextNode: FrameworkNode | undefined,
+  sourceHandle: string = "a"
+): Edge | undefined {
+  switch (nextNode.nodeType) {
+    case "path": {
+      // saltea el path para que el anterior
+      // vaya al primer nodo del path
+      const firstNodeOfPath = nextNode.props.nodes.at(0);
+      if (firstNodeOfPath) {
         return {
           source: node.id,
-          sourceHandle: "a",
-          target: nodes[i + 1].id,
+          sourceHandle,
+          target: firstNodeOfPath.id,
           targetHandle: "a",
-          id: `${node.id}-${nodes[i + 1].id}`,
+          id: `${node.id}-${firstNodeOfPath.id}`,
         };
+      }
+      return undefined;
+    }
+    case "noop": {
+      // saltea el noop para que vaya al siguiente directamente
+      console.log(node, nextNode, nextNextNode, sourceHandle);
+      if (nextNextNode) {
+        return {
+          source: node.id,
+          sourceHandle,
+          target: nextNextNode.id,
+          targetHandle: "a",
+          id: `${node.id}-${nextNextNode.id}`,
+        };
+      }
+      return undefined;
+    }
+    default: {
+      return {
+        source: node.id,
+        sourceHandle,
+        target: nextNode.id,
+        targetHandle: "a",
+        id: `${node.id}-${nextNode.id}`,
+      };
+    }
+  }
+}
+
+export const parseEdges = (nodes: FrameworkNode[]): Edge[] => {
+  return nodes
+    .flatMap((node, i) => {
+      const nextNode = nodes.at(i + 1);
+      const nextNextNode = nodes.at(i + 2);
+      switch (node.nodeType) {
+        case "start":
+        case "checkpoint":
+        case "experiment-step": {
+          if (nextNode) {
+            return connect(node, nextNode, nextNextNode);
+          }
+          return [];
+        }
+        case "path": {
+          const last = node.props.nodes.at(-1);
+          return [
+            ...parseEdges(node.props.nodes),
+            ...(nextNode && last
+              ? [connect(last, nextNode, nextNextNode)]
+              : []),
+          ];
+        }
+        case "branch": {
+          return node.props.branches.flatMap((branch, i) => {
+            // conecta al nodo branch con el primer nodo del branch
+            const connection = connect(
+              node,
+              branch.nextNode,
+              nextNode,
+              branch.group
+            );
+
+            if (branch.nextNode.nodeType === "path") {
+              const pathEdges = parseEdges(branch.nextNode.props.nodes);
+              const lastPathNode = branch.nextNode.props.nodes.at(-1);
+              return [
+                ...(connection ? [connection] : []),
+                ...pathEdges,
+                ...(nextNode && lastPathNode
+                  ? [connect(lastPathNode, nextNode, nextNextNode)]
+                  : []),
+              ];
+            } else {
+              return [
+                ...(connection ? [connection] : []),
+                ...(nextNode
+                  ? [connect(branch.nextNode, nextNode, nextNextNode)]
+                  : []),
+              ];
+            }
+          });
+        }
+        default: {
+          [];
+        }
       }
     })
     .filter(Boolean) as Edge[];

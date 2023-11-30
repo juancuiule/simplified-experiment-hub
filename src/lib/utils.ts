@@ -144,29 +144,44 @@ export function evaluateArrayCondition(
   }
 }
 
+const alignTypes = (value1: any, value2: any) => {
+  if (typeof value1 === "number" && typeof value2 === "string") {
+    return [value1, Number(value2)];
+  } else if (typeof value1 === "string" && typeof value2 === "number") {
+    return [value1, value2.toString()];
+  } else if (typeof value1 === "boolean" && typeof value2 === "string") {
+    return [value1, Boolean(value2)];
+  } else if (typeof value1 === "string" && typeof value2 === "boolean") {
+    return [value1, value2.toString()];
+  } else {
+    return [value1, value2];
+  }
+};
+
 export function evaluateCondition(
   condition: Condition,
   dataValue: any,
   conditionValue: any
 ): boolean {
+  const [a, b] = alignTypes(dataValue, conditionValue);
   switch (condition) {
     case "eq": {
-      return dataValue === conditionValue;
+      return a === b;
     }
     case "neq": {
-      return dataValue !== conditionValue;
+      return a !== b;
     }
     case "gt": {
-      return dataValue > conditionValue;
+      return a > b;
     }
     case "gte": {
-      return dataValue >= conditionValue;
+      return a >= b;
     }
     case "lt": {
-      return dataValue < conditionValue;
+      return a < b;
     }
     case "lte": {
-      return dataValue <= conditionValue;
+      return a <= b;
     }
     case "includes": {
       return dataValue.includes(conditionValue);

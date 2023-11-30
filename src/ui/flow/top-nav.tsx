@@ -29,18 +29,27 @@ export default function TopNav(props: { experimentId: string }) {
         <button
           className="flex justify-center items-center gap-2 rounded bg-success px-2 py-1"
           onClick={() => {
-            API.experiments.nodes
-              .update(experimentId)({
-                nodes: toFrameworkNodes(nodes, edges),
-              })
-              .then((data) => {
-                startTransition(() => {
-                  router.push(`/experiments/${data.pk}`);
-                });
-                startTransition(() => {
-                  router.refresh();
-                });
-              });
+            try {
+              const firstNode = nodes.find((node) => node.type === "start");
+              if (firstNode === undefined) {
+                throw new Error("No start node found");
+              } else {
+                API.experiments.nodes
+                  .update(experimentId)({
+                    nodes: toFrameworkNodes(firstNode, nodes, edges),
+                  })
+                  .then((data) => {
+                    startTransition(() => {
+                      router.push(`/experiments/${data.pk}`);
+                    });
+                    startTransition(() => {
+                      router.refresh();
+                    });
+                  });
+              }
+            } catch (e) {
+              console.error(e);
+            }
           }}
         >
           <span className="font-medium">Save</span>

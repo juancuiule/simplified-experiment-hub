@@ -34,9 +34,9 @@ export default async function Page({
               <NodesMenu />
             </div>
           </div>
-          <div className="flex">
+          {/* <div className="flex">
             <Debug />
-          </div>
+          </div> */}
         </>
       </FlowProvider>
     </div>
