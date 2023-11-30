@@ -6,7 +6,7 @@ export default function NonAuthLayout({ children }: LayoutProps) {
   return (
     <>
       <Nav />
-      <Toaster />
+      <Toaster richColors />
       <main className="flex flex-1 p-6">{children}</main>
     </>
   );
