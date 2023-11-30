@@ -53,6 +53,7 @@ export type ResponseValue = string | boolean | number | string[] | undefined;
 
 export type Context = {
   id: string;
+  answerId?: string;
   state: ExperimentState;
   step: number;
   nodes: FrameworkNode[];
@@ -111,7 +112,7 @@ export function nextState(
   index: number,
   data: Context["data"],
   id: string
-): Context & { exitFlag?: boolean } {
+): Omit<Context, "answerId"> & { exitFlag?: boolean } {
   const nextIndex = index + 1;
 
   const goToNextOrExitPath = () => {
@@ -189,7 +190,7 @@ export const reducer: Reducer = (context, action) => {
         context.data,
         context.id
       );
-      return next;
+      return { ...context, ...next };
     }
     case "GO_TO_NODE": {
       const { id } = action;
@@ -239,6 +240,7 @@ type StoreFns = {
 
 const initialState: Context = {
   id: "",
+  answerId: "",
   nodes: [] as FrameworkNode[],
   views: [] as FrameworkView[],
   state: {
@@ -280,13 +282,42 @@ export const useExperimentStore = create<Context & StoreFns>()(
               break;
             }
             case "checkpoint": {
-              API.experiments.answers
-                .create(get().id)({
-                  body: get().data,
-                })
-                .then((res) => {
-                  get().dispatch({ type: "NEXT_NODE" });
-                });
+              try {
+                const answerId = get().answerId;
+                if (answerId === undefined) {
+                  API.experiments.answers
+                    .create(get().id)({
+                      body: {
+                        ...get().data,
+                        timestamp: new Date().getTime(),
+                        localestring: new Date().toLocaleString(),
+                      },
+                    })
+                    .then((res) => {
+                      set((s) => ({ ...s, answerId: res.id }));
+                      get().dispatch({ type: "NEXT_NODE" });
+                    });
+                } else {
+                  API.experiments.answers
+                    .update(
+                      get().id,
+                      answerId
+                    )({
+                      body: {
+                        ...get().data,
+                        timestamp: new Date().getTime(),
+                        localestring: new Date().toLocaleString(),
+                      },
+                    })
+                    .then((res) => {
+                      set((s) => ({ ...s, answerId: res.id }));
+                      get().dispatch({ type: "NEXT_NODE" });
+                    });
+                }
+              } catch (e) {
+                console.log("There was an error sending the answer");
+                get().dispatch({ type: "NEXT_NODE" });
+              }
               break;
             }
             default: {

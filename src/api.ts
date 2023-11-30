@@ -119,6 +119,10 @@ export const API = {
       create: (id: string) =>
         POST<{ body: any }, { id: string }>(`/api/experiments/${id}/answers`),
       fetch: (id: string) => GET<Answer[]>(`/api/experiments/${id}/answers`),
+      update: (id: string, answerId: string) =>
+        PUT<{ body: any }, { id: string }>(
+          `/api/experiments/${id}/answers/${answerId}`
+        ),
     },
   },
 };
