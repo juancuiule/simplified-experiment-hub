@@ -240,7 +240,7 @@ type StoreFns = {
 
 const initialState: Context = {
   id: "",
-  answerId: "",
+  answerId: undefined,
   nodes: [] as FrameworkNode[],
   views: [] as FrameworkView[],
   state: {
@@ -284,7 +284,7 @@ export const useExperimentStore = create<Context & StoreFns>()(
             case "checkpoint": {
               try {
                 const answerId = get().answerId;
-                if (answerId === undefined) {
+                if (answerId === undefined || answerId === "") {
                   API.experiments.answers
                     .create(get().id)({
                       body: {
