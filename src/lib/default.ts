@@ -23,6 +23,7 @@ export function defaultByType(
           maxLabel: "Mucho",
           dataKey: "slider",
           label: "¿Qué tanto te gusta hacer ejercicio físico?",
+          required: true,
         },
       };
     }
@@ -134,6 +135,7 @@ export function defaultByType(
             { label: "Venezuela", value: "venezuela" },
           ],
           dataKey: "pais",
+          required: true,
         },
       };
     }
@@ -164,6 +166,25 @@ export function defaultByType(
         widgetFamily: "content",
         props: {
           url: "https://cdn.experiment-hub.com/audio.mp3",
+        },
+      };
+    }
+    case "conditional": {
+      return {
+        template: "conditional",
+        widgetFamily: "control",
+        props: {
+          condition: "eq",
+          conditionKey: "terminos",
+          value: true,
+          widget: {
+            template: "button",
+            widgetFamily: "layout",
+            props: {
+              text: "Siguiente",
+              behaivor: "next_node",
+            },
+          },
         },
       };
     }

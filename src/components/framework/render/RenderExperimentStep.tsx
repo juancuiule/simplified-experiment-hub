@@ -17,6 +17,7 @@ import {
 import { getStepSchema } from "@/lib/validation";
 import { Formik } from "formik";
 import RenderWidget from "./RenderWidget";
+import { useMemo } from "react";
 
 function Stepper(props: {
   current: number;
@@ -77,7 +78,9 @@ export function RenderExperimentStep(props: {
   const dispatch = useExperimentStore((s) => s.dispatch);
 
   const initialValues = getInitialValuesForStep(widgets);
-  const validationSchema = getStepSchema(widgets);
+  const validationSchema = useMemo(() => {
+    return getStepSchema(widgets);
+  }, [widgets]);
 
   return (
     <div className="flex flex-col flex-1">
@@ -108,6 +111,7 @@ export function RenderExperimentStep(props: {
                     value,
                     widget: child,
                   } = widget.props;
+
                   if (isResponseWidget(child)) {
                     const realValue = conditionKey.startsWith("$$")
                       ? getValueByPath(conditionKey.slice(2), data)
@@ -118,6 +122,7 @@ export function RenderExperimentStep(props: {
                       realValue,
                       value
                     );
+                    console.log(widget.props, isVisible);
 
                     if (isVisible) {
                       return child.props.dataKey;
@@ -129,6 +134,7 @@ export function RenderExperimentStep(props: {
               .filter(isNotUndefined);
 
             const dataToSubmit = pick(values)(keys);
+            // alert(JSON.stringify(dataToSubmit, null, 2));
 
             dispatch({ type: "SET_DATA", data: dataToSubmit });
             dispatch({ type: "NEXT_NODE" });
@@ -149,6 +155,7 @@ export function RenderExperimentStep(props: {
                 })}
               </form>
               {/* <pre>
+                isDebug: {isDebug}
                 <code>{JSON.stringify(values, null, 2)}</code>
               </pre> */}
             </>

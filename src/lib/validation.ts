@@ -26,8 +26,8 @@ const getResponseWidgetBaseSchema = ({ template, props }: ResponseWidget) => {
     case "slider": {
       return Yup.number()
         .integer()
-        .min(props.min || 0, "slider_min_value_error_message")
-        .max(props.max || 100, "slider_max_value_error_message");
+        .min(props.min || 0, `El valor mínimo es ${props.min}`)
+        .max(props.max || 100, `El valor máximo es ${props.max}`);
     }
     case "color-options":
     case "emoji-options":
@@ -55,7 +55,7 @@ const getResponseWidgetBaseSchema = ({ template, props }: ResponseWidget) => {
 export const getResponseWidgetSchema = (widget: ResponseWidget) => {
   const baseSchema = getResponseWidgetBaseSchema(widget);
   return widget.props.required
-    ? baseSchema.required("required_error_message")
+    ? baseSchema.required("Por favor respondé esta pregunta")
     : baseSchema;
 };
 
@@ -63,28 +63,23 @@ const getConditionalWidgetSchema = (widget: ConditionalWidget) => {
   const innerWidget = widget.props.widget;
   if (isResponseWidget(innerWidget)) {
     const schema = getResponseWidgetSchema(innerWidget);
-    if (
-      widget.props.conditionKey.startsWith("$") &&
-      !widget.props.conditionKey.startsWith("$$")
-    ) {
-      return (schema as Yup.Schema<string | number>).when(
-        [widget.props.conditionKey.slice(1)],
-        {
-          is: (value: any) => {
-            return evaluateCondition(
-              widget.props.condition,
-              widget.props.value,
-              value
-            );
-          },
-          then: (schema) =>
-            innerWidget.props.required
-              ? schema.required("Por favor respondé esta pregunta")
-              : schema,
-          otherwise: (schema) => schema.notRequired(),
-        }
-      );
-    }
+    return (schema as Yup.Schema<string | number>).when(
+      [widget.props.conditionKey],
+      {
+        is: (value: any) => {
+          return evaluateCondition(
+            widget.props.condition,
+            value,
+            widget.props.value
+          );
+        },
+        then: (schema) =>
+          innerWidget.props.required
+            ? schema.required("Por favor respondé esta pregunta")
+            : schema,
+        otherwise: (schema) => schema.notRequired(),
+      }
+    );
   }
 };
 
