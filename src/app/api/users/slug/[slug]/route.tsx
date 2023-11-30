@@ -5,7 +5,6 @@ export async function GET(
   request: Request,
   { params }: { params: { slug: string } }
 ) {
-  console.log(params);
   const res = await fetch(`${API_URL}/users/slug/${params.slug}`, {
     next: { revalidate: 0 },
   });

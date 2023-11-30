@@ -4,6 +4,7 @@ import { slugify } from "@/utils";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { RefreshCw, Trash } from "react-feather";
+import { toast } from "sonner";
 import * as Yup from "yup";
 
 const createExperimentSchema = Yup.object().shape({
@@ -38,9 +39,11 @@ export default function CreateExperimentForm(props: Props) {
         API.experiments
           .create({ ...values, teamId: Number(values.team) })
           .then((res) => {
+            toast.success("Experiment created");
             router.push(`/experiments/${res.pk}`);
           })
           .catch((err) => {
+            toast.error("Could not create experiment");
             setErrors({
               slug: "An experiment with this slug may already exist",
               team: "Check if you have access to this team",

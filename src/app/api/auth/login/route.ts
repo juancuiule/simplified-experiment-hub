@@ -20,7 +20,6 @@ export async function POST(request: Request) {
 
     return response;
   } catch (error) {
-    console.log(error);
     return NextResponse.error();
   }
 }

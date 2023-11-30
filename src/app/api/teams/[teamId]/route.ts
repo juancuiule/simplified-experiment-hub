@@ -8,7 +8,6 @@ export async function GET(
   const res = await fetch(`${API_URL}/teams/${params.teamId}`, {
     next: { revalidate: 0 },
   });
-  console.log({ res });
   const data = await res.json();
   return NextResponse.json(data);
 }

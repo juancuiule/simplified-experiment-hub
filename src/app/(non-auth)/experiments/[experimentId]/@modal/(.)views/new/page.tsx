@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { X } from "react-feather";
+import { toast } from "sonner";
 import * as Yup from "yup";
 
 const newViewSchema = Yup.object({
@@ -64,17 +65,23 @@ export default function NewViewModal(props: Props) {
             }}
             validationSchema={newViewSchema}
             onSubmit={(values, { setSubmitting }) => {
-              API.experiments.views
-                .create(experimentId)(values)
-                .then((experiment) => {
-                  console.log({ experiment });
-                  setOpen(false);
-                  if (experiment) {
-                    router.push(
-                      `/experiments/${experiment.pk}/views/${values.slug}`
-                    );
-                  }
-                });
+              toast.promise(
+                API.experiments.views
+                  .create(experimentId)(values)
+                  .then((experiment) => {
+                    setOpen(false);
+                    if (experiment) {
+                      router.push(
+                        `/experiments/${experiment.pk}/views/${values.slug}`
+                      );
+                    }
+                  }),
+                {
+                  loading: "Creating view...",
+                  success: "View created",
+                  error: "Could not create view",
+                }
+              );
             }}
           >
             {({

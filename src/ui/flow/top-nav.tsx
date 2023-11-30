@@ -7,6 +7,7 @@ import { API } from "@/api";
 import { useRouter } from "next/navigation";
 import { toFrameworkNodes } from "@/utils";
 import { useTransition } from "react";
+import { toast } from "sonner";
 
 export default function TopNav(props: { experimentId: string }) {
   const router = useRouter();
@@ -32,23 +33,25 @@ export default function TopNav(props: { experimentId: string }) {
             try {
               const firstNode = nodes.find((node) => node.type === "start");
               if (firstNode === undefined) {
-                throw new Error("No start node found");
+                toast.error("No start node found");
               } else {
-                API.experiments.nodes
-                  .update(experimentId)({
-                    nodes: toFrameworkNodes(firstNode, nodes, edges),
-                  })
-                  .then((data) => {
-                    startTransition(() => {
+                toast.promise(
+                  API.experiments.nodes
+                    .update(experimentId)({
+                      nodes: toFrameworkNodes(firstNode, nodes, edges),
+                    })
+                    .then((data) => {
                       router.push(`/experiments/${data.pk}`);
-                    });
-                    startTransition(() => {
-                      router.refresh();
-                    });
-                  });
+                    }),
+                  {
+                    loading: "Saving flow...",
+                    success: "Flow saved",
+                    error: "Could not save flow. Please try again",
+                  }
+                );
               }
             } catch (e) {
-              console.error(e);
+              toast.error("Could not save flow");
             }
           }}
         >

@@ -5,6 +5,7 @@ import { BranchNode, ForkNode, PathNode } from "../nodes/control";
 import { evaluateCondition } from "../utils";
 import { FrameworkView } from "..";
 import { API } from "@/api";
+import { toast } from "sonner";
 
 type InNodeState = {
   type: "in-node";
@@ -315,7 +316,7 @@ export const useExperimentStore = create<Context & StoreFns>()(
                     });
                 }
               } catch (e) {
-                console.log("There was an error sending the answer");
+                toast.error("There was an error sending the answer");
                 get().dispatch({ type: "NEXT_NODE" });
               }
               break;

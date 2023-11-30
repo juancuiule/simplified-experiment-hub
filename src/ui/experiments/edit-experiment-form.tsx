@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { Trash } from "react-feather";
+import { toast } from "sonner";
 import * as Yup from "yup";
 
 const editExperimentSchema = Yup.object().shape({
@@ -32,19 +33,18 @@ export default function EditExperimentForm(props: Props) {
       initialValues={props.initialValues}
       validationSchema={editExperimentSchema}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(props.id);
-        API.experiments
-          .update(props.id)(values)
-          .then((data) => {
-            if (data) {
-              startTransition(() => {
-                router.push(`/experiments/${data.pk}`);
-              });
-              startTransition(() => {
-                router.refresh();
-              });
-            }
-          });
+        toast.promise(
+          API.experiments
+            .update(props.id)(values)
+            .then((data) => {
+              router.push(`/experiments/${data.pk}`);
+            }),
+          {
+            loading: "Saving experiment...",
+            success: "Experiment saved",
+            error: "Could not save experiment",
+          }
+        );
       }}
     >
       {({

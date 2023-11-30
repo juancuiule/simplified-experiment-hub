@@ -13,7 +13,6 @@ export function ButtonWidgetMenu(props: {
         label: widget.props.text,
       }}
       onSubmit={(values) => {
-        console.log({ values });
         update({
           template: "button",
           widgetFamily: "layout",

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, Save } from "react-feather";
 import { useViewContext } from "./store";
+import { toast } from "sonner";
 
 export default function TopNav(props: {
   experimentId: string;
@@ -25,22 +26,25 @@ export default function TopNav(props: {
         </Link>
         <span className="font-medium">View Design - {viewId}</span>
       </div>
-      {/* <div className="w-5 h-5 bg-blue-400 sm:bg-red-400 md:bg-green-400 lg:bg-yellow-400 xl:bg-purple-400"></div> */}
       <div className="flex gap-2 text-white">
         <button
           className="flex justify-center items-center gap-2 rounded bg-success px-2 py-1"
           onClick={() => {
-            API.experiments.views
-              .update(
-                experimentId,
-                viewId
-              )({ widgets })
-              .then((res) => {
-                push(`/experiments/${experimentId}/views/`);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+            toast.promise(
+              API.experiments.views
+                .update(
+                  experimentId,
+                  viewId
+                )({ widgets })
+                .then((res) => {
+                  push(`/experiments/${experimentId}/views/`);
+                }),
+              {
+                loading: "Saving view...",
+                success: "View saved",
+                error: "Could not save view. Please try again.",
+              }
+            );
           }}
         >
           <span className="font-medium">Save</span>

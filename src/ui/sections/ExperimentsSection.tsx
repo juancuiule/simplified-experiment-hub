@@ -3,6 +3,7 @@ import { API, Entity, Experiment } from "@/api";
 import Link from "next/link";
 import { useState } from "react";
 import { ExternalLink, Settings, Trash2, User } from "react-feather";
+import { toast } from "sonner";
 
 interface Props {
   experiments: Entity<Experiment>[];
@@ -56,13 +57,23 @@ export default function ExperimentsSection({
                   <button
                     className="flex gap-2 p-1 bg-gray-300 rounded-md group/delete hover:bg-white transition-colors"
                     onClick={() => {
-                      API.experiments
-                        .delete(experiment.pk.toString())
-                        .then((res) => {
-                          setExperimentList(
-                            experimentList.filter((e) => e.pk !== experiment.pk)
-                          );
-                        });
+                      toast.promise(
+                        API.experiments
+                          .delete(experiment.pk.toString())
+                          .then((res) => {
+                            setExperimentList(
+                              experimentList.filter(
+                                (e) => e.pk !== experiment.pk
+                              )
+                            );
+                          }),
+                        {
+                          loading: "Deleting experiment...",
+                          success: "Experiment deleted",
+                          error:
+                            "Could not delete experiment. Please try again",
+                        }
+                      );
                     }}
                   >
                     <Trash2

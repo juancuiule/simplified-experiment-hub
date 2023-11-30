@@ -371,7 +371,6 @@ function connect(
     }
     case "noop": {
       // saltea el noop para que vaya al siguiente directamente
-      console.log(node, nextNode, nextNextNode, sourceHandle);
       if (nextNextNode) {
         return {
           source: node.id,

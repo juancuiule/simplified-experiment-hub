@@ -122,7 +122,6 @@ export function RenderExperimentStep(props: {
                       realValue,
                       value
                     );
-                    console.log(widget.props, isVisible);
 
                     if (isVisible) {
                       return child.props.dataKey;
