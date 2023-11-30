@@ -163,6 +163,9 @@ export function evaluateCondition(
   dataValue: any,
   conditionValue: any
 ): boolean {
+  if (dataValue === undefined || conditionValue === undefined) {
+    return false;
+  }
   const [a, b] = alignTypes(dataValue, conditionValue);
   switch (condition) {
     case "eq": {

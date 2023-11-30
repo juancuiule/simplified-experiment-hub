@@ -54,6 +54,7 @@ export type FlowNode = Node<FlowNodeTypes, FlowNodeTypes["type"]>;
 export type FlowEdge = Edge;
 
 export interface FlowProps {
+  experimentId: string;
   nodes: FlowNode[];
   edges: Edge[];
   views: FrameworkView[];
@@ -71,6 +72,7 @@ export type FlowStore = ReturnType<typeof createFlowStore>;
 
 export const createFlowStore = (initProps?: Partial<FlowProps>) => {
   const DEFAULT_PROPS: FlowProps = {
+    experimentId: "",
     nodes: [],
     edges: [],
     views: [],

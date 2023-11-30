@@ -11,6 +11,7 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
   } = props;
   const { setNodes } = useReactFlow();
   const views = useFlowContext((state) => state.views);
+  const experimentId = useFlowContext((state) => state.experimentId);
 
   return (
     <>
@@ -43,15 +44,23 @@ export default function ExpeirmentStepNode(props: NodeProps<ExperimentStep>) {
               </option>
             ))}
           </select>
-          <Link
-            className="hover:text-blue-400"
-            href={`/experiments/dilemas-de-la-pandemia/views/${viewId}`}
-          >
-            <Edit3 size={14} />
-          </Link>
+          {viewId !== "" && (
+            <Link
+              className="hover:text-blue-400"
+              target="_blank"
+              href={`/experiments/${experimentId}/views/${viewId}`}
+            >
+              <Edit3 size={14} />
+            </Link>
+          )}
         </div>
       </div>
-      <NodeHandle maxConnections={1} type="source" position={Position.Bottom} id="b" />
+      <NodeHandle
+        maxConnections={1}
+        type="source"
+        position={Position.Bottom}
+        id="b"
+      />
     </>
   );
 }

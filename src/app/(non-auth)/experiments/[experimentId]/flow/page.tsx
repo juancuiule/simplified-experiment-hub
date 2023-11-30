@@ -2,7 +2,6 @@ import Canvas from "@/ui/flow/canvas";
 import { FlowProvider } from "@/ui/flow/store";
 
 import { API } from "@/api";
-import Debug from "@/ui/flow/debug";
 import NodesMenu from "@/ui/flow/nodes-menu";
 import TopNav from "@/ui/flow/top-nav";
 import { parseEdges, parseNodes } from "@/utils";
@@ -18,10 +17,14 @@ export default async function Page({
 
   const initialNodes = parseNodes(nodes);
   const initialEdges = parseEdges(nodes);
-
   return (
     <div className="flex flex-col flex-1 gap-2">
-      <FlowProvider nodes={initialNodes} edges={initialEdges} views={views}>
+      <FlowProvider
+        nodes={initialNodes}
+        edges={initialEdges}
+        views={views}
+        experimentId={params.experimentId}
+      >
         <>
           {/* Experiment flow navbar */}
           <TopNav experimentId={params.experimentId} />
