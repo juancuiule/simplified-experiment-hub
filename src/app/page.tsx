@@ -30,25 +30,25 @@ export default async function Page() {
               href="#section-design"
               className="text-6xl text-black font-bold hover:text-info transition-colors"
             >
-              Design.
+              Diseñá.
             </a>
             <a
               href="#section-collect"
               className="text-6xl text-black font-bold hover:text-warning transition-colors"
             >
-              Collect.
+              Compartí.
             </a>
             <a
               href="#section-analyze"
               className="text-6xl text-black font-bold hover:text-error transition-colors"
             >
-              Analyze.
+              Analizá.
             </a>
           </div>
           <p className="w-4/5 md:w-3/5 lg:w-2/5 text-center mx-auto text-black/50 leading-tight">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-            culpa quis saepe sint amet ipsa, accusamus omnis minima deleniti sed
-            cum incidunt dicta voluptatibus, veritatis, aperiam magnam id ad ut.
+            Un laboratorio virtual para diseñar encuestas complejas, compartir
+            conocimiento y analizar descubrimientos. Descubrí el futuro de la
+            investigación científica sin límites."
           </p>
 
           <Link
@@ -65,12 +65,13 @@ export default async function Page() {
           className="flex flex-col justify-center items-center gap-20 max-w-7xl w-full mx-auto py-10"
         >
           <div className="flex flex-col items-center gap-4">
-            <h2 className="text-4xl font-semibold">Design</h2>
-            <p className="w-4/5 md:w-3/5 lg:w-2/5 text-center mx-auto text-black/50 leading-tight">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-              culpa quis saepe sint amet ipsa, accusamus omnis minima deleniti
-              sed cum incidunt dicta voluptatibus, veritatis, aperiam magnam id
-              ad ut.
+            <h2 className="text-4xl font-semibold">Diseñá</h2>
+            <p className="w-4/5 md:w-3/5 lg:w-3/5 text-center mx-auto text-black/50 leading-tight">
+              Experiment Hub te brinda una plataforma intuitiva y colaborativa
+              para configurar cada aspecto de tus encuestas complejas. Desde la
+              elección de componentes visuales hasta la gestión de flujos
+              condicionales, experimenta la simplicidad de dar forma a tus
+              investigaciones sin la necesidad de habilidades de programación.
             </p>
           </div>
 
@@ -86,7 +87,7 @@ export default async function Page() {
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:col-span-4 lg:col-span-6 justify-center items-start">
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold">Flow design</h4>
+                <h4 className="text-lg font-bold">Diseño de flujo</h4>
                 <p>
                   Usa diferentes bloques y nodos para diagramar el flujo del
                   experimento en distintas pantallas con lógicas complejas de
@@ -116,7 +117,7 @@ export default async function Page() {
                     <GitBranch size={36} strokeWidth={1} />
                     <p className="text-sm leading-tight text-center">Branch</p>
                   </div>
-                  <div className="flex flex-col justify-center items-center w-24 gap-1">
+                  <div className="flex flex-col justify-center items-center w-24 gap-1 opacity-20">
                     <Shuffle size={36} strokeWidth={1} />
                     <p className="text-sm leading-tight text-center">Fork</p>
                   </div>
@@ -143,7 +144,7 @@ export default async function Page() {
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:row-start-1 md:col-span-4 lg:col-span-6 justify-center items-start">
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold">View design</h4>
+                <h4 className="text-lg font-bold">Diseño de vista o paso</h4>
                 <p>
                   Usa los diferentes componentes para diseñar una pantalla en la
                   cual el usuario podrá responder a las distintas preguntas que
@@ -175,20 +176,20 @@ export default async function Page() {
                 <h5 className="text-md font-medium">Elementos funcionales</h5>
                 <div className="flex flex-wrap justify-start items-start mx-auto gap-4 mt-4">
                   <div className="flex flex-col justify-center items-center w-24 gap-1">
-                    <Repeat size={36} strokeWidth={1} />
-                    <p className="text-sm leading-tight text-center">
-                      For Each
-                    </p>
-                  </div>
-                  <div className="flex flex-col justify-center items-center w-24 gap-1">
                     <GitMerge size={36} strokeWidth={1} />
                     <p className="text-sm leading-tight text-center">
                       Conditional
                     </p>
                   </div>
-                  <div className="flex flex-col justify-center items-center w-24 gap-1">
+                  <div className="flex flex-col justify-center items-center w-24 gap-1 opacity-20">
                     <Grid size={36} strokeWidth={1} />
                     <p className="text-sm leading-tight text-center">Group</p>
+                  </div>
+                  <div className="flex flex-col justify-center items-center w-24 gap-1 opacity-20">
+                    <Repeat size={36} strokeWidth={1} />
+                    <p className="text-sm leading-tight text-center">
+                      For Each
+                    </p>
                   </div>
                 </div>
               </div>
@@ -201,12 +202,11 @@ export default async function Page() {
           className="flex flex-col justify-center items-center gap-20 max-w-7xl w-full mx-auto py-10"
         >
           <div className="flex flex-col items-center gap-4">
-            <h3 className="text-4xl font-semibold">Collect</h3>
-            <p className="w-4/5 md:w-3/5 lg:w-2/5 text-center mx-auto text-black/50 leading-tight">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-              culpa quis saepe sint amet ipsa, accusamus omnis minima deleniti
-              sed cum incidunt dicta voluptatibus, veritatis, aperiam magnam id
-              ad ut.
+            <h3 className="text-4xl font-semibold">Compartí</h3>
+            <p className="w-4/5 md:w-3/5 lg:w-3/5 text-center mx-auto text-black/50 leading-tight">
+              Experiment Hub se encarga de amplificar el alcance de tu
+              investigación. Compartí tus experimentos con potenciales
+              participantes y alcanzá la muestra que buscás.
             </p>
           </div>
 
@@ -222,13 +222,12 @@ export default async function Page() {
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:col-span-4 lg:col-span-6 justify-center items-start">
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold">Participants</h4>
+                <h4 className="text-lg font-bold">Participantes</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Dolorem ad delectus ipsum quia repudiandae minus eaque
-                  suscipit minima. Commodi odit architecto, perferendis
-                  veritatis praesentium sint officia cupiditate at aliquam
-                  repellendus.
+                  Experimenta una plataforma que no solo simplifica la
+                  colaboración entre investigadores, sino que también brinda una
+                  experiencia excepcional a aquellos que participan en tus
+                  encuestas.
                 </p>
               </div>
 
@@ -261,12 +260,14 @@ export default async function Page() {
           className="flex flex-col justify-center items-center gap-20 max-w-7xl w-full mx-auto py-10"
         >
           <div className="flex flex-col items-center gap-4">
-            <h3 className="text-4xl font-semibold">Analyze</h3>
-            <p className="w-4/5 md:w-3/5 lg:w-2/5 text-center mx-auto text-black/50 leading-tight">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-              culpa quis saepe sint amet ipsa, accusamus omnis minima deleniti
-              sed cum incidunt dicta voluptatibus, veritatis, aperiam magnam id
-              ad ut.
+            <h3 className="text-4xl font-semibold">Analizá</h3>
+            <p className="w-4/5 md:w-3/5 lg:w-3/5 text-center mx-auto text-black/50 leading-tight">
+              Experiment Hub no solo simplifica la creación de encuestas
+              complejas, sino que también ofrece herramientas de análisis
+              intuitivas. Obtén estadísticas generales, visualizaciones rápidas
+              y una vista de datos recolectados para comprender rápidamente los
+              resultados. Experimenta el análisis de datos de manera eficiente y
+              centrada en los resultados.
             </p>
           </div>
 
@@ -282,13 +283,12 @@ export default async function Page() {
             </div>
             <div className="flex flex-col gap-6 col-span-12 md:col-span-4 lg:col-span-6 justify-center items-start">
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold">Answers view</h4>
+                <h4 className="text-lg font-bold">Respuestas</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Dolorem ad delectus ipsum quia repudiandae minus eaque
-                  suscipit minima. Commodi odit architecto, perferendis
-                  veritatis praesentium sint officia cupiditate at aliquam
-                  repellendus.
+                  En la vista de respuestas vas a poder ver los datos
+                  recolectados de manera simple y rápida. Podés descargar los
+                  datos en formato JSON o CSV para analizarlos en otras
+                  herramientas.
                 </p>
               </div>
 
