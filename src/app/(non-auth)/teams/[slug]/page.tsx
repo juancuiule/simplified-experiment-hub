@@ -36,11 +36,21 @@ export default async function Team({ params: { slug } }: Props) {
 
   const {
     name,
-    description,
-    coverImage: background,
+    description: originalDescription,
+    coverImage,
     users: members = [],
     experiments = [],
   } = team;
+
+  const background =
+    team.slug === "prueba-nadia"
+      ? "https://cdn.experiment-hub.com/team/experiment-hub-opengraph.png"
+      : coverImage;
+
+  const description =
+    team.slug === "prueba-nadia"
+      ? "El equipo de experiment hub"
+      : originalDescription;
 
   const accessToken = cookies().get("accessToken");
   const isAuthed = accessToken !== undefined;

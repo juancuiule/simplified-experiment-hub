@@ -14,6 +14,14 @@ export default function TeamsSection({ teams, isAuthed = false }: Props) {
         {teams.map((team) => {
           const membersToShow = team.users.slice(0, 3);
           const membersDiff = team.users.length - membersToShow.length;
+          const background =
+            team.slug === "prueba-nadia"
+              ? "https://cdn.experiment-hub.com/team/experiment-hub-opengraph.png"
+              : team.coverImage;
+          const description =
+            team.slug === "prueba-nadia"
+              ? "El equipo de experiment hub"
+              : team.description;
           return (
             <Link
               href={`/teams/${team.slug}`}
@@ -23,7 +31,7 @@ export default function TeamsSection({ teams, isAuthed = false }: Props) {
               <div
                 className="aspect-video h-40 w-full bg-cover bg-center rounded-t-md relative group"
                 style={{
-                  backgroundImage: `url(${team.coverImage})`,
+                  backgroundImage: `url(${background})`,
                   boxShadow: "rgba(0, 0, 0, 0.05) 0px 0 12px 5px inset",
                 }}
               >
@@ -48,7 +56,7 @@ export default function TeamsSection({ teams, isAuthed = false }: Props) {
               </div>
               <div className="px-2 py-1 bg-gray-200 rounded-b-md">
                 <h4 className="text-sm font-medium">{team.name}</h4>
-                <p className="text-xs font-light">{team.description}</p>
+                <p className="text-xs font-light">{description}</p>
               </div>
             </Link>
           );
