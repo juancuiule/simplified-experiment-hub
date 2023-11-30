@@ -13,6 +13,7 @@ import TextInputWidgetMenu from "./TextInputWidgetMenu";
 import RatingWidgetMenu from "./RatingWidgetMenu";
 import VideoWidgetMenu from "./VideoWidgetMenu";
 import AudioWidgetMenu from "./AudioWidgetMenu";
+import ConditionalWidgetMenu from "./ConditionalWidgetMenu";
 
 type MenuProps = {
   widget: FrameworkWidget;
@@ -23,7 +24,7 @@ type MenuProps = {
   icon: React.ReactNode;
 };
 
-const titles: Partial<Record<FrameworkWidget["template"], string>> = {
+export const titles: Partial<Record<FrameworkWidget["template"], string>> = {
   checkbox: "Checkbox",
   slider: "Slider",
   image: "Image",
@@ -36,9 +37,10 @@ const titles: Partial<Record<FrameworkWidget["template"], string>> = {
   single_checkbox: "Single Checkbox",
   text_input: "Text Input",
   rating: "Rating",
+  conditional: "Conditional",
 };
 
-const menues: Partial<Record<FrameworkWidget["template"], any>> = {
+export const menues: Partial<Record<FrameworkWidget["template"], any>> = {
   image: ImageWidgetMenu,
   rich_text: RichTextWidgetMenu,
   slider: SliderWidgetMenu,
@@ -51,6 +53,7 @@ const menues: Partial<Record<FrameworkWidget["template"], any>> = {
   rating: RatingWidgetMenu,
   video: VideoWidgetMenu,
   audio: AudioWidgetMenu,
+  conditional: ConditionalWidgetMenu,
 };
 
 export default function WidgetMenu(props: MenuProps) {

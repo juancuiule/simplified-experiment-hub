@@ -18,6 +18,7 @@ export default function SingleCheckboxMenu(props: {
           template: "single_checkbox",
           widgetFamily: "response",
           props: {
+            ...widget.props,
             label: values.label,
             dataKey: values.dataKey,
             defaultValue: values.defaultValue,
@@ -27,7 +28,7 @@ export default function SingleCheckboxMenu(props: {
     >
       {({ handleSubmit, handleChange, values }) => {
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex flex-col">
             <div className="flex flex-col gap-1">
               <label>Label</label>
               <input
@@ -35,18 +36,8 @@ export default function SingleCheckboxMenu(props: {
                 type="text"
                 onChange={handleChange}
                 name="label"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
-            </div>
-            <div className="flex flex-row gap-1 items-center">
-              <input
-                checked={values.defaultValue}
-                onChange={handleChange}
-                name="options"
-                type="checkbox"
-                className="border border-black rounded-md"
-              />
-              <label>Default checked</label>
             </div>
             <div className="flex flex-col gap-1">
               <label>Data key</label>
@@ -55,10 +46,16 @@ export default function SingleCheckboxMenu(props: {
                 type="text"
                 onChange={handleChange}
                 name="dataKey"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
-            <button type="submit">submit</button>
+            <button
+              type="button"
+              onClick={() => handleSubmit()}
+              className="p-2 py-0.5 mt-2 mx-auto border border-black rounded hover:bg-gray-300"
+            >
+              actualizar
+            </button>
           </form>
         );
       }}

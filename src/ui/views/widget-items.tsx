@@ -4,6 +4,7 @@ import {
   CheckSquare,
   ChevronDown,
   GitCommit,
+  GitMerge,
   Headphones,
   Icon,
   Image,
@@ -131,13 +132,13 @@ export const items: Record<string, Item[]> = {
   ],
 
   control: [
-    // {
-    //   icon: GitMerge,
-    //   title: "Conditional",
-    //   template: "conditional",
-    //   description:
-    //     "Allows you to define if one component should be visible or not based on some condition.",
-    // },
+    {
+      icon: GitMerge,
+      title: "Conditional",
+      template: "conditional",
+      description:
+        "Allows you to define if one component should be visible or not based on some condition.",
+    },
     // {
     //   icon: Repeat,
     //   title: "For Each",

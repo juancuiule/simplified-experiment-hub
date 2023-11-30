@@ -19,13 +19,16 @@ export default function SliderWidgetMenu(props: {
         update({
           template: "slider",
           widgetFamily: "response",
-          props: values,
+          props: {
+            ...widget.props,
+            ...values,
+          },
         });
       }}
     >
       {({ handleSubmit, handleChange, values }) => {
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex flex-col">
             <div className="flex flex-col gap-1">
               <label>Label</label>
               <input
@@ -33,7 +36,7 @@ export default function SliderWidgetMenu(props: {
                 type="text"
                 onChange={handleChange}
                 name="label"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -43,7 +46,7 @@ export default function SliderWidgetMenu(props: {
                 onChange={handleChange}
                 name="minLabel"
                 type="text"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -53,7 +56,7 @@ export default function SliderWidgetMenu(props: {
                 onChange={handleChange}
                 name="maxLabel"
                 type="text"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -63,10 +66,16 @@ export default function SliderWidgetMenu(props: {
                 onChange={handleChange}
                 name="dataKey"
                 type="text"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
-            <button type="submit">submit</button>
+            <button
+              type="button"
+              onClick={() => handleSubmit()}
+              className="p-2 py-0.5 mt-2 mx-auto border border-black rounded hover:bg-gray-300"
+            >
+              actualizar
+            </button>
           </form>
         );
       }}

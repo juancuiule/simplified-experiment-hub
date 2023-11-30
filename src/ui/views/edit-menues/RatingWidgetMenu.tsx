@@ -39,7 +39,7 @@ export default function RatingWidgetMenu(props: {
     >
       {({ handleSubmit, handleChange, values }) => {
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex flex-col">
             <div className="flex flex-col gap-1">
               <label>Label</label>
               <input
@@ -47,7 +47,7 @@ export default function RatingWidgetMenu(props: {
                 type="text"
                 onChange={handleChange}
                 name="label"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -57,7 +57,7 @@ export default function RatingWidgetMenu(props: {
                 onChange={handleChange}
                 name="options"
                 type="text"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
                 placeholder="5"
               />
             </div>
@@ -68,7 +68,7 @@ export default function RatingWidgetMenu(props: {
                 type="text"
                 name="optionsString"
                 onChange={handleChange}
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -78,10 +78,10 @@ export default function RatingWidgetMenu(props: {
                 type="text"
                 onChange={handleChange}
                 name="dataKey"
-                className="border border-black rounded-md"
+                className="border border-black rounded-md p-1"
               />
             </div>
-            <button type="submit">submit</button>
+            <button type="button" onClick={() => handleSubmit()} className="p-2 py-0.5 mt-2 mx-auto border border-black rounded hover:bg-gray-300">actualizar</button>
           </form>
         );
       }}
