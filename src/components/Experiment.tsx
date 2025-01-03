@@ -1,11 +1,11 @@
 "use client";
-import { Experiment } from "@/api";
+import { Experiment as ExperimentType } from "@/api";
 import RenderState from "@/components/framework/render/RenderState";
 import { useExperimentStore } from "@/lib/flow/state";
 import { useEffect } from "react";
 
 export default function Experiment(props: {
-  experiment: Experiment;
+  experiment: ExperimentType;
   id: string;
 }) {
   const { experiment, id } = props;

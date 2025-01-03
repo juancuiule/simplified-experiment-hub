@@ -1,4 +1,3 @@
-import { GET, PATCH, POST, PUT, DELETE } from "./api_utils";
 import { FrameworkView } from "./lib";
 import { FrameworkNode } from "./lib/nodes";
 
@@ -60,69 +59,69 @@ export type Answer = {
   experimentId: string;
 };
 
-export const API = {
-  auth: {
-    login: POST<LoginBody, AuthResponse>("/api/auth/login"),
-    signup: POST<SignupBody, AuthResponse>("/api/auth/signup"),
-    logout: POST<{}, {}>("/api/auth/logout"),
-  },
-  users: {
-    fetchByUsername: (username: string) =>
-      GET<Entity<User>>(`/api/users/slug/${username}`),
-    fetch: (id: string) => GET<Entity<User>>(`/api/users/${id}`),
-    update: (id: string) =>
-      PATCH<Partial<User>, Entity<User>>(`/api/users/${id}`),
-    teams: (id: string) => GET<UserTeam[]>(`/api/users/${id}/teams`),
-    experiments: (id: string) =>
-      GET<Entity<Experiment>[]>(`/api/users/${id}/experiments`),
-  },
-  teams: {
-    fetchBySlug: (slug: string) => GET<Entity<Team>>(`/api/teams/slug/${slug}`),
-    fetch: (id: string) => GET<Entity<Team>>(`/api/teams/${id}`),
-    members: (id: string) => GET<Entity<User>[]>(`/api/teams/${id}/members`),
-    invite: (id: string) =>
-      PATCH<{ members: string[] }, Entity<Team>>(`/api/teams/${id}/members`),
-    experiments: (id: string) =>
-      GET<Entity<BaseExperiment>[]>(`/api/teams/${id}/experiments`),
-    create: POST<CreateTeamBody, Entity<UserTeam>>("/api/teams"),
-    delete: (id: string) => DELETE<Entity<Team>>(`/api/teams/${id}`),
-  },
-  experiments: {
-    fetchAll: () => GET<Entity<Experiment>[]>("/api/experiments"),
-    fetch: (id: string) => GET<Entity<Experiment>>(`/api/experiments/${id}`),
-    fetchBySlug: (slug: string) =>
-      GET<Entity<Experiment>>(`/api/experiments/slug/${slug}`),
-    create: POST<CreateExperimentBody, Entity<Experiment>>("/api/experiments"),
-    update: (id: string) =>
-      PATCH<Partial<BaseExperiment>, Entity<Experiment>>(
-        `/api/experiments/${id}`
-      ),
-    delete: (id: string) =>
-      DELETE<Entity<Experiment>>(`/api/experiments/${id}`),
-    views: {
-      create: (id: string) =>
-        POST<CreateViewBody, Entity<Experiment>>(
-          `/api/experiments/${id}/views`
-        ),
-      update: (id: string, slug: string) =>
-        PUT<Pick<FrameworkView, "widgets">, Entity<Experiment>>(
-          `/api/experiments/${id}/views/${slug}`
-        ),
-    },
-    nodes: {
-      update: (id: string) =>
-        PUT<Pick<Experiment, "nodes">, Entity<Experiment>>(
-          `/api/experiments/${id}/nodes`
-        ),
-    },
-    answers: {
-      create: (id: string) =>
-        POST<{ body: any }, { id: string }>(`/api/experiments/${id}/answers`),
-      fetch: (id: string) => GET<Answer[]>(`/api/experiments/${id}/answers`),
-      update: (id: string, answerId: string) =>
-        PUT<{ body: any }, { id: string }>(
-          `/api/experiments/${id}/answers/${answerId}`
-        ),
-    },
-  },
-};
+// export const API = {
+//   auth: {
+//     login: POST<LoginBody, AuthResponse>("/api/auth/login"),
+//     signup: POST<SignupBody, AuthResponse>("/api/auth/signup"),
+//     logout: POST<{}, {}>("/api/auth/logout"),
+//   },
+//   users: {
+//     fetchByUsername: (username: string) =>
+//       GET<Entity<User>>(`/api/users/slug/${username}`),
+//     fetch: (id: string) => GET<Entity<User>>(`/api/users/${id}`),
+//     update: (id: string) =>
+//       PATCH<Partial<User>, Entity<User>>(`/api/users/${id}`),
+//     teams: (id: string) => GET<UserTeam[]>(`/api/users/${id}/teams`),
+//     experiments: (id: string) =>
+//       GET<Entity<Experiment>[]>(`/api/users/${id}/experiments`),
+//   },
+//   teams: {
+//     fetchBySlug: (slug: string) => GET<Entity<Team>>(`/api/teams/slug/${slug}`),
+//     fetch: (id: string) => GET<Entity<Team>>(`/api/teams/${id}`),
+//     members: (id: string) => GET<Entity<User>[]>(`/api/teams/${id}/members`),
+//     invite: (id: string) =>
+//       PATCH<{ members: string[] }, Entity<Team>>(`/api/teams/${id}/members`),
+//     experiments: (id: string) =>
+//       GET<Entity<BaseExperiment>[]>(`/api/teams/${id}/experiments`),
+//     create: POST<CreateTeamBody, Entity<UserTeam>>("/api/teams"),
+//     delete: (id: string) => DELETE<Entity<Team>>(`/api/teams/${id}`),
+//   },
+//   experiments: {
+//     fetchAll: () => GET<Entity<Experiment>[]>("/api/experiments"),
+//     fetch: (id: string) => GET<Entity<Experiment>>(`/api/experiments/${id}`),
+//     fetchBySlug: (slug: string) =>
+//       GET<Entity<Experiment>>(`/api/experiments/slug/${slug}`),
+//     create: POST<CreateExperimentBody, Entity<Experiment>>("/api/experiments"),
+//     update: (id: string) =>
+//       PATCH<Partial<BaseExperiment>, Entity<Experiment>>(
+//         `/api/experiments/${id}`
+//       ),
+//     delete: (id: string) =>
+//       DELETE<Entity<Experiment>>(`/api/experiments/${id}`),
+//     views: {
+//       create: (id: string) =>
+//         POST<CreateViewBody, Entity<Experiment>>(
+//           `/api/experiments/${id}/views`
+//         ),
+//       update: (id: string, slug: string) =>
+//         PUT<Pick<FrameworkView, "widgets">, Entity<Experiment>>(
+//           `/api/experiments/${id}/views/${slug}`
+//         ),
+//     },
+//     nodes: {
+//       update: (id: string) =>
+//         PUT<Pick<Experiment, "nodes">, Entity<Experiment>>(
+//           `/api/experiments/${id}/nodes`
+//         ),
+//     },
+//     answers: {
+//       create: (id: string) =>
+//         POST<{ body: any }, { id: string }>(`/api/experiments/${id}/answers`),
+//       fetch: (id: string) => GET<Answer[]>(`/api/experiments/${id}/answers`),
+//       update: (id: string, answerId: string) =>
+//         PUT<{ body: any }, { id: string }>(
+//           `/api/experiments/${id}/answers/${answerId}`
+//         ),
+//     },
+//   },
+// };

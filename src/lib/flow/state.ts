@@ -1,11 +1,10 @@
+import { toast } from "sonner";
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import { FrameworkView } from "..";
 import { FrameworkNode } from "../nodes";
 import { BranchNode, ForkNode, PathNode } from "../nodes/control";
 import { evaluateCondition } from "../utils";
-import { FrameworkView } from "..";
-import { API } from "@/api";
-import { toast } from "sonner";
 
 type InNodeState = {
   type: "in-node";
@@ -285,36 +284,37 @@ export const useExperimentStore = create<Context & StoreFns>()(
             case "checkpoint": {
               try {
                 const answerId = get().answerId;
-                if (answerId === undefined || answerId === "") {
-                  API.experiments.answers
-                    .create(get().id)({
-                      body: {
-                        ...get().data,
-                        timestamp: new Date().getTime(),
-                        localestring: new Date().toLocaleString(),
-                      },
-                    })
-                    .then((res) => {
-                      set((s) => ({ ...s, answerId: res.id }));
-                      get().dispatch({ type: "NEXT_NODE" });
-                    });
-                } else {
-                  API.experiments.answers
-                    .update(
-                      get().id,
-                      answerId
-                    )({
-                      body: {
-                        ...get().data,
-                        timestamp: new Date().getTime(),
-                        localestring: new Date().toLocaleString(),
-                      },
-                    })
-                    .then((res) => {
-                      set((s) => ({ ...s, answerId: res.id }));
-                      get().dispatch({ type: "NEXT_NODE" });
-                    });
-                }
+                get().dispatch({ type: "NEXT_NODE" });
+                // if (answerId === undefined || answerId === "") {
+                //   API.experiments.answers
+                //     .create(get().id)({
+                //       body: {
+                //         ...get().data,
+                //         timestamp: new Date().getTime(),
+                //         localestring: new Date().toLocaleString(),
+                //       },
+                //     })
+                //     .then((res) => {
+                //       set((s) => ({ ...s, answerId: res.id }));
+                //       get().dispatch({ type: "NEXT_NODE" });
+                //     });
+                // } else {
+                //   API.experiments.answers
+                //     .update(
+                //       get().id,
+                //       answerId
+                //     )({
+                //       body: {
+                //         ...get().data,
+                //         timestamp: new Date().getTime(),
+                //         localestring: new Date().toLocaleString(),
+                //       },
+                //     })
+                //     .then((res) => {
+                //       set((s) => ({ ...s, answerId: res.id }));
+                //       get().dispatch({ type: "NEXT_NODE" });
+                //     });
+                // }
               } catch (e) {
                 toast.error("There was an error sending the answer");
                 get().dispatch({ type: "NEXT_NODE" });
