@@ -1,6 +1,7 @@
 import Markdown from "@/components/Markdown";
 import { RatingWidget } from "@/lib/widgets/response";
 import { useFormikContext } from "formik";
+import { twMerge } from "tailwind-merge";
 
 export default function Rating(props: { widget: RatingWidget }) {
   const { errors, touched, submitCount, handleChange, handleBlur, values } =
@@ -34,7 +35,7 @@ export default function Rating(props: { widget: RatingWidget }) {
                 <label
                   key={option.value}
                   htmlFor={`${dataKey}-${option.value}`}
-                  className="flex justify-center items-center flex-col flex-1"
+                  className="flex justify-center items-center flex-col flex-1 group"
                 >
                   <input
                     type="radio"
@@ -44,7 +45,12 @@ export default function Rating(props: { widget: RatingWidget }) {
                     onChange={handleChange}
                     className="peer opacity-0 w-0 h-0"
                   />
-                  <div className="cursor-pointer peer-checked:border-primary peer-checked:text-primary peer-checked:font-bold border-gray-200 text-gray-400 w-9 flex justify-center items-center aspect-square rounded-full border-[3px]">
+                  <div
+                    className={twMerge(
+                      "cursor-pointer peer-checked:border-primary peer-checked:text-primary peer-checked:font-bold border-gray-200 text-gray-400 w-9 flex justify-center items-center aspect-square rounded-full border-[3px]",
+                      "group-hover:border-primary/60 peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-primary transition-all duration-100"
+                    )}
+                  >
                     <span>{option.label}</span>
                   </div>
                   {option.description && (
