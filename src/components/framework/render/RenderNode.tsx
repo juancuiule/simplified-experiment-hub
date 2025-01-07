@@ -3,6 +3,7 @@ import { useExperimentStore } from "@/lib/flow/state";
 import { FrameworkNode } from "@/lib/nodes";
 import { Loader } from "react-feather";
 import { RenderExperimentStep } from "./RenderExperimentStep";
+import CustomView from "./CustomView";
 
 export function RenderNode(props: {
   node: FrameworkNode;
@@ -21,6 +22,9 @@ export function RenderNode(props: {
           <Loader className="animate-spin" />
         </div>
       );
+    }
+    case "custom-view": {
+      return <CustomView slug={node.props.slug} />;
     }
     case "experiment-step": {
       return <RenderExperimentStep key={node.id} node={node} views={views} />;

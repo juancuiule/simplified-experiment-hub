@@ -6,6 +6,8 @@ import {
 } from "./common";
 import { FrameworkWidget } from "./widgets";
 import { Option, ResponseWidget } from "./widgets/response";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function shuffle<T>(original: T[]): T[] {
   const array = [...original];
@@ -253,4 +255,8 @@ export function stringToOptions(str: string): Option[] {
       value: option.trim().replaceAll(" ", "_").toLowerCase(),
     };
   });
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
