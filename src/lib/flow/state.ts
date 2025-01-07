@@ -5,6 +5,7 @@ import { FrameworkView } from "..";
 import { FrameworkNode } from "../nodes";
 import { BranchNode, ForkNode, PathNode } from "../nodes/control";
 import { evaluateCondition } from "../utils";
+import { randomizePaths } from "./utils";
 
 type InNodeState = {
   type: "in-node";
@@ -283,38 +284,18 @@ export const useExperimentStore = create<Context & StoreFns>()(
             }
             case "checkpoint": {
               try {
-                const answerId = get().answerId;
-                get().dispatch({ type: "NEXT_NODE" });
-                // if (answerId === undefined || answerId === "") {
-                //   API.experiments.answers
-                //     .create(get().id)({
-                //       body: {
-                //         ...get().data,
-                //         timestamp: new Date().getTime(),
-                //         localestring: new Date().toLocaleString(),
-                //       },
-                //     })
-                //     .then((res) => {
-                //       set((s) => ({ ...s, answerId: res.id }));
-                //       get().dispatch({ type: "NEXT_NODE" });
-                //     });
-                // } else {
-                //   API.experiments.answers
-                //     .update(
-                //       get().id,
-                //       answerId
-                //     )({
-                //       body: {
-                //         ...get().data,
-                //         timestamp: new Date().getTime(),
-                //         localestring: new Date().toLocaleString(),
-                //       },
-                //     })
-                //     .then((res) => {
-                //       set((s) => ({ ...s, answerId: res.id }));
-                //       get().dispatch({ type: "NEXT_NODE" });
-                //     });
-                // }
+                // get().dispatch({ type: "NEXT_NODE" });
+                fetch(`/experiment/${get().id}`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    ...get().data,
+                  }),
+                }).then((res) => {
+                  get().dispatch({ type: "NEXT_NODE" });
+                });
               } catch (e) {
                 toast.error("There was an error sending the answer");
                 get().dispatch({ type: "NEXT_NODE" });
@@ -328,7 +309,16 @@ export const useExperimentStore = create<Context & StoreFns>()(
         }
       );
 
-      set((state) => ({ ...state, unsub, nodes, views, id, debugMode }));
+      const randomizedNodes = randomizePaths(nodes);
+
+      set((state) => ({
+        ...state,
+        unsub,
+        nodes: randomizedNodes,
+        views,
+        id,
+        debugMode,
+      }));
       get().dispatch({ type: "NEXT_NODE" });
     },
     unsub: () => {

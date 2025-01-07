@@ -1,5 +1,6 @@
 import { Experiment as ExperimentType } from "@/api";
 import Experiment from "@/components/Experiment";
+import { BASE_URL } from "@/constants";
 import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
@@ -10,14 +11,11 @@ interface Props {
   params: { slug: string };
 }
 
-const BASE_URL =
-  "https://raw.githubusercontent.com/juancuiule/simplified-experiment-hub/refs/heads/main";
-
 export async function generateMetadata({
   params: { slug },
 }: Props): Promise<Metadata> {
   const experiment: ExperimentType = await fetch(
-    `${BASE_URL}/public/configs/${slug}.json`
+    `${BASE_URL}/configs/${slug}.json`
   ).then((res) => res.json());
 
   if (!experiment) {
@@ -32,7 +30,7 @@ export async function generateMetadata({
 
 export default async function ExperimentPage({ params: { slug } }: Props) {
   const experiment: ExperimentType = await fetch(
-    `${BASE_URL}/public/configs/${slug}.json`
+    `${BASE_URL}/configs/${slug}.json`
   ).then((res) => res.json());
 
   if (!experiment) {

@@ -36,35 +36,48 @@
       }
     },
     {
-      "id": "questions-1",
-      "nodeFamily": "study",
-      "nodeType": "experiment-step",
+      "id": "questions-path",
+      "nodeFamily": "control",
+      "nodeType": "path",
       "props": {
-        "slug": "questions-1"
-      }
-    },
-    {
-      "id": "questions-2",
-      "nodeFamily": "study",
-      "nodeType": "experiment-step",
-      "props": {
-        "slug": "questions-2"
-      }
-    },
-    {
-      "id": "questions-3",
-      "nodeFamily": "study",
-      "nodeType": "experiment-step",
-      "props": {
-        "slug": "questions-3"
-      }
-    },
-    {
-      "id": "questions-4",
-      "nodeFamily": "study",
-      "nodeType": "experiment-step",
-      "props": {
-        "slug": "questions-4"
+        "nodes": [
+          {
+            "id": "questions-1",
+            "nodeFamily": "study",
+            "nodeType": "experiment-step",
+            "props": {
+              "slug": "questions-1"
+            }
+          },
+          {
+            "id": "questions-2",
+            "nodeFamily": "study",
+            "nodeType": "experiment-step",
+            "props": {
+              "slug": "questions-2"
+            }
+          },
+          {
+            "id": "questions-3",
+            "nodeFamily": "study",
+            "nodeType": "experiment-step",
+            "props": {
+              "slug": "questions-3"
+            }
+          },
+          {
+            "id": "questions-4",
+            "nodeFamily": "study",
+            "nodeType": "experiment-step",
+            "props": {
+              "slug": "questions-4"
+            }
+          }
+        ],
+        "randomize": true,
+        "stepper": true,
+        "stepperLabel": "Pantalla {n} de {t}",
+        "stepperStyle": "discrete"
       }
     },
     {
