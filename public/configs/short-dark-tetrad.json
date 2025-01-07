@@ -1,7 +1,7 @@
 {
-  "name": "Experiment",
+  "name": "Short Dark Tetrad",
   "slug": "short-dark-tetrad",
-  "description": "Description",
+  "description": "The SD4 is a brief (28-item) self-report questionnaire designed to assess the Dark Tetrad of personality: Machiavellianism, narcissism, psychopathy, and sadism. Items can be administered with or without the subheadings.",
   "coverImage": "https://cdn.experiment-hub.com/team/experiment-hub-opengraph.png",
   "team": {
     "pk": 1,
@@ -9,9 +9,7 @@
     "slug": "team",
     "coverImage": "https://cdn.experiment-hub.com/team/experiment-hub-opengraph.png",
     "description": "Description",
-    "users": [
-      
-    ]
+    "users": []
   },
   "answers": 0,
   "nodes": [
@@ -19,9 +17,7 @@
       "id": "start",
       "nodeFamily": "core",
       "nodeType": "start",
-      "props": {
-        
-      }
+      "props": {}
     },
     {
       "id": "intro",
@@ -75,9 +71,7 @@
       "id": "end",
       "nodeFamily": "core",
       "nodeType": "finish",
-      "props": {
-        
-      }
+      "props": {}
     }
   ],
   "views": [

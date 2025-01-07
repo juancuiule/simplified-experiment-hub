@@ -10,9 +10,29 @@ interface Props {
   params: { slug: string };
 }
 
+const BASE_URL =
+  "https://raw.githubusercontent.com/juancuiule/simplified-experiment-hub/refs/heads/main";
+
+export async function generateMetadata({
+  params: { slug },
+}: Props): Promise<Metadata> {
+  const experiment: ExperimentType = await fetch(
+    `${BASE_URL}/public/configs/${slug}.json`
+  ).then((res) => res.json());
+
+  if (!experiment) {
+    return {};
+  }
+
+  return {
+    title: experiment.name,
+    description: experiment.description,
+  };
+}
+
 export default async function ExperimentPage({ params: { slug } }: Props) {
   const experiment: ExperimentType = await fetch(
-    `https://cdn.elgatoylacaja.com/experiment-hub/${slug}.json`
+    `${BASE_URL}/public/configs/${slug}.json`
   ).then((res) => res.json());
 
   if (!experiment) {

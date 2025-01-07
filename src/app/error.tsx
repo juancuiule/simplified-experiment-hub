@@ -11,19 +11,6 @@ export default function Error({
   return (
     <div className="w-full h-full flex flex-col justify-center items-center gap-4">
       <Toaster position="bottom-center" richColors />
-      <Image
-        width={656}
-        height={363}
-        alt="Experiment Hub Logo"
-        className="w-6/12 h-auto max-w-md"
-        src="https://cdn.experiment-hub.com/team/logo-error.png"
-      />
-      <p className="w-full max-w-md text-center">
-        Al parecer hubo un error por favor contactate con nosotros a{" "}
-        <a href="mailto:soporte@experiment-hub.com" className="text-blue-400">
-          soporte@experiment-hub.com
-        </a>
-      </p>
       <pre className="w-full max-w-md p-2 bg-gray-200 rounded-none font-mono">
         <code
           className="break-words"
