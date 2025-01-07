@@ -33,7 +33,7 @@ function Stepper(props: {
   } = props;
   return (
     <div className="flex flex-col gap-2 mb-8">
-      <div className="text-sm text-primary font-serif">
+      <div className="text-sm text-primary font-sans">
         {labelTemplate
           .replace("{n}", current.toString())
           .replace("{t}", total.toString())}
