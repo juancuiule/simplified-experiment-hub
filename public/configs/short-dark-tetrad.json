@@ -97,7 +97,35 @@
           "widgetFamily": "content",
           "template": "rich_text",
           "props": {
-            "content": "# Algo algo Short Dark Tetrad"
+            "content": "<img src='' />"
+          }
+        },
+        {
+          "widgetFamily": "content",
+          "template": "rich_text",
+          "props": {
+            "content": "# Short Dark Tetrad"
+          }
+        },
+        {
+          "widgetFamily": "content",
+          "template": "rich_text",
+          "props": {
+            "content": "The SD4 is a brief (28-item) self-report questionnaire designed to assess the Dark Tetrad of personality: Machiavellianism, narcissism, psychopathy, and sadism. Items can be administered with or without the subheadings."
+          }
+        },
+        {
+          "widgetFamily": "content",
+          "template": "rich_text",
+          "props": {
+            "content": "## Instrucciones"
+          }
+        },
+        {
+          "widgetFamily": "content",
+          "template": "rich_text",
+          "props": {
+            "content": "Calificá tu grado de acuerdo con cada afirmación usando una escala de 5 puntos:\n1. Totalmente en desacuerdo\n2. En desacuerdo\n3. Neutral\n4. De acuerdo\n5. Totalmente de acuerdo"
           }
         },
         {
@@ -131,7 +159,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -147,12 +175,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I sometimes get into dangerous situations."
+            "label": "A veces me meto en situaciones peligrosas."
           }
         },
         {
@@ -163,7 +191,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -179,12 +207,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I’ve been in more fights than most people of my age and gender."
+            "label": "He estado en más peleas que mucha gente de mi edad y género."
           }
         },
         {
@@ -195,7 +223,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -211,12 +239,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Watching a fist-fight excites me."
+            "label": "Las peleas a puñetazo limpio me resultan excitantes."
           }
         },
         {
@@ -227,7 +255,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -243,12 +271,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I know that I am special because people keep telling me so."
+            "label": "Sé que soy especial porque todo el mundo me lo dice una y otra vez."
           }
         },
         {
@@ -259,7 +287,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -275,12 +303,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I have a unique talent for persuading people."
+            "label": "Tengo un talento único para convencer a la gente"
           }
         },
         {
@@ -291,7 +319,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -307,12 +335,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Whatever it takes, you must get the important people on your side."
+            "label": "Cueste lo que cueste, debes tener a la gente importante de tu lado"
           }
         },
         {
@@ -323,7 +351,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -339,12 +367,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "People who mess with me always regret it."
+            "label": "La gente que se mete conmigo siempre lo lamenta."
           }
         },
         {
@@ -378,7 +406,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -394,12 +422,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Group activities tend to be dull without me."
+            "label": "Muchas actividades en grupo tienden a ser aburridas sin mí."
           }
         },
         {
@@ -410,7 +438,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -426,12 +454,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Some people deserve to suffer."
+            "label": "Hay algunas personas que merecen sufrir."
           }
         },
         {
@@ -442,7 +470,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -458,12 +486,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I have some exceptional qualities"
+            "label": "Tengo algunas cualidades excepcionales."
           }
         },
         {
@@ -474,7 +502,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -490,12 +518,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I tend to fight against authorities and their rules."
+            "label": "Tiendo a lucar contra la autoridad y sus reglas."
           }
         },
         {
@@ -506,7 +534,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -522,12 +550,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I tend to dive in and then ask questions."
+            "label": "Tiendo a lanzarme primero y preguntar después."
           }
         },
         {
@@ -538,7 +566,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -554,12 +582,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I love it when a tricky plan succeeds."
+            "label": "Me encanta cuando me funciona un plan astuto."
           }
         },
         {
@@ -570,7 +598,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -586,12 +614,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I really enjoy violent films and video games."
+            "label": "Me encantan las películas y los videojuegos violentos.."
           }
         },
         {
@@ -625,7 +653,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -641,12 +669,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I like to show off every now and then."
+            "label": "Me gusta presumir de vez en cuando."
           }
         },
         {
@@ -657,7 +685,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -673,12 +701,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Manipulating the situation takes planning."
+            "label": "Tiendo a planificar previamente para manejar las situaciones como yo quiero."
           }
         },
         {
@@ -689,7 +717,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -705,12 +733,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Keep a low profile if you want to get your way."
+            "label": "Si quieres salirte con la tuya, es mejor pasar desapercibido."
           }
         },
         {
@@ -721,7 +749,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -737,12 +765,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I’m likely to become a future star in some area."
+            "label": "Es probable que en el futuro me convierta en una estrella en algún ámbito."
           }
         },
         {
@@ -753,7 +781,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -769,12 +797,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Avoid direct conflict with others because they may be useful in the future."
+            "label": "Evito el conflicto directo con otros porque me pueden ser de utilidad en el futuro"
           }
         },
         {
@@ -785,7 +813,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -801,12 +829,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "It’s funny when idiots fall flat on their face."
+            "label": "Me resulta gracioso cuando veo a un imbécil carse y estamparse la cara contra el suelo."
           }
         },
         {
@@ -817,7 +845,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -833,12 +861,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I’ve been in trouble with the law."
+            "label": "He tenido problemas con la ley."
           }
         },
         {
@@ -872,7 +900,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -888,12 +916,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "People often say I’m out of control."
+            "label": "La gente dice a menudo que estoy fuera de control."
           }
         },
         {
@@ -904,7 +932,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -920,12 +948,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I know how to hurt someone with words alone."
+            "label": "Sé como hacer daño a la gente usando sólo las palabras."
           }
         },
         {
@@ -936,7 +964,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -952,12 +980,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Flattery is a good way to get people on your side."
+            "label": "Usar halagos es una buena forma de conseguir que la gente esté de tu lado."
           }
         },
         {
@@ -968,7 +996,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -984,12 +1012,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "It’s not wise to let people know your secrets."
+            "label": "No es prudente dejar que los demás conozcan tus secretos"
           }
         },
         {
@@ -1000,7 +1028,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -1016,12 +1044,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "People see me as a natural leader."
+            "label": "La gente me ve como un líder natural."
           }
         },
         {
@@ -1032,7 +1060,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -1048,12 +1076,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "Just for kicks, I’ve said mean things on social media."
+            "label": "He dicho cosas ofensivas en redes sociales solo para divertirme."
           }
         },
         {
@@ -1064,7 +1092,7 @@
             "required": true,
             "optionsLabel": [
               {
-                "label": "Completamente en desacuerdo",
+                "label": "Totalmente en desacuerdo",
                 "value": "1"
               },
               {
@@ -1080,12 +1108,12 @@
                 "value": "4"
               },
               {
-                "label": "Completamente de acuerdo",
+                "label": "Totalmente de acuerdo",
                 "value": "5"
               }
             ],
             "max": 5,
-            "label": "I enjoy watching violent sports."
+            "label": "Disfruto viendo deportes violentos."
           }
         },
         {
