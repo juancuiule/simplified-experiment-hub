@@ -81,6 +81,12 @@
       }
     },
     {
+      "id": "checkpoint",
+      "nodeType": "checkpoint",
+      "nodeFamily": "core",
+      "props": { "id": "checkpoint" }
+    },
+    {
       "id": "end",
       "nodeFamily": "core",
       "nodeType": "finish",

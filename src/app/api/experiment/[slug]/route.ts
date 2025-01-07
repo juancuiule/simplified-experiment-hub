@@ -8,7 +8,7 @@ export async function POST(
 
   const body = await request.json();
   
-  const res = await fetch(`https://dev-datastore.elgatoylacaja.com/payloads`, {
+  const res = await fetch(`https://datastore-dev.elgatoylacaja.com/payloads`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
