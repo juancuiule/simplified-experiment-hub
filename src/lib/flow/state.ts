@@ -285,7 +285,7 @@ export const useExperimentStore = create<Context & StoreFns>()(
             case "checkpoint": {
               try {
                 // get().dispatch({ type: "NEXT_NODE" });
-                fetch(`/experiment/${get().id}`, {
+                fetch(`/api/experiment/${get().id}`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

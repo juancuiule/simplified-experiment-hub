@@ -39,7 +39,7 @@ export default async function ExperimentPage({ params: { slug } }: Props) {
 
   return (
     <div className="flex flex-col mx-auto gap-4 max-w-lg w-full p-6 flex-1">
-      <Experiment experiment={experiment} id={"id"} />
+      <Experiment experiment={experiment} id={experiment.slug} />
     </div>
   );
 }
