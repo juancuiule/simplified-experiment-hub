@@ -10,7 +10,7 @@ export interface StartNode extends BaseCoreNode<"start", {}> {}
 export interface FinishNode extends BaseCoreNode<"finish", {}> {}
 export interface NoOpNode extends BaseCoreNode<"noop", {}> {}
 export interface CheckpointNode
-  extends BaseCoreNode<"checkpoint", { id: string }> {}
+  extends BaseCoreNode<"checkpoint", { id: string; function?: string }> {}
 
 export type CoreNode =
   | StartNode

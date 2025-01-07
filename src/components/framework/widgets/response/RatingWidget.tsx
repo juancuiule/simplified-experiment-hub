@@ -11,7 +11,7 @@ export default function Rating(props: { widget: RatingWidget }) {
 
   const options = Array.from({ length: max }, (_, i) => {
     return {
-      value: `${i + 1}`,
+      value: i + 1,
       label: i + 1,
       description: optionsLabel.find((o) => parseInt(o.value) === i + 1)?.label,
     };

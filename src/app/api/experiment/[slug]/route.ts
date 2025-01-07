@@ -7,7 +7,6 @@ export async function POST(
   const { slug } = params;
 
   const body = await request.json();
-  
   const res = await fetch(`https://datastore-dev.elgatoylacaja.com/payloads`, {
     method: "POST",
     headers: {

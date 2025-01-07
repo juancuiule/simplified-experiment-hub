@@ -6,6 +6,7 @@ import { FrameworkNode } from "../nodes";
 import { BranchNode, ForkNode, PathNode } from "../nodes/control";
 import { evaluateCondition } from "../utils";
 import { randomizePaths } from "./utils";
+import customFunctions from "@/components/custom/functions";
 
 type InNodeState = {
   type: "in-node";
@@ -284,14 +285,16 @@ export const useExperimentStore = create<Context & StoreFns>()(
             }
             case "checkpoint": {
               try {
-                // get().dispatch({ type: "NEXT_NODE" });
+                const { function: fnName = "id" } = node.props;
+                const fn = customFunctions[fnName] || customFunctions["id"];
+
                 fetch(`/api/experiment/${get().id}`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                    ...get().data,
+                    ...fn(get().data),
                   }),
                 }).then((res) => {
                   get().dispatch({ type: "NEXT_NODE" });
